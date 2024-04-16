@@ -5,6 +5,10 @@ declare(strict_types=1);
 use App\Http\Controllers\Admin\ActivityLogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AnnouncementController;
+use Modules\EfrisReports\Http\Controllers\EfrisController;
+use Modules\Invoices\Http\Controllers\InvoicesController;
+use Modules\Invoices\Http\Controllers\ValidationsController;
+use Modules\QuickbooksDashboard\Http\Controllers\QuickbooksDashboardController;
 use Stancl\Tenancy\Features\UserImpersonation;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -36,26 +40,8 @@ use App\Http\Controllers\Admin\LandingPageController;
 use App\Http\Controllers\Admin\PageSettingController;
 use App\Http\Controllers\Admin\OfflineRequestController;
 use App\Http\Controllers\Admin\PlanController;
-use App\Http\Controllers\Admin\Payment\ToyyibpayController;
-use App\Http\Controllers\Admin\Payment\SSPayController;
-use App\Http\Controllers\Admin\Payment\SkrillPaymentController;
-use App\Http\Controllers\Admin\Payment\PayuMoneyController;
-use App\Http\Controllers\Admin\Payment\PaytmController;
-use App\Http\Controllers\Admin\Payment\PaytabController;
-use App\Http\Controllers\Admin\Payment\PaystackController;
-use App\Http\Controllers\Admin\Payment\PaypalController;
-use App\Http\Controllers\Admin\Payment\PayfastController;
 use App\Http\Controllers\Admin\Payment\MolliePaymentController;
-use App\Http\Controllers\Admin\Payment\MercadoController;
-use App\Http\Controllers\Admin\Payment\IyziPayController;
 use App\Http\Controllers\Admin\Payment\FlutterwaveController;
-use App\Http\Controllers\Admin\Payment\EasebuzzPaymentController;
-use App\Http\Controllers\Admin\Payment\CoingateController;
-use App\Http\Controllers\Admin\Payment\CashFreeController;
-use App\Http\Controllers\Admin\Payment\RazorpayController;
-use App\Http\Controllers\Admin\Payment\StripeController;
-use App\Http\Controllers\Admin\Payment\AamarpayController;
-use App\Http\Controllers\Admin\Payment\BenefitPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,9 +61,14 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     require __DIR__ . '/auth.php';
+    require __DIR__.'/auto_sync.php';
+    require __DIR__.'/quickbooks.php';
+
+
     Route::get('/tenant-impersonate/{token}', function ($token) {
         return UserImpersonation::makeResponse($token);
     });
+
     Route::group(['middleware' => ['auth', 'Setting', '2fa', 'Upload']], function () {
         Route::get('show-announcement-list/', [AnnouncementController::class, 'showAnnouncementList'])->name('show.announcement.list');
         Route::get('show-announcement/{id}', [AnnouncementController::class, 'showAnnouncement'])->name('show.announcement');
@@ -107,6 +98,61 @@ Route::middleware([
 
     Route::group(['middleware' => ['auth', 'Setting', 'xss', '2fa', 'verified', 'verified_phone', 'Upload']], function () {
         Route::impersonate();
+
+// All FRIS URA DATA FROM THE EFRIS MIDDLEWARE API
+        Route::group(['prefix' => 'efris-ura', 'middleware' => ['auth', 'web', 'verified']], function () {
+            Route::get('fiscalised-invoices', [EfrisController::class, 'invoices'])->name('ura.invoices');
+            Route::get('fiscalised-receipts', [EfrisController::class, 'receipts'])->name('ura.receipts');
+            Route::get('cancel-creditnote/{id}', [EfrisController::class, 'creditNoteDetails'])->name('creditnote.cancel.view');
+            Route::get('fiscal-invoice/details/{id}', [EfrisController::class, 'invoicesDetails'])->name('fiscal-invoice.preview');
+            Route::get('fiscal-invoice-download/{id}', [EfrisController::class, 'actionViewInvoicePdf'])->name('invoice.download.rt');
+            Route::get('fiscal-creditnote-download/{id}', [EfrisController::class, 'actionViewCreditnotePdf'])->name('creditnote.download');
+            Route::get('fiscalise/{id}/{kind}', [InvoicesController::class, 'actionFiscaliseInvoice'])->name('invoice.fiscalise');
+
+            Route::get('issued-credit-notes', [EfrisController::class, 'creditNotes'])->name('ura.creditnotes');
+            Route::get('goods-services', [EfrisController::class, 'goodsAndServices2'])->name('ura.goods');
+        });
+
+        Route::prefix('efrisreports')->group(function() {
+            Route::get('/', 'EfrisController@invoices')->name('efris.invoices');
+            Route::get('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods');
+            Route::post('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods.get');
+        });
+
+        Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'xss','token', 'verified', 'qbo.token']], function () {
+            Route::get('/', [InvoicesController::class, 'index'])->name('qbo.invoices.all');
+            Route::get('invoices-range/{validate}', [InvoicesController::class, 'invoicesRange'])->name('qbo.invoices.range');
+            Route::get('/passed-validations', [InvoicesController::class, 'passedValidations'])->name('qbo.invoices.passed');
+            Route::get('/failed-validations', [InvoicesController::class, 'failed'])->name('qbo.invoices.failed');
+            Route::get('/validation-errors', [InvoicesController::class, 'errors'])->name('qbo.invoices.errors');
+            Route::get('/fiscalised', [InvoicesController::class, 'fiscalised'])->name('qbo.invoices.ura');
+//    Route::post('update-invoice-industry-code', [InvoicesController::class, 'updateInvoiceIndustry'])->name('update.industrycode');
+
+            Route::get('invoice-preview/{id}', [InvoicesController::class,'actionInvoicePreview'])->name('invoice.preview');
+            Route::get('invoice-sample/{id}/{invoice}', [InvoicesController::class,'actionInvoicePreview'])->name('invoices.sample');
+            Route::get('invoices-sync', [InvoicesController::class,'syncInvoices'])->name('invoices.sync');
+        });
+
+        Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'token', 'verified']], function () {
+            Route::post('update-invoice-industry-type', [InvoicesController::class, 'updateInvoiceIndustry'])->name('update.industrycode');
+            Route::post('update-invoice-buyer-type', [InvoicesController::class, 'updateBuyerType'])->name('invoices.update.buyerType');
+        });
+
+
+        Route::group(['middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+            Route::get('validate/invoices', [ValidationsController::class, 'validateInvoices'])->name('validate.invoices');
+            Route::get('validate/purchase', [ValidationsController::class, 'syncPurchaseBills'])->name('validate.bill');
+            Route::post('sync-invoices-range', [ValidationsController::class, 'validateInvoicesWithDatePeriod']);
+            Route::post('sync-receipts-range', [ValidationsController::class, 'validateReceiptsWithDatePeriod']);
+            Route::get('validate/creditnotes', [ValidationsController::class, 'validateCreditMemos'])->name('validateCreditMemos');
+
+        });
+
+        Route::prefix('quickbooks')->group(function() {
+            Route::get('/', [QuickbooksDashboardController::class,'index'])->name('quickbooks.index');
+        });
+
+
         // category
         Route::resource('category', CategoryController::class);
         Route::post('category-status/{id}', [CategoryController::class, 'categoryStatus'])->name('category.status');
@@ -323,95 +369,19 @@ Route::middleware([
         Route::post('docsubmenu/store', [DocumentMenuController::class, 'subMenuStore'])->name('docsubmenu.store');
         Route::get('document/submenu/{id}', [DocumentMenuController::class, 'subMenuDestroy'])->name('document.submenu.designdelete');
 
-        //stripe
-        Route::get('stripe', [StripeController::class, 'stripe'])->name('stripe.pay');
-        Route::post('stripe/pending', [StripeController::class, 'stripePostPending'])->name('stripe.pending');
-        Route::post('stripe/session', [StripeController::class, 'stripeSession'])->name('stripe.session');
-        Route::get('payment-success/{id}', [StripeController::class, 'paymentSuccess'])->name('stripe.success.pay');
-        Route::get('payment-cancel/{id}', [StripeController::class, 'paymentCancel'])->name('stripe.cancel.pay');
-
-        //razorpay
-        Route::post('razorpay/payment', [RazorpayController::class, 'razorpayPayment'])->name('payrazorpay.payment');
-        Route::get('razorpay/transaction/callback/{transactionId}/{couponId}/{plansId}', [RazorpayController::class, 'RazorpayCallback']);
 
         //flutterwave
         Route::post('flutterwave/payment', [FlutterwaveController::class, 'flutterwavePayment'])->name('pay.flutterwave.payment');
         Route::get('flutterwave/transaction/callback/{transactionId}/{couponId}/{plansId}', [FlutterwaveController::class, 'FlutterwaveCallback']);
-
-        //paystack
-        Route::post('paystack/payment', [PaystackController::class, 'paystackPayment'])->name('paypaystack.payment');
-        Route::get('paystack/transaction/callback/{transactionId}/{couponId}/{plansId}', [PaystackController::class, 'paystackCallback']);
-
-        //coingate
-        Route::post('coingate/prepare', [CoingateController::class, 'coingatePrepare'])->name('coingate.payment.prepare');
-        Route::get('coingate-success/{id}', [CoingateController::class, 'coingateCallback'])->name('coingate.payment.callback');
-
-        //mercado
-        Route::post('mercado/prepare', [MercadoController::class, 'mercadoPrepare'])->name('mercado.payment.prepare');
-        Route::any('mercado-payment-callback/{id}', [MercadoController::class, 'mercadoCallback'])->name('mercado.payment.callback');
-
-        //payfast
-        Route::post('payfast/prepare', [PayfastController::class, 'payfastPrepare'])->name('payfast.payment.prepare');
-        Route::get('payfast/callback/{id}', [PayfastController::class, 'payfastCallback'])->name('payfast.payment.callback');
-
-        //Toyyibpay
-        Route::post('toyyibpay/prepare', [ToyyibpayController::class, 'charge'])->name('toyyibpay.payment.charge');
-        Route::get('toyyibpay/callback/{planid}/{orderid}/{coupon}', [ToyyibpayController::class, 'toyyibpayCallback'])->name('toyyibpay.payment.callback');
-
-        //Iyzipay
-        Route::post('iyzipay/prepare', [IyziPayController::class, 'initiatePayment'])->name('iyzipay.payment.init');
-        Route::post('iyzipay/callback', [IyzipayController::class, 'iyzipayCallback'])->name('iyzipay.payment.callback');
-
-        // paytab
-        Route::post('plan-pay-with-paytab', [PaytabController::class, 'planPayWithPaytab'])->name('plan.pay.with.paytab');
-        Route::any('paytab-success/plan', [PaytabController::class, 'paytabGetPayment'])->name('plan.paytab.success');
 
         // Mollie
         Route::post('plan-pay-with-mollie', [MolliePaymentController::class, 'planPayWithMollie'])->name('plan.pay.with.mollie');
         Route::get('plan/mollie/{plan}', [MolliePaymentController::class, 'getPaymentStatus'])->name('plan.mollie');
     });
 
-    //paytm
-    Route::post('paypayment', [PaytmController::class, 'pay'])->name('paypaytm.payment');
-    Route::post('paypayment/callback', [PaytmController::class, 'paymentCallback'])->name('paypaytm.callback');
-
-    // payu
-    Route::any('payumoney/payment', [PayuMoneyController::class, 'PayUmoneyPayment'])->name('payumoney.payment.init');
-    Route::any('payumoney/success/{id}', [PayUMoneyController::class, 'payuSuccess'])->name('payu.success');
-    Route::any('payumoney/failure/{id}', [PayUMoneyController::class, 'payuFailure'])->name('payu.failure');
-
-    //sspay
-    Route::post('sspay/payment', [SSPayController::class, 'initPayment'])->name('sspay.payment.init');
-    Route::get('sspay/transaction/callback', [SSPayController::class, 'sspayCallback'])->name('sspay.payment.callback');
-
-    //cashfree
-    Route::post('cashfree/payment', [CashFreeController::class, 'cashfreePayment'])->name('cashfree.payment.prepare');
-    Route::get('cashfree/transaction/callback', [CashFreeController::class, 'cashfreeCallback'])->name('cashfree.payment.callback');
-
-    // Aamarpay
-    Route::post('aamarpay/payment', [AamarpayController::class, 'planPayWithAamarpay'])->name('plan.pay.with.aamarpay');
-    Route::any('aamarpay/success/{data}', [AamarpayController::class, 'getPaymentAamarpayStatus'])->name('plan.aamarpay');
 
     // cookie
     Route::get('cookie/consent', [SettingsController::class, 'CookieConsent'])->name('cookie.consent');
-
-    // Benefit
-    Route::any('payment/initiate', [BenefitPaymentController::class, 'initiatePayment'])->name('benefit.initiate');
-    Route::any('call/back', [BenefitPaymentController::class, 'callBack'])->name('benefit.callback');
-
-    // Skrill
-    Route::any('plan-pay-with-skrill', [SkrillPaymentController::class, 'planPayWithSkrill'])->name('plan.pay.with.skrill');
-    Route::get('plan/skrill/{data}', [SkrillPaymentController::class, 'getPayWithSkrillCallback'])->name('plan.skrill');
-
-    //Easebuzz
-    Route::post('plan-easebuzz', [EasebuzzPaymentController::class, 'planPayWithEasebuzz'])->name('plan.pay.with.easebuzz');
-    Route::any('plan/easebuzz/{id}', [EasebuzzPaymentController::class, 'planWithEasebuzzCallback'])->name('plan.easebuzz.callback');
-
-    //paypal
-    Route::post('process-transaction', [PaypalController::class, 'processTransaction'])->name('pay.process.transaction');
-    Route::get('success-transaction/{data}', [PaypalController::class, 'successTransaction'])->name('pay.success.transaction');
-    Route::get('cancel-transaction/{data}', [PaypalController::class, 'cancelTransaction'])->name('pay.cancel.transaction');
-    Route::post('process-transactionadmin', [PaypalController::class, 'processTransactionAdmin'])->name('pay.process.transaction.admin');
 
     // cache
     Route::any('config-cache', function () {

@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('quickbooks')->group(function() {
-    Route::get('/', 'QuickbooksDashboardController@index')->name('quickbooks.index');
-});
+//Route::prefix('quickbooks')->group(function() {
+//    Route::get('/', 'QuickbooksDashboardController@index')->name('quickbooks.index');
+//});

@@ -58,7 +58,7 @@ use App\Http\Controllers\Superadmin\Payment\BenefitPaymentController;
 */
 
 require __DIR__ . '/auth.php';
-require __DIR__.'/auto_sync.php';
+
 Route::group(['middleware' => ['Setting', 'xss', 'Upload']], function () {
     // request Domain
     Route::get('terms-conditions', [RequestDomainController::class, 'termsAndConditions'])->name('terms.and.conditions');

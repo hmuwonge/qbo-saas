@@ -53,13 +53,15 @@ class DashboardServices{
                     ->get()
                     ->pluck('invoice_cnt', 'invoice_month')
                     ->toArray();
+
+                foreach ($t as $key => $val) {
+                    $arrValue[$key] = $val;
+                }
+                $arrValue = array_values($arrValue);
+                return response()->json(['lable' => $arrLable, 'value' => $arrValue], 200);
             }
 
-            foreach ($t as $key => $val) {
-                $arrValue[$key] = $val;
-            }
-            $arrValue = array_values($arrValue);
-            return response()->json(['lable' => $arrLable, 'value' => $arrValue], 200);
+
         }
 
       return $this->extracted($type);
@@ -113,13 +115,15 @@ class DashboardServices{
                     ->get()
                     ->pluck('invoice_cnt', 'invoice_month')
                     ->toArray();
+
+                foreach ($t as $key => $val) {
+                    $arrValue[$key] = $val;
+                }
+                $arrValue = array_values($arrValue);
+                return response()->json(['lable' => $arrLable, 'value' => $arrValue], 200);
             }
 
-            foreach ($t as $key => $val) {
-                $arrValue[$key] = $val;
-            }
-            $arrValue = array_values($arrValue);
-            return response()->json(['lable' => $arrLable, 'value' => $arrValue], 200);
+
         }
 
       return $this->extracted($type);

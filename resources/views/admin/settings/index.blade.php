@@ -4,11 +4,7 @@
         ->pluck('name', 'name')
         ->all();
     $primary_color = \App\Facades\UtilityFacades::getsettings('color');
-    if (isset($primary_color)) {
-        $color = $primary_color;
-    } else {
-        $color = 'theme-4';
-    }
+$color = $primary_color ?? 'theme-4';
 @endphp
 @extends('layouts.main')
 @section('title', __('Settings'))

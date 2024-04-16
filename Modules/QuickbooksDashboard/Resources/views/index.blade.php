@@ -11,7 +11,7 @@ $data = [
 @section('title', 'Quickbooks Main Dashboard')
 
 @section('page-style')
-    <link rel="stylesheet" href="{{ asset(mix('assets/css/style.css')) }}">
+{{--    <link rel="stylesheet" href="{{ asset(mix('assets/css/style.css')) }}">--}}
 @endsection
 
 @section('content')
