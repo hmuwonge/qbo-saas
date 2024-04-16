@@ -170,47 +170,6 @@ class SettingsController extends Controller
         return redirect()->back()->with('success', __('Storage setting updated successfully.'));
     }
 
-    public function QuickbooksSettingUpdate(Request $request)
-    {
-        request()->validate([
-            'client_id'       => 'required',
-            'client_secrete'         => 'required',
-            'qborealm_id'         => 'required',
-            'company_id'         => 'required',
-            'efris_middleware_api_url'         => 'required',
-            'qbo_base_url'         => 'required',
-            'environment'         => 'required',
-            'standard_tax_rate'         => 'required',
-            'deemed_tax_rate'         => 'required',
-            'exempt_tax_rate'         => 'required',
-            'zero_tax_rate'         => 'required',
-            'is_deemedflag_registered'         => 'required',
-            'quickbooks_deemed_taxcoderef'         => 'required',
-        ]);
-        $data = [
-            'client_id'           => $request->client_id,
-            'client_secrete'             => $request->client_secrete,
-            'zero_tax_rate'             => $request->zero_tax_rate,
-            'qborealm_id'             => $request->qborealm_id,
-            'company_id'             => $request->company_id,
-            'efris_middleware_api_url'             => $request->efris_middleware_api_url,
-            'qbo_base_url'             => $request->qbo_base_url,
-            'environment'             => $request->environment,
-            'standard_tax_rate'             => $request->standard_tax_rate,
-            'deemed_tax_rate'             => $request->deemed_tax_rate,
-            'exempt_tax_rate'             => $request->exempt_tax_rate,
-            'is_deemedflag_registered'             => $request->is_deemedflag_registered,
-            'quickbooks_deemed_taxcoderef'             => $request->quickbooks_deemed_taxcoderef,
-        ];
-
-        foreach ($data as $key => $value) {
-            UtilityFacades::storesettings([
-                'key'   => $key,
-                'value' => $value
-            ]);
-        }
-        return redirect()->back()->with('success', __('Quickbooks Setting updated successfully.'));
-    }
 
     public function emailSettingUpdate(Request $request)
     {

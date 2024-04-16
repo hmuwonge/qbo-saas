@@ -203,6 +203,7 @@ Route::middleware([
         Route::get('settings', [SettingsController::class, 'index'])->name('settings');
         Route::post('settings/app-name/update', [SettingsController::class, 'appNameUpdate'])->name('settings.appname.update');
         Route::post('settings/pusher-setting/update', [SettingsController::class, 'pusherSettingUpdate'])->name('settings.pusher.setting.update');
+        Route::post('settings/quickbooks/update', [SettingsController::class, 'QuickbooksSettingUpdate'])->name('settings.quickbooks.update');
         Route::post('settings/s3-setting/update', [SettingsController::class, 's3SettingUpdate'])->name('settings.s3.setting.update');
         Route::post('settings/email-setting/update', [SettingsController::class, 'emailSettingUpdate'])->name('settings.email.setting.update');
         Route::post('settings/sms-setting/update', [SettingsController::class, 'smsSettingUpdate'])->name('settings.sms.setting.update');

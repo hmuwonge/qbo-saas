@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Facades\UtilityFacades;
 use App\Models\QuickBooksConfig;
 use Exception;
 use Illuminate\Support\Facades\Http;
@@ -20,11 +21,11 @@ trait DataServiceConnector
         return DataService::Configure(
             [
                 'auth_mode' => 'oauth2',
-                'ClientID' => env('CLIENT_ID'),
-                'ClientSecret' => env('CLIENT_SECRETE'),
+                'ClientID' => UtilityFacades::getsettings('client_id'),
+                'ClientSecret' => UtilityFacades::getsettings('client_secrete'),
                 'RedirectURI' => route('callback'),
                 'scope' => 'com.intuit.quickbooks.accounting',
-                 'baseUrl' => env('BASE_DEV'),
+                 'baseUrl' => UtilityFacades::getsettings('environment'),
                 'minorversion' => 14,
             ]
         );
@@ -32,8 +33,8 @@ trait DataServiceConnector
 
     public function urlQueryBuilderById($model, $itemId)
     {
-      $company_id = env('INUIT_COMPANY_ID');
-      $company_url = env('BASE_URL');
+      $company_id = UtilityFacades::getsettings('company_id');//env('INUIT_COMPANY_ID');
+      $company_url = UtilityFacades::getsettings('qbo_base_url');
       $response = Http::withHeaders([
         'Accept' => 'application/json',
         'Authorization' => 'Bearer'.' '.$this->getToken(),
@@ -48,8 +49,8 @@ trait DataServiceConnector
         // $QB = new QuickBooks($request->header('tin'));
         //Post Data
         try {
-          $company_id = env('INUIT_COMPANY_ID');
-          $company_url = env('BASE_URL');
+          $company_id = UtilityFacades::getsettings('company_id');
+          $company_url = UtilityFacades::getsettings('qbo_base_url');
           $query = "select * from {$model}";
           $response = Http::withHeaders([
             'Accept' => 'application/json',
@@ -69,8 +70,8 @@ trait DataServiceConnector
 
     public function queryString($query)
     {
-      $company_id = env('INUIT_COMPANY_ID');
-      $company_url = env('BASE_URL');
+      $company_id = UtilityFacades::getsettings('company_id');
+      $company_url = UtilityFacades::getsettings('qbo_base_url');
       $response = Http::withHeaders([
         'Accept' => 'application/json',
         'Authorization' => 'Bearer'.' '.$this->getToken(),
@@ -80,8 +81,8 @@ trait DataServiceConnector
 
   public function makeQuery($query)
   {
-    $company_id = env('INUIT_COMPANY_ID');
-    $company_url = env('BASE_URL');
+    $company_id = UtilityFacades::getsettings('company_id');
+    $company_url = UtilityFacades::getsettings('qbo_base_url');
     //        $query = "select * from {$query}";
     $response = Http::withHeaders([
       'Accept' => 'application/json',
@@ -137,13 +138,13 @@ trait DataServiceConnector
     public function getDataService(): DataService
     {
 
-      $company_id = env('INUIT_COMPANY_ID');
-      $company_url = env('BASE_URL');
+      $company_id = UtilityFacades::getsettings('company_id');
+      $company_url = UtilityFacades::getsettings('qbo_base_url');
 
       return DataService::Configure([
         'auth_mode' => 'oauth2',
-        'ClientID' => env('CLIENT_ID'),
-        'ClientSecret' => env('CLIENT_SECRETE'),
+        'ClientID' => UtilityFacades::getsettings('client_id'),
+        'ClientSecret' => UtilityFacades::getsettings('client_secrete'),
         'accessTokenKey' => $this->getToken(),
         'refreshTokenKey' => $this->getUserRefreshToken(),
         'QBORealmID' => $company_id,

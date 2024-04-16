@@ -146,7 +146,6 @@ class Utility
             $row = Setting::where('key', $formatted_array['key'])->where('tenant_id', tenant('id'))->first();
         }
 
-//        dd($row);
         if (empty($row)) {
             Setting::create($formatted_array);
         } else {

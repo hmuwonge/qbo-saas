@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Facades\UtilityFacades;
 use App\Traits\DataServiceConnector;
 
 class ApiRequestHelper
@@ -26,7 +27,7 @@ class ApiRequestHelper
     public function __construct($system_api)
     {
         $this->api = $system_api;
-        $this->api_url = env('EFRIS_MIDDLEWARE_API_URL');
+        $this->api_url = UtilityFacades::getsettings('efris_middleware_api_url');
     }
 
     /**
@@ -116,7 +117,6 @@ class ApiRequestHelper
         ]);
 
         $response = curl_exec($curl);
-        //        dd($response);
         curl_close($curl);
 
         return $response;

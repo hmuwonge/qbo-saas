@@ -10,7 +10,6 @@
         "bacon/bacon-qr-code": "^2.0",
         "barryvdh/laravel-debugbar": "^3.9",
         "barryvdh/laravel-snappy": "^1.0",
-        "coingate/coingate-php": "v3.0",
         "gdbhosale/paywitheasebuzz-php": "^1.0",
         "guzzlehttp/guzzle": "^7.5",
         "iyzico/iyzipay-php": "^2.0",
@@ -24,7 +23,6 @@
         "laravelcollective/html": "^6.4",
         "league/flysystem-aws-s3-v3": "^3.10",
         "maatwebsite/excel": "^3.1",
-        "mercadopago/dx-php": "^2.5",
         "mollie/mollie-api-php": "^2.59",
         "munafio/chatify": "^1.5",
         "nwidart/laravel-modules": "^10.0",
@@ -39,7 +37,6 @@
         "spatie/laravel-google-calendar": "^3.6",
         "spatie/laravel-permission": "^5.7",
         "spatie/laravel-sluggable": "^3.5",
-        "srmklive/paypal": "^3.0",
         "stancl/tenancy": "^3.7",
         "stripe/stripe-php": "^10.0",
         "twilio/sdk": "^7.4",
@@ -48,7 +45,8 @@
         "yajra/laravel-datatables-oracle": "^10.2",
         "quickbooks/v3-php-sdk": "^v6.1.2",
         "blade-ui-kit/blade-heroicons": "^2.1",
-        "spatie/laravel-collection-macros": "*"
+        "spatie/laravel-collection-macros": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

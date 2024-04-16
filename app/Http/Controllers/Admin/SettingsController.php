@@ -226,12 +226,12 @@ class SettingsController extends Controller
             'efris_middleware_api_url'         => 'required',
             'qbo_base_url'         => 'required',
             'environment'         => 'required',
-            'standard_tax_rate'         => 'required',
-            'deemed_tax_rate'         => 'required',
-            'exempt_tax_rate'         => 'required',
-            'zero_tax_rate'         => 'required',
-            'is_deemedflag_registered'         => 'required',
-            'quickbooks_deemed_taxcoderef'         => 'required',
+            'standard_tax_rate'         => 'nullable',
+            'deemed_tax_rate'         => 'nullable',
+            'exempt_tax_rate'         => 'nullable',
+            'zero_tax_rate'         => 'nullable',
+            'is_deemedflag_registered'         => 'nullable',
+            'quickbooks_deemed_taxcoderef'         => 'nullable',
         ]);
         $data = [
             'client_id'           => $request->client_id,
@@ -559,29 +559,7 @@ class SettingsController extends Controller
                 'razorpaysetting'       => (in_array('razorpay', $request->get('paymentsetting'))) ? 'on' : 'off',
             ];
         }
-        if (in_array('paypal', $request->paymentsetting)) {
-            if ($request->paypal_mode == 'sandbox') {
-                request()->validate([
-                    'client_id'     => 'required',
-                    'client_secret' => 'required',
-                ]);
-                $data = [
-                    'paypal_sandbox_client_id'      => $request->client_id,
-                    'paypal_sandbox_client_secret'  => $request->client_secret,
-                    'paypalsetting'                 => (in_array('paypal', $request->get('paymentsetting'))) ? 'on' : 'off',
-                ];
-            } else {
-                request()->validate([
-                    'client_id'     => 'required',
-                    'client_secret' => 'required',
-                ]);
-                $data = [
-                    'paypal_live_client_id'     => $request->client_id,
-                    'paypal_live_client_secret' => $request->client_secret,
-                    'paypalsetting'             => (in_array('paypal', $request->get('paymentsetting'))) ? 'on' : 'off',
-                ];
-            }
-        }
+
         if (in_array('flutterwave', $request->get('paymentsetting'))) {
             request()->validate([
                 'flutterwave_key'           => 'required',
@@ -595,113 +573,8 @@ class SettingsController extends Controller
                 'flutterwavesetting'        => (in_array('flutterwave', $request->get('paymentsetting'))) ? 'on' : 'off',
             ];
         }
-        if (in_array('paystack', $request->get('paymentsetting'))) {
-            request()->validate([
-                'public_key'            => 'required',
-                'secret_key'            => 'required',
-                'paystack_description'  => 'required',
-            ]);
-            $data = [
-                'paystack_public_key'   => $request->public_key,
-                'paystack_secret_key'   => $request->secret_key,
-                'paystack_description'  => $request->paystack_description,
-                'paystacksetting'       => (in_array('paystack', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('paytm', $request->get('paymentsetting'))) {
-            request()->validate([
-                'merchant_id'       => 'required',
-                'merchant_key'      => 'required',
-                'paytm_environment' => 'required',
-            ]);
-            $data = [
-                'PAYTM_MERCHANT_ID'     => $request->merchant_id,
-                'PAYTM_MERCHANT_KEY'    => $request->merchant_key,
-                'PAYTM_ENVIRONMENT'     =>  $request->paytm_environment,
-                'paytmsetting'          => (in_array('merchant', $request->get('paymentsetting'))) ? 'on' : 'off',
-                'PAYTM_DESCRIPTION'     => $request->merchant_description,
-            ];
-        }
-        if (in_array('coingate', $request->get('paymentsetting'))) {
-            request()->validate([
-                'coingate_mode'         => 'required',
-                'coingate_auth_token'   => 'required',
-                'coingate_description'  => 'required',
-            ]);
-            $data = [
-                'coingate_environment'  => $request->coingate_mode,
-                'coingate_auth_token'   => $request->coingate_auth_token,
-                'coingate_description'  => $request->coingate_description,
-                'coingatesetting'       => (in_array('coingate', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('mercado', $request->get('paymentsetting'))) {
-            request()->validate([
-                'mercado_mode'          => 'required',
-                'mercado_access_token'  => 'required',
-                'mercado_description'   => 'required',
-            ]);
-            $data = [
-                'mercado_mode'          => $request->mercado_mode,
-                'mercado_access_token'  => $request->mercado_access_token,
-                'mercado_description'   => $request->mercado_description,
-                'mercadosetting'        => (in_array('mercado', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('payfast', $request->get('paymentsetting'))) {
-            request()->validate([
-                'payfast_merchant_id'   => 'required',
-                'payfast_merchant_key'  => 'required',
-                'payfast_description'   => 'required',
-            ]);
-            $data = [
-                'payfast_merchant_id'   => $request->payfast_merchant_id,
-                'payfast_merchant_key'  => $request->payfast_merchant_key,
-                'payfast_description'   => $request->payfast_description,
-                'payfastsetting'        => (in_array('payfast', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('toyyibpay', $request->get('paymentsetting'))) {
-            request()->validate([
-                'toyyibpay_secret_key'      => 'required',
-                'toyyibpay_category_code'   => 'required',
-                'toyyibpay_description'     => 'required',
-            ]);
-            $data = [
-                'toyyibpay_secret_key'      => $request->toyyibpay_secret_key,
-                'toyyibpay_category_code'   => $request->toyyibpay_category_code,
-                'toyyibpay_description'     => $request->toyyibpay_description,
-                'toyyibpaysetting'          => (in_array('toyyibpay', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('iyzipay', $request->get('paymentsetting'))) {
-            request()->validate([
-                'iyzipay_mode'          => 'required',
-                'iyzipay_key'           => 'required',
-                'iyzipay_secret'        => 'required',
-                'iyzipay_description'   => 'required',
-            ]);
-            $data = [
-                'iyzipay_key'           => $request->iyzipay_key,
-                'iyzipay_secret'        => $request->iyzipay_secret,
-                'iyzipay_mode'          => $request->iyzipay_mode,
-                'iyzipay_description'   => $request->iyzipay_description,
-                'iyzipaysetting'        => (in_array('iyzipay', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('sspay', $request->paymentsetting)) {
-            request()->validate([
-                'sspay_category_code'   => 'required',
-                'sspay_secret_key'      => 'required',
-                'sspay_description'     => 'required',
-            ]);
-            $data = [
-                'sspay_category_code'   => $request->sspay_category_code,
-                'sspay_secret_key'      => $request->sspay_secret_key,
-                'sspay_description'     => $request->sspay_description,
-                'sspaysetting'          => (in_array('sspay', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
+
+
         if (in_array('cashfree', $request->paymentsetting)) {
             request()->validate([
                 'cashfree_mode'         => 'required',
@@ -717,49 +590,7 @@ class SettingsController extends Controller
                 'cashfreesetting'       => (in_array('cashfree', $request->get('paymentsetting'))) ? 'on' : 'off',
             ];
         }
-        if (in_array('aamarpay', $request->paymentsetting)) {
-            request()->validate([
-                'aamarpay_store_id'         => 'required',
-                'aamarpay_signature_key'    => 'required',
-                'aamarpay_description'      => 'required',
-            ]);
-            $data = [
-                'aamarpay_store_id'         => $request->aamarpay_store_id,
-                'aamarpay_signature_key'    => $request->aamarpay_signature_key,
-                'aamarpay_description'      => $request->aamarpay_description,
-                'aamarpaysetting'           => (in_array('aamarpay', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('payumoney', $request->get('paymentsetting'))) {
-            request()->validate([
-                'payumoney_mode'            => 'required',
-                'payumoney_merchant_key'    => 'required',
-                'payumoney_salt_key'        => 'required',
-                'payumoney_description'     => 'required',
-            ]);
-            $data = [
-                'payumoney_mode'            => $request->payumoney_mode,
-                'payumoney_merchant_key'    => $request->payumoney_merchant_key,
-                'payumoney_salt_key'        => $request->payumoney_salt_key,
-                'payumoney_description'     => $request->payumoney_description,
-                'payumoneysetting'          => (in_array('payumoney', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
-        if (in_array('paytab', $request->get('paymentsetting'))) {
-            request()->validate([
-                'paytab_profile_id'     => 'required',
-                'paytab_server_key'     => 'required',
-                'paytab_region'         => 'required',
-                'paytab_description'    => 'required',
-            ]);
-            $data = [
-                'paytab_profile_id'     => $request->paytab_profile_id,
-                'paytab_server_key'     => $request->paytab_server_key,
-                'paytab_region'         => $request->paytab_region,
-                'paytab_description'    => $request->paytab_description,
-                'paytabsetting'         => (in_array('paytab', $request->get('paymentsetting'))) ? 'on' : 'off',
-            ];
-        }
+
         if (in_array('benefit', $request->get('paymentsetting'))) {
             request()->validate([
                 'benefit_key'           => 'required',
@@ -826,73 +657,13 @@ class SettingsController extends Controller
             'currency'                      => $request->currency,
             'currency_symbol'               => $request->currency_symbol,
 
-            'stripe_key'                    => $request->stripe_key,
-            'stripe_secret'                 => $request->stripe_secret,
-            'stripe_description'            => $request->stripe_description,
-            'stripesetting'                 => (in_array('stripe', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'razorpay_key'                  => $request->razorpay_key,
-            'razorpay_secret'               => $request->razorpay_secret,
-            'razorpay_description'          => $request->razorpay_description,
-            'razorpaysetting'               => (in_array('razorpay', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'paypal_mode'                   => $request->paypal_mode,
-            'paypal_sandbox_client_id'      => $request->client_id,
-            'paypal_sandbox_client_secret'  => $request->client_secret,
-            'paypal_description'            => $request->paypal_description,
-            'paypalsetting'                 => (in_array('paypal', $request->get('paymentsetting'))) ? 'on' : 'off',
 
             'flutterwave_key'               => $request->flutterwave_key,
             'flutterwave_secret'            => $request->flutterwave_secret,
             'flutterwave_description'       => $request->flutterwave_description,
             'flutterwavesetting'            => (in_array('flutterwave', $request->get('paymentsetting'))) ? 'on' : 'off',
 
-            'paystack_public_key'           => $request->public_key,
-            'paystack_secret_key'           => $request->secret_key,
-            'paystack_description'          => $request->paystack_description,
-            'paystack_currency'             => $request->paystack_currency,
-            'paystacksetting'               => (in_array('paystack', $request->get('paymentsetting'))) ? 'on' : 'off',
 
-            'paytm_merchant_id'             => $request->merchant_id,
-            'paytm_merchant_key'            => $request->merchant_key,
-            'paytm_environment'             =>  $request->paytm_environment,
-            'paytm_merchant_website'        => 'local',
-            'paytm_channel'                 => 'WEB',
-            'paytm_description'             => $request->paytm_description,
-            'paytmsetting'                  => (in_array('paytm', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'coingate_environment'          => $request->coingate_mode,
-            'coingate_auth_token'           => $request->coingate_auth_token,
-            'coingate_description'          => $request->coingate_description,
-            'coingatesetting'               => (in_array('coingate', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'mercado_mode'                  => $request->mercado_mode,
-            'mercado_access_token'          => $request->mercado_access_token,
-            'mercado_description'           => $request->mercado_description,
-            'mercadosetting'                => (in_array('mercado', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'payfast_mode'                  => $request->payfast_mode,
-            'payfast_signature'             => $request->payfast_signature,
-            'payfast_merchant_id'           => $request->payfast_merchant_id,
-            'payfast_merchant_key'          => $request->payfast_merchant_key,
-            'payfast_description'           => $request->payfast_description,
-            'payfastsetting'                => (in_array('payfast', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'toyyibpay_secret_key'          => $request->toyyibpay_secret_key,
-            'toyyibpay_category_code'       => $request->toyyibpay_category_code,
-            'toyyibpay_description'         => $request->toyyibpay_description,
-            'toyyibpaysetting'              => (in_array('toyyibpay', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'iyzipay_key'                   => $request->iyzipay_key,
-            'iyzipay_secret'                => $request->iyzipay_secret,
-            'iyzipay_mode'                  => $request->iyzipay_mode,
-            'iyzipay_description'           => $request->iyzipay_description,
-            'iyzipaysetting'                => (in_array('iyzipay', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'sspay_category_code'           => $request->sspay_category_code,
-            'sspay_secret_key'              => $request->sspay_secret_key,
-            'sspay_description'             => $request->sspay_description,
-            'sspaysetting'                  => (in_array('sspay', $request->get('paymentsetting'))) ? 'on' : 'off',
 
             'cashfree_mode'                 => $request->cashfree_mode,
             'cashfree_app_id'               => $request->cashfree_app_id,
@@ -911,16 +682,6 @@ class SettingsController extends Controller
             'payumoney_description'         => $request->payumoney_description,
             'payumoneysetting'              => (in_array('payumoney', $request->get('paymentsetting'))) ? 'on' : 'off',
 
-            'paytab_profile_id'             => $request->paytab_profile_id,
-            'paytab_server_key'             => $request->paytab_server_key,
-            'paytab_region'                 => $request->paytab_region,
-            'paytab_description'            => $request->paytab_description,
-            'paytabsetting'                 => (in_array('paytab', $request->get('paymentsetting'))) ? 'on' : 'off',
-
-            'benefit_key'                   => $request->benefit_key,
-            'benefit_secret_key'            => $request->benefit_secret_key,
-            'benefit_description'           => $request->benefit_description,
-            'benefitsetting'                => (in_array('benefit', $request->get('paymentsetting'))) ? 'on' : 'off',
 
             'mollie_api_key'                => $request->mollie_api_key,
             'mollie_profile_id'             => $request->mollie_profile_id,

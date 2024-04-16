@@ -171,7 +171,6 @@ Route::group(['middleware' => ['auth', 'Setting', 'xss', '2fa', 'Upload']], func
     //setting
     Route::get('settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('settings/app-name/update', [SettingsController::class, 'appNameUpdate'])->name('settings.appname.update');
-    Route::post('settings/quickbooks/update', [SettingsController::class, 'QuickbooksSettingUpdate'])->name('settings.quickbooks.update');
     Route::post('settings/s3-setting/update', [SettingsController::class, 's3SettingUpdate'])->name('settings.s3.setting.update');
     Route::post('settings/domain-config-setting/update', [SettingsController::class, 'domainConfigSettingUpdate'])->name('settings.domain.config.setting.update');
     Route::post('settings/email-setting/update', [SettingsController::class, 'emailSettingUpdate'])->name('settings.email.setting.update');

@@ -205,7 +205,6 @@ return [
         RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
         Paytm\JsCheckout\PaytmServiceProvider::class,
         PragmaRX\Google2FALaravel\ServiceProvider::class,
-        Srmklive\PayPal\Providers\PayPalServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         /* End */
