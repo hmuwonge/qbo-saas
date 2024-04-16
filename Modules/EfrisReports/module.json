@@ -1,0 +1,11 @@
+{
+    "name": "EfrisReports",
+    "alias": "efrisreports",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\EfrisReports\\Providers\\EfrisReportsServiceProvider"
+    ],
+    "files": []
+}

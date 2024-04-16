@@ -1,0 +1,11 @@
+{
+    "name": "AutoSync",
+    "alias": "autosync",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AutoSync\\Providers\\AutoSyncServiceProvider"
+    ],
+    "files": []
+}

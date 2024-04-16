@@ -1,0 +1,11 @@
+{
+    "name": "CreditMemos",
+    "alias": "creditmemos",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CreditMemos\\Providers\\CreditMemosServiceProvider"
+    ],
+    "files": []
+}

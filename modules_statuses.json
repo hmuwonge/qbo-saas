@@ -1,0 +1,15 @@
+{
+    "Invoices": true,
+    "QuickbooksDashboard": true,
+    "Receipts": true,
+    "Reports": true,
+    "Purchases": true,
+    "StockAdjustments": true,
+    "CreditNotes": true,
+    "Goods": true,
+    "Settings": false,
+    "CommodityCategories": true,
+    "CreditMemos": true,
+    "EfrisReports": true,
+    "AutoSync": true
+}
