@@ -1,0 +1,122 @@
+
+2024-04-17 01:42:28PM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 16666.67
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 20000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1245
+                            [name] => Gym:Daily Pass
+                        )
+
+                    [UnitPrice] => 16666.67
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 38
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => Monthly Membership
+            [Amount] => 208333.33
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 250000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1246
+                            [name] => Gym:Monthly Membership
+                        )
+
+                    [UnitPrice] => 208333.33
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 38
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 225000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-04-17 01:42:44PM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)

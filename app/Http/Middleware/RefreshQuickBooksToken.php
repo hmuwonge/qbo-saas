@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Facades\UtilityFacades;
 use App\Models\QuickBooksConfig;
 use App\Services\QBOServices\OAuthClientService;
 use App\Services\QuickBooksServiceHelper;
@@ -30,60 +31,62 @@ class RefreshQuickBooksToken
      */
     public function handle(Request $request, Closure $next)
     {
-        
+//        dd(tenant('id'));
+
         try {
-            if (Auth::check()) {
-                // Get the OAuth2 access token from the database
-                $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
-                $url = $this->qbo_url();
-                
+//            if (tenant('id') == null) {
+                if (Auth::check()) {
+                    // Get the OAuth2 access token from the database
+                    $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
+                    $url = $this->qbo_url();
 
-                if ((isset($qbo_user)) && (isset($qbo_user->auth_expiry))) {
-                    $currentTime = Carbon::parse(Carbon::now()->toDateTimeString());
-                    $accessTokenExpiry = Carbon::parse($qbo_user->auth_expiry);
-                    $refreshTokenExpiry = Carbon::parse($qbo_user->refresh_token_expiry);
+                    if ((isset($qbo_user)) && (isset($qbo_user->auth_expiry))) {
+                        $currentTime = Carbon::parse(Carbon::now()->toDateTimeString());
+                        $accessTokenExpiry = Carbon::parse($qbo_user->auth_expiry);
+                        $refreshTokenExpiry = Carbon::parse($qbo_user->refresh_token_expiry);
 
-                    // check if access token has expired but refresh token has not
-                    if (($currentTime->greaterThan($accessTokenExpiry)) && ($refreshTokenExpiry->greaterThan($accessTokenExpiry))) {
+                        // check if access token has expired but refresh token has not
+                        if (($currentTime->greaterThan($accessTokenExpiry)) && ($refreshTokenExpiry->greaterThan($accessTokenExpiry))) {
 
-                        $accessToken = $qbo_user->auth_token;
-                        $refreshToken = $qbo_user->refresh_token;
-                        if ($accessToken && $refreshToken) {
-                            //The first parameter of OAuth2LoginHelper is the ClientID, second parameter is the client Secret
-                            $oauth2LoginHelper = new OAuth2LoginHelper(env('CLIENT_ID'), env('CLIENT_SECRETE'));
-                            // dd(env('CLIENT_ID'));
-                            $accessTokenObj = $oauth2LoginHelper->refreshAccessTokenWithRefreshToken($refreshToken);
-                            $accessTokenValue = $accessTokenObj->getAccessToken();
-                            $refreshTokenValue = $accessTokenObj->getRefreshToken();
+                            $accessToken = $qbo_user->auth_token;
+                            $refreshToken = $qbo_user->refresh_token;
+                            if ($accessToken && $refreshToken) {
+                                //The first parameter of OAuth2LoginHelper is the ClientID, second parameter is the client Secret
+                                $oauth2LoginHelper = new OAuth2LoginHelper(UtilityFacades::getsettings('client_id'), UtilityFacades::getsettings('client_secrete'));
+                                // dd(env('CLIENT_ID'));
+                                $accessTokenObj = $oauth2LoginHelper->refreshAccessTokenWithRefreshToken($refreshToken);
+                                $accessTokenValue = $accessTokenObj->getAccessToken();
+                                $refreshTokenValue = $accessTokenObj->getRefreshToken();
 
-                            // QuickBooksServiceHelper::logToFile($accessTokenValue);
+                                // QuickBooksServiceHelper::logToFile($accessTokenValue);
 
-                            try {
-                                $qbo_user->auth_token = $accessTokenValue;
-                                $qbo_user->refresh_token = $refreshTokenValue;
-                                $qbo_user->auth_expiry = Carbon::parse($accessTokenObj->getAccessTokenExpiresAt())->format('Y-m-d H:i:s');
-                                $qbo_user->refresh_token_expiry = Carbon::parse($accessTokenObj->getRefreshTokenExpiresAt())->format('Y-m-d H:i:s');
-                                $qbo_user->update();
-                            } catch (OAuthException $e) {
-                                // Handle exception here
-                                // QuickBooksServiceHelper::logToFile($e->getMessage());
+                                try {
+                                    $qbo_user->auth_token = $accessTokenValue;
+                                    $qbo_user->refresh_token = $refreshTokenValue;
+                                    $qbo_user->auth_expiry = Carbon::parse($accessTokenObj->getAccessTokenExpiresAt())->format('Y-m-d H:i:s');
+                                    $qbo_user->refresh_token_expiry = Carbon::parse($accessTokenObj->getRefreshTokenExpiresAt())->format('Y-m-d H:i:s');
+                                    $qbo_user->update();
+                                } catch (OAuthException $e) {
+                                    // Handle exception here
+                                    // QuickBooksServiceHelper::logToFile($e->getMessage());
+                                }
                             }
                         }
-                    }
-                    if (($currentTime->greaterThan($accessTokenExpiry)) && ($currentTime->greaterThan($refreshTokenExpiry))) {
-                        // Redirect::route('dashboard.integrator');
-                        return response()->view('QboAuth',compact('url'));
+                        if (($currentTime->greaterThan($accessTokenExpiry)) && ($currentTime->greaterThan($refreshTokenExpiry))) {
+                            // Redirect::route('dashboard.integrator');
+                            return response()->view('QboAuth', compact('url'));
+                            // return Inertia::render('Integrator', ['url' => $this->qbo_url()]);
+                        }
+                    } else {
                         // return Inertia::render('Integrator', ['url' => $this->qbo_url()]);
+                        // dd($this->qbo_url());
+                        return response()->view('QboAuth', compact('url'));
+                        // Redirect::route('dashboard.integrator');
                     }
-                } else {
-                    // return Inertia::render('Integrator', ['url' => $this->qbo_url()]);
-                    // dd($this->qbo_url());
-                    return response()->view('QboAuth',compact('url'));
-                    // Redirect::route('dashboard.integrator');
-                }
 
+//                }
+                Redirect::route('login');
             }
-            Redirect::route('login');
 
         } catch (OAuthException $exception) {
             // Handle OAuth exceptions, e.g. log error and redirect to login page

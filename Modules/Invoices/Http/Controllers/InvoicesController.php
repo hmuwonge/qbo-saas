@@ -163,29 +163,33 @@ class InvoicesController extends Controller
     $enddate = (isset($period)) ? ($dates[1]) : (date('Y-m-d'));
 
     $startPosition = intval($page - 1) * 10;
-    $countQuery =  "/query?query=select count(*) from Invoice";
-    $quickbooks_invoices_count = $this->makeQuery($countQuery);
+    $countQuery =  "SELECT count(*) FROM Invoice";
+
+    $quickbooks_invoices_count = $this->postQuery($countQuery);
+
     $totalRecords = $quickbooks_invoices_count['QueryResponse']['totalCount'];
 
     $query = 'select * from Invoice  WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
       . '\' AND TxnDate <= \'' . Carbon::parse($enddate)->format('Y-m-d')
       . '\' startposition' . ' ' . $startPosition . ' maxresults 10';
 
-    $queryString = '/query?query='.$query ;
-    $quickbooks_invoices = (new self())->queryString($queryString);
+//    $queryString = '/query?query='.$query ;
+    $quickbooks_invoices =$this->postQuery($query);  //(new self())->queryString($query);
 
     //check if we have a search query
     if (request()->has('q')){
       $new_query = request()->input('q');
       $query = "SELECT * FROM Invoice WHERE DocNumber LIKE '%" . $new_query . "%'";
 
-      $queryString = '/query?query='.$query ;
-      $quickbooks_invoices = (new self())->queryString($queryString);
+//      $queryString = '/query?query='.$query ;
+      $quickbooks_invoices = $this->postQuery($query);// (new self())->queryString($query);
 
       $totalRecords = $quickbooks_invoices['QueryResponse']['totalCount'];
     }
 
-    $invoices = json_decode(json_encode($quickbooks_invoices), true)['QueryResponse']['Invoice'] ?? [];
+//    dd($quickbooks_invoices['QueryResponse']);
+
+    $invoices = $quickbooks_invoices['QueryResponse']['Invoice'] ?? [];
 
     $paginator = new LengthAwarePaginator($invoices, (int)$totalRecords,  10);
     $paginator->setPath(route('qbo.invoices.all'));
@@ -214,11 +218,13 @@ class InvoicesController extends Controller
     list($startdate, $enddate) = $this->getDateRange($period);
     $invoicePeriod = request()->query('invoice_period', '');
 
-    $queryString = '/query?query=select * from Invoice WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
-      . '\' AND TxnDate <= \'' . Carbon::parse($enddate)->format('Y-m-d') . '\' maxresults 1000&minorversion=57';
-    $quickbooks_invoices = (new self())->queryString($queryString);
+    $queryString = 'SELECT * FROM Invoice WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
+      . '\' AND TxnDate <= \'' . Carbon::parse($enddate)->format('Y-m-d') . '\' maxresults 1000';
+    $quickbooks_invoices =$this->postQuery($queryString); // (new self())->queryString($queryString);
 
-    $invoices = json_decode(json_encode($quickbooks_invoices), true)['QueryResponse']['Invoice'] ?? [];
+
+    $invoices = $quickbooks_invoices['QueryResponse']['Invoice'] ?? [];
+
     $invoices_to_save = json_decode(json_encode($quickbooks_invoices), false);
 
     if ($validate == "yes") {

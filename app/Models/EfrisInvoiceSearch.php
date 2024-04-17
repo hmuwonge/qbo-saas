@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models\QuickBooksInvoice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Log;
 
 class EfrisInvoiceSearch extends EfrisInvoice
 {
@@ -22,14 +23,17 @@ class EfrisInvoiceSearch extends EfrisInvoice
      *
      * @return array
      */
-    protected static function prepareInvoiceList($dbInvoices, array $qbInvoices)
+    protected static function prepareInvoiceList($dbInvoices, array $qbInvoices): array
     {
         $invoices = [];
-        //        dd($dbInvoices);
+
+        // Debugging: Check $dbInvoices before the loop
+
         foreach ($qbInvoices as $inv) {
-            $_id = $inv['Id'];
-            $dbRec = @$dbInvoices[$_id];
-            $invoices[] = new QuickBooksInvoicesDatatable($dbRec, $inv);
+                $_id = $inv['Id'];
+                $dbRec = $dbInvoices[$_id] ?? null;
+
+                $invoices[] = new QuickBooksInvoicesDatatable($dbRec, $inv);
         }
 
         return $invoices;
@@ -73,10 +77,9 @@ class EfrisInvoiceSearch extends EfrisInvoice
      * @param int|null $fiscalised
      * @return array
      */
-    public static function findQbInvoicesByStatus($invoices, int $status = null, int $fiscalised = null)
+    public static function findQbInvoicesByStatus($invoices, int $status = null, int $fiscalised = null): array
     {
         //1. Pick Invoices
-        $data = json_decode(json_encode($invoices), true);
 
         $list = $invoices;
         //        if ($list) {

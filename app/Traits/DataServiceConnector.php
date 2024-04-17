@@ -59,7 +59,6 @@ trait DataServiceConnector
             'query' => $query,
             'minorversion' => 57,
           ]);
-          ;
 
             return json_decode($response->body(), true);
         } catch (Exception $exception) {
@@ -79,15 +78,48 @@ trait DataServiceConnector
         return json_decode($response->body(), true);
     }
 
+    public function postQuery($query)
+    {
+
+        $company_id = UtilityFacades::getsettings('company_id');
+        $company_url = UtilityFacades::getsettings('qbo_base_url');
+
+        $token =$this->getToken();
+        $url = "{$company_url}/v3/company/{$company_id}/query?minorversion=57";
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>$query,
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Content-Type: application/text',
+                'Authorization: Bearer' .' ' .$token,  // Include bearer token in header
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        return json_decode($response,true);
+    }
+
   public function makeQuery($query)
   {
     $company_id = UtilityFacades::getsettings('company_id');
     $company_url = UtilityFacades::getsettings('qbo_base_url');
-    //        $query = "select * from {$query}";
+//            $query = "select * from {$query}";
     $response = Http::withHeaders([
       'Accept' => 'application/json',
       'Authorization' => 'Bearer'.' '.$this->getToken(),
     ])->get("{$company_url}/v3/company/{$company_id}/{$query}");
+
+
     return json_decode($response->body(), true);
   }
 
@@ -131,8 +163,7 @@ trait DataServiceConnector
     }
 
     /**
-     * @param  mixed  $accessToken
-     *
+     * @return DataService
      * @throws SdkException
      */
     public function getDataService(): DataService
@@ -148,7 +179,7 @@ trait DataServiceConnector
         'accessTokenKey' => $this->getToken(),
         'refreshTokenKey' => $this->getUserRefreshToken(),
         'QBORealmID' => $company_id,
-        'baseUrl' => env('BASE_DEV','Development'),
+        'baseUrl' => UtilityFacades::getsettings('qbo_base_url'),// env('BASE_DEV','Development'),
         'minorversion' => 57,
       ]);
     }
@@ -160,7 +191,6 @@ trait DataServiceConnector
 
     public function getUserRefreshToken()
     {
-
         return $this->user()->refresh_token;
     }
 

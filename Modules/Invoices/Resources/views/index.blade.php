@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('build/assets/daterangepicker/daterangepicker.css') }}" />
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 @section('title', 'All Invoices')
 
 @section('content')
@@ -33,55 +33,57 @@
                 <div class="card-header">
                     <h3 class="card-title">QuickBooks Invoices</h3>
                 </div>
-                <div class="mx-2">
-                                     <div class="d-flex justify-content-between">
 
-                        <div class="d-inline-flex gap-1">
-                            <div class="col-auto">
-                                {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-select control-sm ', 'id' => 'buyer_type', 'style' => 'width:250px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
+                <div class="d-flex justify-content-between m-2">
+
+                    <div class="d-inline-flex gap-1">
+                        <div class="col-auto">
+                            {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-select form-control control-sm ',
+'id' => 'buyer_type', 'style' => 'width:250px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
+                        </div>
+                        <div class="col-auto">
+                            {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-select control-sm', 'id' => 'industry_code', 'style' => 'width:250px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
+                        </div>
+                        <div class="d-inline-flex gap-1 col-auto">
+                            {!! Form::open([
+                                'route' => ['qbo.invoices.range', 'validate' => 'no'],
+                                'method' => 'get',
+                                'class' => 'form-horizontal  row g-3',
+                            ]) !!}
+
+                            <div class="input-group ">
+                                {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4', 'id' => 'date', 'style' => '']) }}
+                                <button type="submit" class="btn btn-sm btn-primary">Choose From
+                                    Date Range</button>
+
                             </div>
-                            <div class="col-auto">
-                                {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-select control-sm', 'id' => 'industry_code', 'style' => 'width:250px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
-                            </div>
-                            <div class="d-inline-flex gap-1 col-auto">
-                                {!! Form::open([
-                                    'route' => ['qbo.invoices.range', 'validate' => 'no'],
-                                    'method' => 'get',
-                                    'class' => 'form-horizontal  row g-3'
-                                ]) !!}
 
-                                <div class="input-group ">
-                                    {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4', 'id' => 'date', 'style' => '']) }}
-                                        <button type="submit" class="btn btn-sm btn-primary">Choose From
-                                            Date Range</button>
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
 
-                                </div>
-
-                                {!! Form::close() !!}
-                            </div>
+                    <div class="d-inline-flex gap-1">
+                        <div class="">
+                            <a type="button" class="btn btn-sm btn-primary" href="{{ route('invoices.sync') }}">Sync
+                                Invoices From Efris</a>
+                        </div>
+                        <div class="">
+                            <a type="button" class="btn btn-sm btn-primary"
+                               href="{{ route('validate.invoices') }}">Validate Invoices</a>
                         </div>
 
-                        <div class="d-inline-flex gap-1">
-                            <div class="">
-                                <a type="button" class="btn btn-sm btn-primary" href="{{ route('invoices.sync') }}">Sync
-                                    Invoices From Efris</a>
-                            </div>
-                            <div class="">
-                                <a type="button" class="btn btn-sm btn-primary"
-                                    href="{{ route('validate.invoices') }}">Validate Invoices</a>
-                            </div>
-
-                            <div class=" ml-2">
-                                <a type="button" class="btn btn-sm btn-primary"
-                                    href="{{ route('autosync.invoices.fiscalise') }}">Fiscalise ready</a>
-                            </div>
-
+                        <div class=" ml-2">
+                            <a type="button" class="btn btn-sm btn-primary"
+                               href="{{ route('autosync.invoices.fiscalise') }}">Fiscalise ready</a>
                         </div>
 
                     </div>
 
+                </div>
 
-                    <div class="table-responsive">
+                <div class="mx-2 card-body table-border-style">
+
+                    <div class="table-responsive table-border-style">
                         <table class="table table-bordered table-striped  mb-0">
                             <thead>
                                 <tr class="bg-secondary fw-bolder">
@@ -154,11 +156,11 @@
                         </table>
                     </div>
 
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {!! $data['links'] !!}
-                            </nav>
-                        </div>
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,10 +169,13 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
-  <script src="{{ asset('build/assets/daterangepicker/daterangepicker.js') }}"></script>
+@push('javascript')
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- INDEX JS -->
     <script>
+        // import Swal from "laravel-mix/src/Dispatcher";
+
         function getCsrfToken() {
             return document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
         }
@@ -202,7 +207,7 @@
                 // Get the CSRF token
                 // console.log(invoices)
 
-                fetch(route('invoices.update.buyerType'), {
+                fetch("{{route('invoices.update.buyerType')}}", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -214,23 +219,23 @@
                         body: JSON.stringify(invoices)
                     }).then(response => response.json())
                     .then(response => {
-                      if (response.status === true) {
-                        Swal.fire({
-                          // title: 'Are you sure?',
-                          text: response.payload,
-                          icon: 'success',
-                        })
-                        // You can also choose to hide the message after a few seconds if needed
-                        setTimeout(function() {
-                          window.location.reload();
-                        }, 2000);
-                      } else {
-                        Swal.fire({
-                          title: 'Something Wrong occured',
-                          text: response.payload,
-                          icon: 'warning',
-                        })
-                      }
+                        if (response.status === true) {
+                            Swal.fire({
+                                // title: 'Are you sure?',
+                                text: response.payload,
+                                icon: 'success',
+                            })
+                            // You can also choose to hide the message after a few seconds if needed
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            Swal.fire({
+                                title: 'Something Wrong occured',
+                                text: response.payload,
+                                icon: 'warning',
+                            })
+                        }
                     });
             }
         }
@@ -238,16 +243,16 @@
         // for updating industry codes
         function updateIndustryCode() {
             const tin = <?= json_encode($tin) ?>;
-            const keys =  getSelectedRows();
+            const keys = getSelectedRows();
 
             if (keys.length > 0) {
                 const invoice_mod = {
-                        industryCode: $('#industry_code').val(),
-                  invoiceIds: keys
+                    industryCode: $('#industry_code').val(),
+                    invoiceIds: keys
 
                 };
 
-                fetch(route('update.industrycode'), {
+                fetch("{{route('update.industrycode')}}", {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
@@ -259,91 +264,92 @@
                         body: JSON.stringify(invoice_mod)
                     }).then(response => response.json())
                     .then(response => {
-                      if (response.status === true) {
-                        Swal.fire({
-                          // title: 'Are you sure?',
-                          text: response.payload,
-                          icon: 'success',
-                        })
-                        // You can also choose to hide the message after a few seconds if needed
-                        setTimeout(function() {
-                          window.location.reload();
-                        }, 2000);
-                      } else {
-                        Swal.fire({
-                          title: 'Something Wrong occured',
-                          text: response.payload,
-                          icon: 'warning',
-                        })
-                      }
+                        if (response.status === true) {
+                            Swal.fire({
+                                // title: 'Are you sure?',
+                                text: response.payload,
+                                icon: 'success',
+                            })
+                            // You can also choose to hide the message after a few seconds if needed
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            Swal.fire({
+                                title: 'Something Wrong occured',
+                                text: response.payload,
+                                icon: 'warning',
+                            })
+                        }
                     });
             }
         }
 
-        function IndustryCode() {
-            updateIndustryCode();
-        }
-
+        // $(document).ready(function() {
+            function IndustryCode() {
+                updateIndustryCode();
+            }
+        // })
 
         function InvoiceBuyerType() {
             updateInvoiceBuyerType();
         }
 
         $('#date').daterangepicker({
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-              'month')]
-          },
-          "alwaysShowCalendars": true,
-          "startDate": "01/01/2023",
-          "endDate": "07/28/2023"
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+                    'month')]
+            },
+            "alwaysShowCalendars": true,
+            "startDate": "01/01/2023",
+            "endDate": "07/28/2023"
         }, function(start, end, label) {
-          console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format(
-            'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format(
+                'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
 
-      //  $('input[name="invoice_period"]').daterangepicker({
-      //     ranges: {
-      //         'Today': [moment(), moment()],
-      //         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-      //         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-      //         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-      //         'This Month': [moment().startOf('month'), moment().endOf('month')],
-      //         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-      //             'month')],
-      //         'This Year': [moment().startOf('year'), moment().endOf('year')]
-      //     },
-      //     autoUpdateInput: false,
-      //     "alwaysShowCalendars": true,
-      //     "startDate": "01-01-2023",
-      //     "endDate": "07-28-2023"
-      // },
-      // function(start, end, label) {
-      //     start.format('YYYY-MM-DD') + ' toooo ' + end.format('YYYY-MM-DD');
-      // });
-      //
-      //   $('input[name="invoice_period"]').on('apply.daterangepicker', function(ev, picker) {
-      //     const encodedDateRange = moment(picker.startDate).format('MM/DD/YYYY') + ' to ' + picker.endDate.format(
-      //       'MM/DD/YYYY');
-      //     // Decode the URL-encoded string
-      //     const decodedDateRange = decodeURIComponent(encodedDateRange);
-      //
-      //     // Split the date range into start and end dates
-      //     const dateParts = decodedDateRange.split(' to ');
-      //
-      //     // Format the dates as desired (e.g., 'MM/DD/YYYY')
-      //     const startDate = dateParts[0]; // Assuming 'MM/DD/YYYY' format
-      //     const endDate = dateParts[1]; // Assuming 'MM/DD/YYYY' format
-      //       $(this).val(startDate + ' to ' + endDate);
-      //   });
-      //
-      //   $('input[name="invoice_period"]').on('cancel.daterangepicker', function(ev, picker) {
-      //       $(this).val('');
-      //   });
+        //  $('input[name="invoice_period"]').daterangepicker({
+        //     ranges: {
+        //         'Today': [moment(), moment()],
+        //         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        //         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        //         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        //         'This Month': [moment().startOf('month'), moment().endOf('month')],
+        //         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
+        //             'month')],
+        //         'This Year': [moment().startOf('year'), moment().endOf('year')]
+        //     },
+        //     autoUpdateInput: false,
+        //     "alwaysShowCalendars": true,
+        //     "startDate": "01-01-2023",
+        //     "endDate": "07-28-2023"
+        // },
+        // function(start, end, label) {
+        //     start.format('YYYY-MM-DD') + ' toooo ' + end.format('YYYY-MM-DD');
+        // });
+        //
+        //   $('input[name="invoice_period"]').on('apply.daterangepicker', function(ev, picker) {
+        //     const encodedDateRange = moment(picker.startDate).format('MM/DD/YYYY') + ' to ' + picker.endDate.format(
+        //       'MM/DD/YYYY');
+        //     // Decode the URL-encoded string
+        //     const decodedDateRange = decodeURIComponent(encodedDateRange);
+        //
+        //     // Split the date range into start and end dates
+        //     const dateParts = decodedDateRange.split(' to ');
+        //
+        //     // Format the dates as desired (e.g., 'MM/DD/YYYY')
+        //     const startDate = dateParts[0]; // Assuming 'MM/DD/YYYY' format
+        //     const endDate = dateParts[1]; // Assuming 'MM/DD/YYYY' format
+        //       $(this).val(startDate + ' to ' + endDate);
+        //   });
+        //
+        //   $('input[name="invoice_period"]').on('cancel.daterangepicker', function(ev, picker) {
+        //       $(this).val('');
+        //   });
     </script>
-@endsection
+@endpush

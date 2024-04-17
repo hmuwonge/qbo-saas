@@ -280,89 +280,15 @@ Route::group(['middleware' => ['auth', 'Setting', 'xss', '2fa', 'Upload']], func
     Route::delete('lang/{lang}', [LanguageController::class, 'destroyLang'])->name('lang.destroy');
 });
 
-//stripe
-Route::post('pre-stripe/pending', [StripeController::class, 'stripePostPending'])->name('pre.stripe.pending');
-Route::post('pre-stripe', [StripeController::class, 'preStripeSession'])->name('pre.stripe.session');
-Route::get('pre-payment-cancel/{id}', [StripeController::class, 'prePaymentCancel'])->name('pre.stripe.cancel.pay');
-Route::get('pre-payment-success/{id}', [StripeController::class, 'prePaymentSuccess'])->name('pre.stripe.success.pay');
-
-//razopay
-Route::post('razorpay/payment', [RazorpayPaymentController::class, 'razorPayPayment'])->name('razorpay.payment');
-Route::get('razorpay/callback/{orderId}/{transactionId}/{requestDomainId}/{couponId}', [RazorpayPaymentController::class, 'razorPayCallback']);
 
 //flutterwave
 Route::post('flutterwave/payment', [FlutterwaveController::class, 'flutterwavePayment'])->name('flutterwave.payment');
 Route::get('flutterwave/callback/{orderId}/{transactionId}/{requestDomainId}/{couponId}', [FlutterwaveController::class, 'flutterwaveCallback']);
 
-//paystack
-Route::post('paystack/payment', [PaystackController::class, 'paystackPayment'])->name('paystack.payment');
-Route::get('paystack/callback/{orderId}/{transactionId}/{requestDomainId}/{couponId}', [PaystackController::class, 'paystackCallback']);
-
-//paytm
-Route::post('payment', [PaytmController::class, 'pay'])->name('paytm.payment');
-Route::post('payment/callback', [PaytmController::class, 'paymentCallback'])->name('paytm.callback');
-
-//coingate
-Route::post('coingate/payment', [CoingateController::class, 'coingatePayment'])->name('coingate.payment');
-Route::get('coingate-payment/{id}', [CoingateController::class, 'coingatePlanGetPayment'])->name('coingate.callback');
-
-//mercado
-Route::post('mercadopago/payment', [MercadoController::class, 'mercadoPagoPayment'])->name('mercadopago.payment');
-Route::any('mercadopago-callback/{id}', [MercadoController::class, 'mercadoPagoPaymentCallback'])->name('mercado.callback');
-
-//payfast
-Route::post('payfast/prepare', [PayfastController::class, 'payfastPrepare'])->name('payfast.prepare');
-Route::get('payfast/callback/{id}', [PayfastController::class, 'payfastCallback'])->name('payfast.callback');
-
-//Toyyibpay
-Route::post('toyyibpay/prepare', [ToyyibpayController::class, 'charge'])->name('toyyibpay.charge');
-Route::get('toyyibpay/callback/{domainrequestid}/{orderid}/{coupon}', [ToyyibpayController::class, 'toyyibpayCallback'])->name('toyyibpay.callback');
-
-//Iyzipay
-Route::post('iyzipay/prepare', [IyziPayController::class, 'initiatePayment'])->name('iyzipay.init');
-Route::post('iyzipay/callback', [IyzipayController::class, 'iyzipayCallback'])->name('iyzipay.callback');
-
-//paypal
-Route::post('process-transactions', [PayPalController::class, 'processTransaction'])->name('process.transaction');
-Route::get('success-transactions/{data}', [PayPalController::class, 'successTransaction'])->name('success.transaction');
-Route::get('cancel-transactions/{data}', [PayPalController::class, 'cancelTransaction'])->name('cancel.transaction');
-
-//sspay
-Route::post('sspay/payment/init', [SSPayController::class, 'sspayInitPayment'])->name('sspay.init');
-Route::get('sspay/payment/callback', [SSPayController::class, 'sspayCallback'])->name('sspay.callback');
-
-//cashfree
-Route::post('cashfree/payment/prepare', [CashFreeController::class, 'cashfreePayment'])->name('cashfree.prepare');
-Route::get('cashfree/payment/callback', [CashFreeController::class, 'cashfreeCallback'])->name('cashfree.callback');
-
-// Aamarpay
-Route::post('aamarpaypayment/payment', [AamarpayController::class, 'planPayAamarpay'])->name('plan.pay.aamarpay');
-Route::any('aamarpaypayment/success/{data}', [AamarpayController::class, 'getPayAamarpayStatus'])->name('plan.payment.aamarpay');
-
-// payu
-Route::any('payumoneypay/payment', [PayuMoneyController::class, 'PayUmoneyPayPayment'])->name('payumoney.pay.payment.init');
-Route::any('payumoneypay/success/{id}', [PayUMoneyController::class, 'payuPaySuccess'])->name('payu.pay.success');
-Route::any('payumoneypay/failure/{id}', [PayUMoneyController::class, 'payuPayFailure'])->name('payu.pay.failure');
-
-// Benefit
-Route::any('paymentpay/initiate', [BenefitPaymentController::class, 'initiatePayPayment'])->name('benefit.pay.initiate');
-Route::any('call/backpay', [BenefitPaymentController::class, 'callBackpay'])->name('benefit.pay.callback');
-
-// paytab
-Route::post('plan-paytab', [PaytabController::class, 'planPaytab'])->name('plan.paytab');
-Route::any('plan-paytab-success/plan', [PaytabController::class, 'PaytabPayment'])->name('paytab.success');
-
 // Mollie
 Route::post('plan-pay-mollie', [MolliePaymentController::class, 'planPayPaymentMollie'])->name('plan.pay.mollie');
 Route::get('planpay/mollie/{plan}', [MolliePaymentController::class, 'getPayPaymentStatus'])->name('plan.with.mollie');
 
-// skrill
-Route::post('planpay-skrill', [SkrillPaymentController::class, 'planPaySkrill'])->name('plan.with.skrill');
-Route::get('planpay/skrill/{data}', [SkrillPaymentController::class, 'getPaySkrillCallback'])->name('pay.plan.skrill');
-
-//Easebuzz
-Route::post('pay-easebuzz', [EasebuzzPaymentController::class, 'PayEasebuzz'])->name('pay.easebuzz');
-Route::any('pay/easebuzz/{id}', [EasebuzzPaymentController::class, 'payEasebuzzCallback'])->name('pay.easebuzz.callback');
 
 // cookie
 Route::get('cookie/consent', [SettingsController::class, 'CookieConsent'])->name('cookie.consent');

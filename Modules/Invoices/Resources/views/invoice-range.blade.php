@@ -1,8 +1,8 @@
 @extends('layouts.main')
 
-@section('styles')
-  <link rel="stylesheet" href="{{ asset('build/assets/daterangepicker/daterangepicker.css') }}" />
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 @section('title', 'All Invoices Range')
 
 @section('content')
@@ -184,7 +184,8 @@
 @endsection
 
 @push('javascript')
-  <script src="{{ asset('build/assets/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- INDEX JS -->
     <script>
         function getCsrfToken() {

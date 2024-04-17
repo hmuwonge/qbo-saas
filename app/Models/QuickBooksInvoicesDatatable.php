@@ -91,15 +91,15 @@ class QuickBooksInvoicesDatatable extends Model
 
     public $ClassRef;
 
-    public function __construct($dbInvoice, $config = [])
+    public function __construct($dbInvoice=[], $config = [])
     {
         $this->databaseRecord = json_decode(json_encode($dbInvoice));
-        $this->DocNumber = $config['DocNumber'];
-        $this->CustomerRef = $config['CustomerRef'];
-        $this->TotalAmt = $config['TotalAmt'];
-        $this->TxnDate = $config['TxnDate'];
-        $this->DueDate = @$config['DueDate'];
-        $this->CurrencyRef = $config['CurrencyRef'];
+        $this->DocNumber = $config['DocNumber'] ??null;
+        $this->CustomerRef = @$config['CustomerRef'];
+        $this->TotalAmt = @$config['TotalAmt'];
+        $this->TxnDate = @$config['TxnDate'];
+        $this->DueDate = @$config['DueDate'] ??null;
+        $this->CurrencyRef = @$config['CurrencyRef'];
         parent::__construct($config);
     }
 
@@ -184,8 +184,8 @@ class QuickBooksInvoicesDatatable extends Model
 
             return '<span class="fw-bolder">Name: </span>'.$this->databaseRecord->customerName.'<br/><span class="fw-bolder">TIN: </span>'.$this->databaseRecord->buyerTin;
         }
-    //    dd( $this->CustomField);
-    return '<span class="fw-bolder">Name: </span>'.@$this->databaseRecord->customerName.'<span class="fw-bolder">TIN: </span>'.@$this->databaseRecord->buyerTin;
+        //    dd( $this->CustomField);
+        return '<span class="fw-bolder">Name: </span>'.@$this->databaseRecord->customerName.'<span class="fw-bolder">TIN: </span>'.@$this->databaseRecord->buyerTin;
 
     }
 
@@ -228,9 +228,9 @@ class QuickBooksInvoicesDatatable extends Model
     {
         if (! empty($this->databaseRecord)) {
             if ($this->databaseRecord->fiscalStatus == 1) {
-                return "<badge class='badge bg-label-success'>Fiscalised</badge>";
+                return "<span class='badge bg-success'>Fiscalised</span>";
             } else {
-                return "<badge class='badge bg-label-danger'>Not Yet Fiscalised</badge>";
+                return "<span class='badge bg-danger'>Not Yet Fiscalised</span>";
             }
         }
     }
@@ -243,7 +243,7 @@ class QuickBooksInvoicesDatatable extends Model
         if (! empty($this->databaseRecord)) {
             //The Invoice has validation Errors
             if ($this->databaseRecord->validationStatus == 0) {
-                return "<badge class='badge bg-label-dark'>Has validation Errors</badge>";
+                return "<span class='badge bg-label-dark'>Has validation Errors</span>";
             }
 
             // //The invoice is valid, but not yet fiscalised
@@ -259,7 +259,7 @@ class QuickBooksInvoicesDatatable extends Model
             } else { //The invoice has been fiscalised
                 //                $details2 = route('invoice.download.rt', ['id' => $this->databaseRecord->fiscalNumber]);
                 //                $buttons = "<a href='{$details2}' class='bg-sky-600 rounded text-white px-2 py-1' target='_blank'>Preview</a>";
-                $buttons = "<badge class='badge bg-label-success'>Fiscalised</badge>";
+                $buttons = "<span class='badge bg-success'>Fiscalised</span>";
 
                 return $buttons;
             }
@@ -270,7 +270,7 @@ class QuickBooksInvoicesDatatable extends Model
         if (!empty($this->databaseRecord)) {
             // The Invoice has validation Errors
             if ($this->databaseRecord->validationStatus == 0) {
-                return "<span class='badge bg-label-dark'>Has validation Errors</span>";
+                return "<span class='badge bg-dark'>Has validation Errors</span>";
             }
 
             // The invoice is valid, but not yet fiscalised

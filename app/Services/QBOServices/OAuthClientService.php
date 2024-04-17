@@ -2,6 +2,7 @@
 
 namespace App\Services\QBOServices;
 
+use App\Facades\UtilityFacades;
 use App\Models\QuickBooksConfig;
 use App\Traits\DataServiceConnector;
 use App\Traits\Responser;
@@ -66,12 +67,12 @@ class OAuthClientService
             // Prep Data Services
             $dataService = DataService::Configure([
                 'auth_mode' => 'oauth2',
-                'ClientSecret' => env('CLIENT_SECRETE'),
-                'ClientID' => env('CLIENT_ID'),
+                'ClientSecret' => UtilityFacades::getsettings('client_secrete'),
+                'ClientID' =>UtilityFacades::getsettings('client_id'),
                 //get the refresh token from session or database
                 'refreshTokenKey' => $accessTokenObj->getRefreshToken(),
                 'QBORealmID' => $accessTokenObj->getRealmId(),
-                'baseUrl' => 'Development',
+                'baseUrl' => UtilityFacades::getsettings('qbo_base_url'),
             ]);
 
             $OAuth2LoginHelper = $dataService->getOAuth2LoginHelper();
@@ -117,20 +118,17 @@ class OAuthClientService
                     $qbo_user->auth_expiry = $accessTokenExpiry;
                     $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
                     $qbo_user->update();
-//                    echo 'Successfully updated authentication';
-                  return redirect()->route('quickbooks.index')->with('success','Token updated successfully');
                 } else {
                     $qbo_user = new QuickBooksConfig;
                     $qbo_user->user_id = auth()->user()->id;
                     $qbo_user->company_id =  1;
-//                    $qbo_user->intuit_company_id =  1;
                     $qbo_user->auth_token = $data->getAccessToken();
                     $qbo_user->refresh_token = $data->getRefreshToken();
                     $qbo_user->auth_expiry = $accessTokenExpiry;
                     $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
                     $qbo_user->save();
-                  return redirect()->route('quickbooks.index')->with('success','Token updated successfully');
                 }
+                return redirect()->route('quickbooks.index')->with('success','Token updated successfully');
 
             }
 
