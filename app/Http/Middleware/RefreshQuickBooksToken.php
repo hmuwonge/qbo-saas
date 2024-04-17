@@ -31,13 +31,16 @@ class RefreshQuickBooksToken
      */
     public function handle(Request $request, Closure $next)
     {
-//        dd(tenant('id'));
 
         try {
 //            if (tenant('id') == null) {
                 if (Auth::check()) {
                     // Get the OAuth2 access token from the database
                     $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
+                    $check_client_id = UtilityFacades::getsettings('client_id');
+                    if (empty($check_client_id)){
+                        return redirect()->route('settings')->with('failed','Quickbooks congiurations are missing');
+                    }
                     $url = $this->qbo_url();
 
                     if ((isset($qbo_user)) && (isset($qbo_user->auth_expiry))) {
@@ -53,12 +56,10 @@ class RefreshQuickBooksToken
                             if ($accessToken && $refreshToken) {
                                 //The first parameter of OAuth2LoginHelper is the ClientID, second parameter is the client Secret
                                 $oauth2LoginHelper = new OAuth2LoginHelper(UtilityFacades::getsettings('client_id'), UtilityFacades::getsettings('client_secrete'));
-                                // dd(env('CLIENT_ID'));
                                 $accessTokenObj = $oauth2LoginHelper->refreshAccessTokenWithRefreshToken($refreshToken);
                                 $accessTokenValue = $accessTokenObj->getAccessToken();
                                 $refreshTokenValue = $accessTokenObj->getRefreshToken();
 
-                                // QuickBooksServiceHelper::logToFile($accessTokenValue);
 
                                 try {
                                     $qbo_user->auth_token = $accessTokenValue;
@@ -73,18 +74,12 @@ class RefreshQuickBooksToken
                             }
                         }
                         if (($currentTime->greaterThan($accessTokenExpiry)) && ($currentTime->greaterThan($refreshTokenExpiry))) {
-                            // Redirect::route('dashboard.integrator');
                             return response()->view('QboAuth', compact('url'));
-                            // return Inertia::render('Integrator', ['url' => $this->qbo_url()]);
                         }
                     } else {
-                        // return Inertia::render('Integrator', ['url' => $this->qbo_url()]);
-                        // dd($this->qbo_url());
                         return response()->view('QboAuth', compact('url'));
-                        // Redirect::route('dashboard.integrator');
                     }
 
-//                }
                 Redirect::route('login');
             }
 

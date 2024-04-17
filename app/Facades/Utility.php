@@ -12,6 +12,7 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Models\UserCoupon;
 use App\Notifications\Superadmin\ApproveNotification;
+use App\Services\QBOServices\OAuthClientService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -136,6 +137,13 @@ class Utility
             $val = $set->value;
         }
         return $val;
+    }
+
+    public static function qbo_url(): string
+    {
+        $new = new OAuthClientService;
+
+        return $new->connect();
     }
 
     public static function storesettings($formatted_array)

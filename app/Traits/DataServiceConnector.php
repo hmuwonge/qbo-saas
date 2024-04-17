@@ -18,6 +18,11 @@ trait DataServiceConnector
      */
     public function QBOConnector(): DataService
     {
+//        $url = UtilityFacades::qbo_url();
+//        dd($url);
+//        if (is_null($this->user())){
+//            return view('QboAuth', compact('url'));
+//        }
         return DataService::Configure(
             [
                 'auth_mode' => 'oauth2',
