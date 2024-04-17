@@ -134,6 +134,20 @@ Route::middleware([
             Route::get('invoices-sync', [InvoicesController::class,'syncInvoices'])->name('invoices.sync');
         });
 
+        /////////////////receipts////////////////
+        Route::group(['prefix' => 'quickbooks/receipts', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+            Route::get('/', [ReceiptsController::class, 'index'])->name('qbo.receipts.index');
+            Route::get('/passed-validations', [ReceiptsController::class, 'passedValidations'])->name('qbo.receipts.passed');
+            Route::get('/failed-validations', [ReceiptsController::class, 'failed'])->name('qbo.receipts.failed');
+            Route::get('/validation-errors', [ReceiptsController::class, 'errors'])->name('qbo.receipts.errors');
+            Route::get('/fiscalised', [ReceiptsController::class, 'fiscalised'])->name('qbo.receipts.ura');
+            Route::post('update-invoice-industry-code', [ReceiptsController::class, 'updateInvoiceIndustry'])->name('receipts.update.industrycode');
+            Route::post('update-invoice-buyer-type', [ReceiptsController::class, 'updateBuyerType'])->name('receipts.update.buyerType');
+
+            Route::get('receipts-range/{validate}', [ReceiptsController::class, 'receiptsDateRange'])->name('qbo.receipts.range');
+        });
+        Route::get('validate/all/receipts', [ValidationsController::class, 'validateReceipts'])->name('receipts.validate');
+
         Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
             Route::get('/', [GoodsController::class,'index'])->name('goods.all');//->middleware('is_connected');
             Route::get('/not-registered', 'GoodsController@index')->name('goods.noregistered');

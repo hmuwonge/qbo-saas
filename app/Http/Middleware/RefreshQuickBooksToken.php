@@ -28,6 +28,7 @@ class RefreshQuickBooksToken
      *
      * @throws SdkException
      * @throws ServiceException
+     * @throws \Exception
      */
     public function handle(Request $request, Closure $next)
     {
@@ -70,6 +71,7 @@ class RefreshQuickBooksToken
                                 } catch (OAuthException $e) {
                                     // Handle exception here
                                     // QuickBooksServiceHelper::logToFile($e->getMessage());
+                                    throw new \Exception($e->getMessage());
                                 }
                             }
                         }
@@ -91,7 +93,10 @@ class RefreshQuickBooksToken
         return $next($request);
     }
 
-    public function qbo_url()
+    /**
+     * @throws SdkException
+     */
+    public function qbo_url(): string
     {
         $new = new OAuthClientService;
 

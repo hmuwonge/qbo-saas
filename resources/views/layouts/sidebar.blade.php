@@ -419,21 +419,119 @@
                         </li>
                     @endcanany
 
+                        <span class="dash-mtext ml-8 font-extrabold text-gray-50">{{ __('QUICKBOOKS SECTION') }}</span>
+                        <li
+                            class="dash-item dash-hasmenu {{ request()->is('quickbooks*') || request()->is('invoices*') || request()->is('receipts*') ? 'active dash-trigger' : 'collapsed' }}">
+                            <a href="#!" class="dash-link">
+                            <span class="dash-micon">
+                                <i class="ti ti-apps"></i>
+                            </span>
 
+                                <span  class="dash-mtext">{{ __('Quickbooks Reports') }}</span>
+                                <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
+                            </a>
+                            <ul class="dash-submenu">
+                                @can('manage-email-template')
+                                    {{--                                <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
+                                    {{--                                    <a class="dash-link"--}}
+                                    {{--                                       href="{{ route('ura.invoices') }}">{{ __('Invoices') }}</a>--}}
+                                    {{--                                </li>--}}
+
+                                    <li class="dash-item dash-hasmenu {{ request()->is('invoices*') ? 'active' : '' }}">
+                                        <a class="dash-link"
+                                           href="#!">{{ __('Invoices') }}</a>
+
+                                        <ul class="dash-submenu">
+                                            <li class="dash-item {{ request()->is('invoices*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.invoices.all') }}">{{ __('All') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('fiscalised*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.invoices.ura') }}">{{ __('Fiscalised') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('validation-errors*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.invoices.errors') }}">{{ __('Validation Errors') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('failed-validations*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.invoices.failed') }}">{{ __('Failed Validations') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('passed-validations*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.invoices.passed') }}">{{ __('Passed Validations') }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @endcan
+                                @can('manage-sms-template')
+                                    <li class="dash-item {{ request()->is('fiscalised-receipts*') ? 'active' : '' }}">
+                                        <a class="dash-link"
+                                           href="{{ route('ura.receipts') }}">{{ __('Receipts') }}</a>
+                                    </li>
+                                @endcan
+                                @can('manage-setting')
+                                    <li class="dash-item {{ request()->is('goods-services*') ? 'active' : '' }}">
+                                        <a class="dash-link" href="{{ route('ura.goods') }}">{{ __('Goods/Services') }}</a>
+                                    </li>
+
+                                    <li class="dash-item {{ request()->is('issued-credit-notes*') ? 'active' : '' }}">
+                                        <a class="dash-link"
+                                           href="{{ route('ura.creditnotes') }}">{{ __('Credit Notes') }}</a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+
+
+                        <span class="dash-mtext mx-auto">{{ __('EFRIS SECTION') }}</span>
                     {{--                    efris reports--}}
                     {{--                        @canany(['manage-setting', 'manage-email-template', 'manage-sms-template'])--}}
                     <li
                         class="dash-item dash-hasmenu {{ request()->is('efris-ura*') || request()->is('issued-credit-notes*') || request()->is('fiscalised-invoices*') ? 'active dash-trigger' : 'collapsed' }}">
-                        <a href="#!" class="dash-link"><span class="dash-micon"><i
-                                    class="ti ti-apps"></i></span><span
-                                class="dash-mtext">{{ __('Efris Reports') }}</span><span class="dash-arrow"><i
-                                    data-feather="chevron-right"></i></span></a>
+                        <a href="#!" class="dash-link">
+                            <span class="dash-micon">
+                                <i class="ti ti-apps"></i>
+                            </span>
+
+                            <span  class="dash-mtext">{{ __('Efris Reports') }}</span>
+                            <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
+                        </a>
                         <ul class="dash-submenu">
                             @can('manage-email-template')
                                 <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">
                                     <a class="dash-link"
                                        href="{{ route('ura.invoices') }}">{{ __('Invoices') }}</a>
                                 </li>
+
+{{--                                <li class="dash-item dash-hasmenu {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
+{{--                                    <a class="dash-link"--}}
+{{--                                       href="#!">{{ __('Invoices') }}</a>--}}
+
+{{--                                    <ul class="dash-submenu">--}}
+{{--                                        <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
+{{--                                            <a class="dash-link"--}}
+{{--                                               href="{{ route('qbo.invoices.all') }}">{{ __('Invoices All') }}--}}
+{{--                                                </a>--}}
+{{--                                        </li>--}}
+
+{{--                                        <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
+{{--                                            <a class="dash-link"--}}
+{{--                                               href="{{ route('qbo.receipts.index') }}">{{ __('Receipts All') }}--}}
+{{--                                            </a>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
                             @endcan
                             @can('manage-sms-template')
                                 <li class="dash-item {{ request()->is('fiscalised-receipts*') ? 'active' : '' }}">
