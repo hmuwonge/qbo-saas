@@ -419,9 +419,9 @@
                         </li>
                     @endcanany
 
-                        <span class="dash-mtext ml-8 font-extrabold text-gray-50">{{ __('QUICKBOOKS SECTION') }}</span>
+                        <span class="dash-mtext; mx-auto font-extrabold text-gray-50 items-center">{{ __('QUICKBOOKS SECTION') }}</span>
                         <li
-                            class="dash-item dash-hasmenu {{ request()->is('quickbooks*') || request()->is('invoices*') || request()->is('receipts*') ? 'active dash-trigger' : 'collapsed' }}">
+                            class="dash-item dash-hasmenu bg-green-50 {{ request()->is('quickbooks*') || request()->is('invoices*') || request()->is('receipts*') ? 'active dash-trigger' : 'collapsed' }}">
                             <a href="#!" class="dash-link">
                             <span class="dash-micon">
                                 <i class="ti ti-apps"></i>
@@ -480,16 +480,18 @@
                                            href="{{ route('ura.receipts') }}">{{ __('Receipts') }}</a>
                                     </li>
                                 @endcan
-                                @can('manage-setting')
-                                    <li class="dash-item {{ request()->is('goods-services*') ? 'active' : '' }}">
-                                        <a class="dash-link" href="{{ route('ura.goods') }}">{{ __('Goods/Services') }}</a>
+                                    <li class="dash-item {{ request()->is('quickbooks/goods*') ? 'active' : '' }}">
+                                        <a class="dash-link" href="{{ route('goods.all') }}">{{ __('Goods/Services') }}</a>
                                     </li>
 
                                     <li class="dash-item {{ request()->is('issued-credit-notes*') ? 'active' : '' }}">
                                         <a class="dash-link"
-                                           href="{{ route('ura.creditnotes') }}">{{ __('Credit Notes') }}</a>
+                                           href="{{ route('purchases.index') }}">{{ __('Purchases') }}</a>
                                     </li>
-                                @endcan
+                                    <li class="dash-item {{ request()->is('quickbooks/stockadjustments*') ? 'active' : '' }}">
+                                        <a class="dash-link"
+                                           href="{{ route('qbo.stockadjustments') }}">{{ __('Stock Adjustments') }}</a>
+                                    </li>
                             </ul>
                         </li>
 
@@ -514,24 +516,6 @@
                                        href="{{ route('ura.invoices') }}">{{ __('Invoices') }}</a>
                                 </li>
 
-{{--                                <li class="dash-item dash-hasmenu {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
-{{--                                    <a class="dash-link"--}}
-{{--                                       href="#!">{{ __('Invoices') }}</a>--}}
-
-{{--                                    <ul class="dash-submenu">--}}
-{{--                                        <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
-{{--                                            <a class="dash-link"--}}
-{{--                                               href="{{ route('qbo.invoices.all') }}">{{ __('Invoices All') }}--}}
-{{--                                                </a>--}}
-{{--                                        </li>--}}
-
-{{--                                        <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
-{{--                                            <a class="dash-link"--}}
-{{--                                               href="{{ route('qbo.receipts.index') }}">{{ __('Receipts All') }}--}}
-{{--                                            </a>--}}
-{{--                                        </li>--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
                             @endcan
                             @can('manage-sms-template')
                                 <li class="dash-item {{ request()->is('fiscalised-receipts*') ? 'active' : '' }}">

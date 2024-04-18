@@ -13,13 +13,16 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\StockAdjustments\Http\Controllers\StockAdjustmentsController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
-Route::group(['prefix' => 'quickbooks/stockadjustments', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+Route::group(['prefix' => 'quickbooks/stockadjustments',
+    'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token',
+        InitializeTenancyByDomainOrSubdomain::class,
+        PreventAccessFromCentralDomains::class,
+        ]], function () {
     Route::get('/', 'StockAdjustmentsController@index')->name('qbo.stockadjustments');
     Route::get('/sync', 'StockAdjustmentsController@sync')->name('qbo.stockadjustments.sync');
     Route::get('reduce-stock/{id}/{stock}', 'StockAdjustmentsController@actionReduceStock')->name('stockAdjust.reduce-stock');
-});
-
-Route::group(['prefix' => 'quickbooks/stockadjustments', 'middleware' => ['auth', 'web', 'token', 'verified']], function () {
     Route::post('update-stockin-type', [StockAdjustmentsController::class, 'updateStockADType'])->name('update.stockInType');
 });

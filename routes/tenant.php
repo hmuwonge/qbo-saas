@@ -9,6 +9,7 @@ use Modules\EfrisReports\Http\Controllers\EfrisController;
 use Modules\Goods\Http\Controllers\GoodsController;
 use Modules\Invoices\Http\Controllers\InvoicesController;
 use Modules\Invoices\Http\Controllers\ValidationsController;
+use Modules\Purchases\Http\Controllers\PurchasesController;
 use Modules\QuickbooksDashboard\Http\Controllers\QuickbooksDashboardController;
 use Stancl\Tenancy\Features\UserImpersonation;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -120,6 +121,13 @@ Route::middleware([
             Route::post('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods.get');
         });
 
+        // purchases routes
+        Route::group(['prefix' => 'quickbooks/purchases', 'middleware' => ['auth','xss', 'web', 'token', 'verified', 'qbo.token']], function () {
+            Route::get('/', [PurchasesController::class,'index'])->name('purchases.index');
+            Route::post('update-invoice-buyer-type', [PurchasesController::class, 'updatePurchaseStockInType'])->name('purchase.stockUpdate');
+            Route::get('fiscalise-increase-stock/{id}', [PurchasesController::class, 'increasePurchaseStock'])->name('quickbooks.fiscalise-increase-stock');
+        });
+
         Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'xss', 'verified', 'qbo.token']], function () {
             Route::get('/', [InvoicesController::class, 'index'])->name('qbo.invoices.all');
             Route::get('invoices-range/{validate}', [InvoicesController::class, 'invoicesRange'])->name('qbo.invoices.range');
@@ -158,6 +166,14 @@ Route::middleware([
             Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
             Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
         });
+
+        // stock adjustments
+//        Route::group(['prefix' => 'quickbooks/stockadjustments', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+//            Route::get('/', 'StockAdjustmentsController@index')->name('qbo.stockadjustments');
+//            Route::get('/sync', 'StockAdjustmentsController@sync')->name('qbo.stockadjustments.sync');
+//            Route::get('reduce-stock/{id}/{stock}', 'StockAdjustmentsController@actionReduceStock')->name('stockAdjust.reduce-stock');
+//            Route::post('update-stockin-type', [StockAdjustmentsController::class, 'updateStockADType'])->name('update.stockInType');
+//        });
 
         Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'token', 'verified']], function () {
             Route::post('update-invoice-industry-type', [InvoicesController::class, 'updateInvoiceIndustry'])->name('update.industrycode');
