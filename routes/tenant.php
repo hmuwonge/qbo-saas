@@ -109,6 +109,7 @@ Route::middleware([
             Route::get('fiscal-invoice/details/{id}', [EfrisController::class, 'invoicesDetails'])->name('fiscal-invoice.preview');
             Route::get('fiscal-invoice-download/{id}', [EfrisController::class, 'actionViewInvoicePdf'])->name('invoice.download.rt');
             Route::get('fiscal-creditnote-download/{id}', [EfrisController::class, 'actionViewCreditnotePdf'])->name('creditnote.download');
+
             Route::get('fiscalise/{id}/{kind}', [InvoicesController::class, 'actionFiscaliseInvoice'])->name('invoice.fiscalise');
 
             Route::get('issued-credit-notes', [EfrisController::class, 'creditNotes'])->name('ura.creditnotes');
@@ -116,9 +117,9 @@ Route::middleware([
         });
 
         Route::prefix('efrisreports')->group(function() {
-            Route::get('/', 'EfrisController@invoices')->name('efris.invoices');
-            Route::get('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods');
-            Route::post('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods.get');
+            Route::get('/', [EfrisController::class,'invoices'])->name('efris.invoices');
+            Route::get('/goods-services', [EfrisController::class,'goodsAndServices2'])->name('efris.goods');
+            Route::post('/goods-services', [EfrisController::class,'goodsAndServices2'])->name('efris.goods.get');
         });
 
         // purchases routes
@@ -156,16 +157,16 @@ Route::middleware([
         });
         Route::get('validate/all/receipts', [ValidationsController::class, 'validateReceipts'])->name('receipts.validate');
 
-        Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
-            Route::get('/', [GoodsController::class,'index'])->name('goods.all');//->middleware('is_connected');
-            Route::get('/not-registered', 'GoodsController@index')->name('goods.noregistered');
-            Route::get('sync-items', 'GoodsController@syncItems')->name('goods.syncItems');
-            Route::get('register-opening-stock/{id}', 'GoodsController@registerOpeningStockView')->name('quickbooks.register-stock');
-            Route::post('register-opening-stock/{id}', 'GoodsController@registerOpeningStock')->name('quickbooks.register-stock.store');
-            Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
-            Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
-            Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
-        });
+//        Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+//            Route::get('/', [GoodsController::class,'index'])->name('goods.all');//->middleware('is_connected');
+//            Route::get('/not-registered', 'GoodsController@index')->name('goods.noregistered');
+//            Route::get('sync-items', 'GoodsController@syncItems')->name('goods.syncItems');
+//            Route::get('register-opening-stock/{id}', 'GoodsController@registerOpeningStockView')->name('quickbooks.register-stock');
+//            Route::post('register-opening-stock/{id}', 'GoodsController@registerOpeningStock')->name('quickbooks.register-stock.store');
+//            Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
+//            Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
+//            Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
+//        });
 
         // stock adjustments
 //        Route::group(['prefix' => 'quickbooks/stockadjustments', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {

@@ -35,25 +35,26 @@
                 {{-- <div id="responseMessage"></div> --}}
 {{--                <div class="alert alert-success" role="alert" id="responseMessage">--}}
 {{--                </div>--}}
-                <div class="card-body">
-                    <div class="d-flex row form-group my-2">
-                        <div class="col-lg-3">
-                            {{ Form::select('stock_in_type', $stockInTypes, null, [
-                                'class' => 'form-control-sm form-control',
-                                'id' => 'stockin_type',
-                                'style' => 'width:250px;',
-                                'onChange' => 'updatePurchaseStockInType()',
-                                'placeholder' => 'Update Stock-in type...',
-                            ]) }}
-                        </div>
-
-
-                        <div class="col-lg-2">
-                            <a type="button" id="validateButton" class="btn btn-sm btn-primary"
-                                href="{{ route('validate.bill') }}">Sync Purchase From QBO</a>
-                        </div>
-
+                <div class="d-flex row form-group my-2 justify-between mx-4">
+                    <div class="col-lg-3">
+                        {{ Form::select('stock_in_type', $stockInTypes, null, [
+                            'class' => 'form-control-sm form-control',
+                            'id' => 'stockin_type',
+                            'style' => 'width:250px;',
+                            'onChange' => 'updatePurchaseStockInType()',
+                            'placeholder' => 'Update Stock-in type...',
+                        ]) }}
                     </div>
+
+
+                    <div class="col-6">
+                        <a type="button" id="validateButton" class="btn btn-sm btn-primary"
+                           href="{{ route('validate.bill') }}">Fetch Purchases From QBO</a>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
 
 
                     {{-- <p>Found <code class="highlighter-rouge">{{ $data['total'] }}</code>tbetween <code

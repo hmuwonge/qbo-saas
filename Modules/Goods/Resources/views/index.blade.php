@@ -12,9 +12,7 @@
     <div class="page-block">
       <div class="row align-items-center">
         <div class="col-md-12">
-          <div class="page-header-title">
-            <h4 class="m-b-10">{{ __('Quickbooks Goods & Services') }}</h4>
-          </div>
+
           <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('Quickbooks') }}</a></li>
@@ -38,14 +36,14 @@
                 <div class="card-header d-inline-flex justify-content-between">
                     <h3 class="card-title">Quickbooks Goods & Services</h3>
 
-                    <div class="d-inline-flex justify-between col-auto">
-                        <a type="button" class="btn btn-sm btn-outline-primary p-2 col-auto" href="{{route('goods.syncItems')}}">
+                    <div class="d-inline-flex justify-between col-3">
+                        <a type="button" class="btn btn-sm btn-outline-primary p-2 col-4" href="{{route('goods.syncItems')}}">
                             Verify With Efris
                         </a>
 
-                        <button class="btn btn-sm btn-primary ml-1" href="{{route('goods.syncItems')}}">
+                        <a class="btn btn-sm btn-primary ml-1 col-6" href="{{route('goods.syncItems')}}">
                             Fetch From QBO
-                        </button>
+                        </a>
                     </div>
 
                   <div class="d-inline-flex gap-1 col-auto ">
@@ -69,7 +67,7 @@
                             class="highlighter-rouge">{{ $data['startdate'] }} and {{ $data['enddate'] }}</code>.</p> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped text-nowrap text-md-nowrap mb-0">
-                            <thead class="bg-secondary">
+                            <thead class="bg-dark">
                                 <tr>
                                   <th scope="col" class=" whitespace-nowrap">
                                       Item code

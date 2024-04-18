@@ -432,10 +432,6 @@
                             </a>
                             <ul class="dash-submenu">
                                 @can('manage-email-template')
-                                    {{--                                <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">--}}
-                                    {{--                                    <a class="dash-link"--}}
-                                    {{--                                       href="{{ route('ura.invoices') }}">{{ __('Invoices') }}</a>--}}
-                                    {{--                                </li>--}}
 
                                     <li class="dash-item dash-hasmenu {{ request()->is('invoices*') ? 'active' : '' }}">
                                         <a class="dash-link"
@@ -496,7 +492,7 @@
                         </li>
 
 
-                        <span class="dash-mtext mx-auto">{{ __('EFRIS SECTION') }}</span>
+                        <span class="ml-3.5 mx-auto font-extrabold text-gray-50 items-center">{{ __('URA EFRIS SECTION') }}</span>
                     {{--                    efris reports--}}
                     {{--                        @canany(['manage-setting', 'manage-email-template', 'manage-sms-template'])--}}
                     <li
