@@ -22,15 +22,15 @@
             <div class="card-header">
                 <h3 class="card-title"> {{ __('Fiscalised Invoices') }}</h3>
             </div>
-            <div class="card-body">
-                <div class="d-flex gap-1 col-auto py-2 mb-2">
-                    {!! Form::open([
-                        'route' => 'ura.invoices',
-                        'method' => 'Get',
-                        'class' => 'd-inline-flex row',
-                        'enctype' => 'multipart/form-data',
-                    ]) !!}
-                  <div class="d-inline-flex gap-1 col-auto">
+
+            <div class="d-flex gap-1 col-auto py-2 mb-2">
+                {!! Form::open([
+                    'route' => 'ura.invoices',
+                    'method' => 'Get',
+                    'class' => 'd-inline-flex row',
+                    'enctype' => 'multipart/form-data',
+                ]) !!}
+                <div class="d-inline-flex gap-1 col-auto">
                     {{ Form::text('customer_name', null, [
                               'class' => 'form-control form-control-sm',
                               'style' => 'width:250px;',
@@ -40,11 +40,11 @@
                     {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm', 'id' => 'date', 'style' => 'width:250px']) }}
 
                     <button type="submit" class="btn btn-sm btn-primary col-auto">Choose From
-                      Date Range</button>
-                  </div>
-                  {!! Form::close() !!}
+                        Date Range</button>
                 </div>
-
+                {!! Form::close() !!}
+            </div>
+            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped text-nowrap text-md-nowrap mb-0">
                         <thead class="bg-secondary text-white">

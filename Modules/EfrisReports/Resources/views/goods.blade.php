@@ -56,7 +56,7 @@
 
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped text-nowrap text-md-nowrap mb-0">
-                        <thead class="bg-secondary">
+                        <thead class="bg-blend-darken">
                             <tr>
                                 <th scope="col" class="">
                                     Commodity Category Code

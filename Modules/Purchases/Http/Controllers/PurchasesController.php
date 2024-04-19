@@ -21,6 +21,7 @@ class PurchasesController extends Controller
      */
     public function index()
     {
+        try{
         $stockInTypes = [
             101 => 'Import',
             102 => 'Local Purchase',
@@ -59,7 +60,9 @@ class PurchasesController extends Controller
 //      }
 
         return view('purchases::index', compact('purchases', 'dbPurchases', 'stockInTypes'));
-
+        } catch (\Exception $e) {
+            return redirect()->back()->with('failed',$e->getMessage());
+        }
     }
 
 

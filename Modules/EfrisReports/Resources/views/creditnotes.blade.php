@@ -72,7 +72,7 @@ function returnApprovalStatus($code) {
 
 
 
-      </div>
+{{--      </div>--}}
       <div class="table-responsive">
         <table class="table table-bordered table-striped table-striped-columns text-nowrap text-md-nowrap mb-0">
           <thead class="bg-secondary">

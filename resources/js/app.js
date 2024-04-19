@@ -31,12 +31,23 @@ Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, 
 });
 
 // for modules
-Object.entries(
-    import.meta.glob('../../Modules/**/*.vue', { eager: true }))
-    .forEach(([path, definition]) => {
-    app.component(
-        path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-});
+// Object.entries(
+//     import.meta.glob('../../Modules/**/*.vue', { eager: true }))
+//     .forEach(([path, definition]) => {
+//     app.component(
+//         path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+// });
+
+const vueComponents = import.meta.glob('../../Modules/**/*.vue', { eager: true });
+
+for (const path in vueComponents) {
+    if (Object.hasOwnProperty.call(vueComponents, path)) {
+        const componentName = path.split('/').pop().replace(/\.\w+$/, '');
+        const component = await vueComponents[path]();
+        app.component(componentName, component.default);
+    }
+}
+
 
 /**
  * Finally, we will attach the application instance to a HTML element with
