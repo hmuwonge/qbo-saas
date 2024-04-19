@@ -67,11 +67,12 @@ use Carbon\Carbon;
           This item <u>may not have been registered</u> with the URA EFRIS platform the first time. Please submit the form below to register it with the URA platform
         </div>
       @endif
-      <register-product
-        :item="{{json_encode($item)}}"
-        :master-data="{{json_encode($masterdata)}}"
-        :redo="{{json_encode($redo)}}"
-      />
+          <example-component></example-component>
+{{--      <register-product--}}
+{{--        :item="{{json_encode($item)}}"--}}
+{{--        :master-data="{{json_encode($masterdata)}}"--}}
+{{--        :redo="{{json_encode($redo)}}"--}}
+{{--      />--}}
     </div>
 @endsection
 
