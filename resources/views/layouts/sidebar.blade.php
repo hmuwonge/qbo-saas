@@ -488,6 +488,11 @@
                                         <a class="dash-link"
                                            href="{{ route('qbo.stockadjustments') }}">{{ __('Stock Adjustments') }}</a>
                                     </li>
+
+                                    <li class="dash-item {{ request()->is('quickbooks/creditmemos*') ? 'active' : '' }}">
+                                        <a class="dash-link"
+                                           href="{{ route('qbo.creditnotes.index') }}">{{ __('Credit Notes') }}</a>
+                                    </li>
                             </ul>
                         </li>
 

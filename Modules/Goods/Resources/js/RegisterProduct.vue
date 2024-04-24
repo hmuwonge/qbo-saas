@@ -1,89 +1,98 @@
 <template>
   <div>
     <div class="rounded drop-shadow">
-      <div class="card">
-        <div class="row p-2">
-          <div class="card-body border rounded col-xl-6 col-md-6 col-sm-12">
-            <table class="table table-striped table-bordered">
-              <tr class="px-2">
-                <th class="text-left text-base md:text-sm md:font-bold">
-                  Name
-                </th>
-                <td>{{ item?.Item?.FullyQualifiedName }}</td>
-              </tr>
-              <tr>
-                <th class="text-left md:text-sm md:font-bold">Product Code</th>
-                <td>{{ item?.Item?.Sku ?? "null" }}</td>
-              </tr>
-              <tr>
-                <th class="text-left sm:text-sm sm:font-bold">Description</th>
-                <td>{{ item?.Item?.Description }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Product Type</th>
-                <td>{{ item?.Item?.Type }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Unit Price</th>
-                <td>{{ item?.Item?.UnitPrice }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Purchase Cost</th>
-                <td>{{ item?.Item?.PurchaseCost }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Preferred Vendor</th>
-                <td>{{ item?.Item?.PrefVendorRef?.name }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Quantity in hand</th>
-                <td>{{ item?.Item?.QtyOnHand }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Re-order point</th>
-                <td>{{ item?.Item?.ReorderPoint }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Inventory Start Date</th>
-                <td>{{ item?.Item?.InvStartDate }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Registered on</th>
-                <td>{{ item?.Item?.MetaData?.CreateTime }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Last updated on</th>
-                <td>
-                  {{ item?.Item?.MetaData?.LastUpdatedTime }}
-                </td>
-              </tr>
-              <tr>
-                <th class="text-left">Expense Account</th>
-                <td>
-                  {{ item?.Item?.ExpenseAccountRef?.name }}
-                </td>
-              </tr>
-              <tr>
-                <th class="text-left">Assets Account</th>
-                <td>{{ item?.Item?.AssetAccountRef?.name }}</td>
-              </tr>
-              <tr>
-                <th class="text-left">Income Account</th>
-                <td>
-                  {{ item?.Item?.IncomeAccountRef?.name }}
-                </td>
-              </tr>
-              <tr>
-                <th class="text-left">Is Taxable</th>
-                <td>
-                  {{ item?.Item?.Taxable ? "Yes" : "No" }}
-                </td>
-              </tr>
-            </table>
+      <div class="row">
+        <div class="col-xl-6 col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-body border rounded ">
+              <div class="table-responsive">
+                  <table class="table table-striped table-bordered">
+                      <tr class="px-2">
+                          <th class="text-left text-base md:text-sm md:font-bold">
+                              Name
+                          </th>
+                          <td>{{ item?.Item?.FullyQualifiedName }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left md:text-sm md:font-bold">Product Code</th>
+                          <td>{{ item?.Item?.Sku ?? "null" }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left sm:text-sm sm:font-bold">Description</th>
+                          <td>{{ item?.Item?.Description }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Product Type</th>
+                          <td>{{ item?.Item?.Type }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Unit Price</th>
+                          <td>{{ item?.Item?.UnitPrice }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Purchase Cost</th>
+                          <td>{{ item?.Item?.PurchaseCost }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Preferred Vendor</th>
+                          <td>{{ item?.Item?.PrefVendorRef?.name }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Quantity in hand</th>
+                          <td>{{ item?.Item?.QtyOnHand }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Re-order point</th>
+                          <td>{{ item?.Item?.ReorderPoint }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Inventory Start Date</th>
+                          <td>{{ item?.Item?.InvStartDate }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Registered on</th>
+                          <td>{{ item?.Item?.MetaData?.CreateTime }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Last updated on</th>
+                          <td>
+                              {{ item?.Item?.MetaData?.LastUpdatedTime }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Expense Account</th>
+                          <td>
+                              {{ item?.Item?.ExpenseAccountRef?.name }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Assets Account</th>
+                          <td>{{ item?.Item?.AssetAccountRef?.name }}</td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Income Account</th>
+                          <td>
+                              {{ item?.Item?.IncomeAccountRef?.name }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <th class="text-left">Is Taxable</th>
+                          <td>
+                              {{ item?.Item?.Taxable ? "Yes" : "No" }}
+                          </td>
+                      </tr>
+                  </table>
+              </div>
+
+          </div>
+          </div>
           </div>
 
+          <div class="col-xl-6 col-md-6 col-sm-12">
+              <div class="card">
+                  <div class="card-body border rounded ">
           <div
-            class="w-full ml-2 overflow-y-auto h-full border rounded col-xl-6 col-md-6 col-sm-12"
+            class="w-full ml-2 overflow-y-auto"
           >
             <div
               class="p-2 bg-info mb-2 border-box d-flex justify-content-between"
@@ -630,7 +639,7 @@
                   <!--                    <span v-else>Submit</span>-->
                   <!--                  </PrimaryButton>-->
                   <PrimaryButton
-                    class="bg-sky-600 text-white cursor-pointer rounded py-0.5 px-1.5"
+                    class="btn-secondary cursor-pointer py-0.5 px-1.5"
                     :class="{ 'opacity-25 loading': loading }"
                     :disabled="loading"
                     type="submit"
@@ -642,6 +651,8 @@
               </div>
             </form>
           </div>
+        </div>
+        </div>
         </div>
       </div>
     </div>

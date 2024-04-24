@@ -1,6 +1,8 @@
 <?php
 
 use Modules\Invoices\Http\Controllers\ValidationsController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,9 @@ use Modules\Invoices\Http\Controllers\ValidationsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['prefix' => 'quickbooks/creditmemos', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+Route::group(['prefix' => 'quickbooks/creditmemos', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token',
+    InitializeTenancyByDomainOrSubdomain::class,
+    PreventAccessFromCentralDomains::class,]], function () {
 // Route::prefix('quickbooks/creditmemos')->group(function() {
     Route::get('/', 'CreditMemosController@index')->name('qbo.creditnotes.index');
     Route::get('fiscalise-credit-note/{id}', 'CreditMemosController@fiscaliseCreditnote');

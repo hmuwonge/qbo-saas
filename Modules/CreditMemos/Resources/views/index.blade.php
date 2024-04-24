@@ -16,9 +16,7 @@
     <div class="page-block">
       <div class="row align-items-center">
         <div class="col-md-12">
-          <div class="page-header-title">
-            <h4 class="m-b-10">{{ __('All Quickbooks Credit Memos') }}</h4>
-          </div>
+
           <ul class="breadcrumb">
             <li class="breadcrumb-item "><a href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
             <li class="breadcrumb-item">{{ __('Quickbooks') }}</li>
@@ -40,35 +38,37 @@
                     <a href="{{ route('sync.creditnotes') }}" class="btn btn-sm btn-primary">Validate Credit
                         memos</a>
                 </div>
+
+                <div class="d-inline-flex gap-1">
+                    {!! Form::open([
+                        'route' => 'quickbooks.link-credit-note',
+                        'method' => 'Post',
+                        'class' => 'form-horizontal  row g-3  d-none',
+                        'id' => 'credit_memo_form',
+                    ]) !!}
+                    {{ Form::hidden('crednoteType', 'CN') }}
+                    {{ Form::hidden('unlink', null, ['id' => 'isUnlink']) }}
+                    <div class="col-auto">
+                        <label>ID</label><br />
+                        {{ Form::number('creditnoteId', null, ['class' => 'form-control form-control-sm', 'id' => 'creditnote_id', 'style' => 'width:250px;']) }}
+                    </div>
+                    <div class="col-auto">
+                        <label>Credit Note Ref.</label><br />
+                        {{ Form::text('creditnoteRef', null, ['class' => 'form-control form-control-sm', 'id' => 'creditnote_ref', 'style' => 'width:250px;']) }}
+                    </div>
+                    <div class="col-auto ">
+                        <label>Original Invoice FDN</label><br />
+                        <div class="input-group">
+                            {{ Form::text('invoiceFdn', null, ['class' => 'form-control form-control-sm', 'id' => 'invoice_fdn', 'style' => 'width:250px;']) }}
+                            <button type="submit" class="btn btn-primary btn-sm">Link Credit
+                                Note</button>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
                 <div class="card-body">
 
-          <div class="d-inline-flex gap-1">
-            {!! Form::open([
-                'route' => 'quickbooks.link-credit-note',
-                'method' => 'Post',
-                'class' => 'form-horizontal  row g-3  d-none',
-                'id' => 'credit_memo_form',
-            ]) !!}
-            {{ Form::hidden('crednoteType', 'CN') }}
-            {{ Form::hidden('unlink', null, ['id' => 'isUnlink']) }}
-            <div class="col-auto">
-              <label>ID</label><br />
-              {{ Form::number('creditnoteId', null, ['class' => 'form-control form-control-sm', 'id' => 'creditnote_id', 'style' => 'width:250px;']) }}
-            </div>
-            <div class="col-auto">
-              <label>Credit Note Ref.</label><br />
-              {{ Form::text('creditnoteRef', null, ['class' => 'form-control form-control-sm', 'id' => 'creditnote_ref', 'style' => 'width:250px;']) }}
-            </div>
-            <div class="col-auto ">
-              <label>Original Invoice FDN</label><br />
-              <div class="input-group">
-                {{ Form::text('invoiceFdn', null, ['class' => 'form-control form-control-sm', 'id' => 'invoice_fdn', 'style' => 'width:250px;']) }}
-                <button type="submit" class="btn btn-primary btn-sm">Link Credit
-                  Note</button>
-              </div>
-            </div>
-            {!! Form::close() !!}
-          </div>
+
 
 
           <div class="table-responsive">

@@ -6,7 +6,16 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-import ExampleComponent from './components/ExampleComponent.vue';
+import RegisterProduct from "../../Modules/Goods/Resources/js/RegisterProduct.vue";
+import SystemInput from "./components/system-input.vue";
+import PrimaryButton from "./components/PrimaryButton.vue";
+import SecondaryButton from "./components/SecondaryButton.vue";
+import InputLabel from "./components/InputLabel.vue";
+import InputError from "./components/InputError.vue";
+import Loader from "./components/Loader.vue";
+import Checkbox from "./components/Checkbox.vue";
+import DangerButton from "./components/DangerButton.vue";
+import TextInput from "./components/TextInput.vue";
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -30,32 +39,19 @@ const app = createApp({});
 //     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
 // });
 
-app.component('example-component', ExampleComponent);
+
+app.component('register-product', RegisterProduct);
+app.component('system-input', SystemInput);
+app.component('text-input', TextInput);
+app.component('primary-button', PrimaryButton);
+app.component('secondary-button', SecondaryButton);
+app.component('input-error', InputError);
+app.component('input-label', InputLabel);
+app.component('loader', Loader);
+app.component('checkbox', Checkbox);
+app.component('danger-button', DangerButton);
 
 // for modules
-// Object.entries(
-//     import.meta.glob('../../Modules/**/*.vue', { eager: true }))
-//     .forEach(([path, definition]) => {
-//     app.component(
-//         path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-// const vueComponents = import.meta.glob('../../Modules/**/*.vue', { eager: true });
-//
-// for (const path in vueComponents) {
-//     if (Object.hasOwn(vueComponents, path)) {
-//         const componentName = path.split('/').pop().replace(/\.\w+$/, '');
-//         const component = await vueComponents[path]();
-//         app.component(componentName, component.default);
-//     }
-// }
-
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(
-//         path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
-
-
 /**
  * Finally, we will attach the application instance to a HTML element with
  * an "id" attribute of "app". This element is included with the "auth"

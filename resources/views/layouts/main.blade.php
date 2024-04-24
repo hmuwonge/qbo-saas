@@ -46,7 +46,7 @@ $color = $primary_color ?? 'theme-1';
     @endif
 
 {{--    <script src="{{asset('js/app.js')}}"></script>--}}
-    <script src="{{ mix('js/app.js') }}"></script>
+
 
     @stack('css')
 </head>
@@ -238,7 +238,7 @@ $color = $primary_color ?? 'theme-1';
     @if (Utility::getsettings('cookie_setting_enable') == 'on')
         @include('layouts.cookie-consent')
     @endif
-
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
 
 </html>

@@ -11,8 +11,14 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/sass/app.scss', 'public/css')
-    .sourceMaps();
+
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue();
+    .vue()
+    .postCss("resources/css/tailwind.css", "public/css", [
+        require("tailwindcss")
+
+    ])
+    .sass('resources/sass/app.scss', 'public/css')
+    .autoload({jquery:['$','window.jquery']})
+    .sourceMaps();
