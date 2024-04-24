@@ -6,7 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-
+import ExampleComponent from './components/ExampleComponent.vue';
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -26,9 +26,11 @@ const app = createApp({});
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-    app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-});
+// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
+//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+// });
+
+app.component('example-component', ExampleComponent);
 
 // for modules
 // Object.entries(
@@ -38,15 +40,20 @@ Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, 
 //         path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
 // });
 
-const vueComponents = import.meta.glob('../../Modules/**/*.vue', { eager: true });
+// const vueComponents = import.meta.glob('../../Modules/**/*.vue', { eager: true });
+//
+// for (const path in vueComponents) {
+//     if (Object.hasOwn(vueComponents, path)) {
+//         const componentName = path.split('/').pop().replace(/\.\w+$/, '');
+//         const component = await vueComponents[path]();
+//         app.component(componentName, component.default);
+//     }
+// }
 
-for (const path in vueComponents) {
-    if (Object.hasOwnProperty.call(vueComponents, path)) {
-        const componentName = path.split('/').pop().replace(/\.\w+$/, '');
-        const component = await vueComponents[path]();
-        app.component(componentName, component.default);
-    }
-}
+// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
+//     app.component(
+//         path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+// });
 
 
 /**

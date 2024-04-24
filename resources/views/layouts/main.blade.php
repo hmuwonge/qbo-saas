@@ -1,10 +1,6 @@
 @php
     $primary_color = \App\Facades\UtilityFacades::getsettings('color');
-    if (isset($primary_color)) {
-        $color = $primary_color;
-    } else {
-        $color = 'theme-1';
-    }
+$color = $primary_color ?? 'theme-1';
     $users = \Auth::user();
     $currantLang = $users->currentLanguage();
 @endphp
@@ -49,6 +45,9 @@
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link">
     @endif
 
+{{--    <script src="{{asset('js/app.js')}}"></script>--}}
+    <script src="{{ mix('js/app.js') }}"></script>
+
     @stack('css')
 </head>
 
@@ -87,7 +86,7 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- [ sample-page ] start -->
-                <div class="col-sm-12">
+                <div class="col-sm-12" id="app">
                     @yield('content')
                 </div>
                 <!-- [ sample-page ] end -->

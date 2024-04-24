@@ -53,7 +53,7 @@ use Carbon\Carbon;
 
     </div>
     <!-- END PAGE HEADER -->
-    <div id="app">
+    <div id="appd">
       @if ($efItem && $redo == "no")
         <div class="alert alert-warning">
           <span class="micon dw dw-info"></span>
@@ -67,12 +67,13 @@ use Carbon\Carbon;
           This item <u>may not have been registered</u> with the URA EFRIS platform the first time. Please submit the form below to register it with the URA platform
         </div>
       @endif
+          kjhgfdsgkj
           <example-component></example-component>
-{{--      <register-product--}}
-{{--        :item="{{json_encode($item)}}"--}}
-{{--        :master-data="{{json_encode($masterdata)}}"--}}
-{{--        :redo="{{json_encode($redo)}}"--}}
-{{--      />--}}
+      <register-product
+        :item="{{json_encode($item)}}"
+        :master-data="{{json_encode($masterdata)}}"
+        :redo="{{json_encode($redo)}}"
+      />
     </div>
 @endsection
 
