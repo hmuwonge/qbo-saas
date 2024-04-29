@@ -506,6 +506,70 @@ $color = $primary_color ?? 'theme-4';
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-6">
+{{--                                        <div class="form-group">--}}
+{{--                                            {{ Form::label('roles', __('User Registration Role'), ['class' => 'form-label']) }}--}}
+{{--                                            {!! Form::select('roles', $roles, Utility::getsettings('roles'), [--}}
+{{--                                                'class' => 'form-control',--}}
+{{--                                                'data-trigger',--}}
+{{--                                            ]) !!}--}}
+{{--                                            <div class="invalid-feedback">--}}
+{{--                                                {{ __('Role is required') }}--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+
+                                        <div class="form-group">
+                                            <label for="time_format" class="form-label">{{ __('Invoice Print Type') }}</label>
+                                            <select name="invoice_print_type" class="form-select">
+                                                <option value="A4"
+                                                    {{ Utility::getsettings('invoice_print_type') == 'A4' ? 'selected' : '' }}>
+                                                    {{ __('A4') }}</option>
+                                                <option value="58mm"
+                                                    {{ Utility::getsettings('invoice_print_type') == '58mm' ? 'selected' : '' }}>
+                                                    {{ __('58 mmm') }}</option>
+
+                                                <option value="72mm"
+                                                    {{ Utility::getsettings('invoice_print_type') == '72mm' ? 'selected' : '' }}>
+                                                    {{ __('72mm') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label for="time_format" class="form-label">{{ __('Industry Code') }}</label>
+                                            <select name="industry_code" class="form-select">
+                                                <option value="101"
+                                                    {{ Utility::getsettings('industry_code') == '101' ? 'selected' : '' }}>
+                                                    {{ __('General Industry') }}</option>
+                                                <option value="102"
+                                                    {{ Utility::getsettings('industry_code') == '102' ? 'selected' : '' }}>
+                                                    {{ __('Export') }}</option>
+
+                                                <option value="104"
+                                                    {{ Utility::getsettings('industry_code') == '104' ? 'selected' : '' }}>
+                                                    {{ __('Imported Service') }}</option>
+
+                                                <option value="105"
+                                                    {{ Utility::getsettings('industry_code') == '105' ? 'selected' : '' }}>
+                                                    {{ __('Telecom') }}</option>
+
+                                                <option value="106"
+                                                    {{ Utility::getsettings('industry_code') == '106' ? 'selected' : '' }}>
+                                                    {{ __('Stamp Duty') }}</option>
+
+                                                <option value="107"
+                                                    {{ Utility::getsettings('industry_code') == '107' ? 'selected' : '' }}>
+                                                    {{ __('Hotel Service') }}</option>
+
+                                                <option value="108"
+                                                    {{ Utility::getsettings('industry_code') == '108' ? 'selected' : '' }}>
+                                                    {{ __('Other Taxes') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">

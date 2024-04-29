@@ -166,6 +166,7 @@ class InvoicesController extends Controller
     $countQuery =  "SELECT count(*) FROM Invoice";
 
     $quickbooks_invoices_count = $this->postQuery($countQuery);
+//    dd($quickbooks_invoices_count);
 
     $totalRecords = $quickbooks_invoices_count['QueryResponse']['totalCount'];
 

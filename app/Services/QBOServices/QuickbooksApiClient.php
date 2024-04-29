@@ -27,8 +27,8 @@ class QuickbooksApiClient
 
   public static function queryPurchasesData1000()
   {
-    $queryString = '/query?query=select * from Bill maxresults 1000&minorversion=57';
-    $qbo_purchases = (new self())->queryString($queryString);
+    $queryString = 'select * from Bill maxresults 1000';
+    $qbo_purchases = (new self())->postQuery($queryString);
 
     return json_decode(json_encode($qbo_purchases), true)['QueryResponse']['Bill']??[];
   }
