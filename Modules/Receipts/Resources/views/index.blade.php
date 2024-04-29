@@ -1,12 +1,3 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
 @section('styles')
@@ -17,7 +8,7 @@
     <script src="{{ asset('assets/js/daterangepicker/daterangepicker.js') }}"></script>
 @endpush
 
-@section('title', 'All Receipts')
+{{--@section('title', 'All Receipts')--}}
 
 @section('content')
     <!-- PAGE HEADER -->

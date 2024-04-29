@@ -638,7 +638,7 @@
                   <!--                    <span v-if="loading === true" class="">Please wait...</span>-->
                   <!--                    <span v-else>Submit</span>-->
                   <!--                  </PrimaryButton>-->
-                  <PrimaryButton
+                  <primary-button
                     class="btn-secondary cursor-pointer py-0.5 px-1.5"
                     :class="{ 'opacity-25 loading': loading }"
                     :disabled="loading"
@@ -646,7 +646,7 @@
                   >
                     <span v-if="loading">Please wait...</span>
                     <span v-else>Register</span>
-                  </PrimaryButton>
+                  </primary-button>
                 </div>
               </div>
             </form>
