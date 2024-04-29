@@ -64,11 +64,13 @@
           </div>
         </div>
       </div>
+
       <hr class="my-0" />
-      <div class="card-body">
+      <div class="card-bod">
+
         <div class="table-responsive mt-10">
           <h4 class="text-2xl mb-2">Goods & Services</h4>
-          <table class="table table-striped table-bordered w-full border">
+          <table class="table table-striped table-bordered border">
             <thead class="border bg-secondary text-base">
               <tr>
                 <th scope="col" class="">Type</th>

@@ -66,6 +66,7 @@
                     </div>
                     {!! Form::close() !!}
                 </div>
+
                 <div class="card-body">
 
 
@@ -182,7 +183,7 @@
     <!-- END ROW -->
     @endsection
 
-    @section('scripts')
+      @push('javascript')
       <!-- INDEX JS -->
       <script>
         function assignFormFields(id, ref) {
@@ -202,4 +203,4 @@
           return true;
         }
       </script>
-@endsection
+@endpush

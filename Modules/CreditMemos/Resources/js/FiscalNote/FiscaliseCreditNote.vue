@@ -1,6 +1,7 @@
 <template>
   <div class="card">
     <div class="d-flex row card-body">
+
       <div class="col-9 bg-white rounded-md">
         <form id="fiscalise-credit-memo-form" @submit.prevent="submitForm">
           <h3 class="p-2 font-extrabold text-2xl">
@@ -278,7 +279,7 @@
 
 <script setup>
 import { ref, onMounted, reactive, toRaw } from "vue";
-import { XCircleIcon } from "@heroicons/vue/outline";
+// import { XCircleIcon } from "@heroicons/vue/outline";
 // import { XCircleIcon } from "@heroicons/vue/solid";
 import Swal from "sweetalert2";
 // import Spinner from "@/Components/Spinner.vue";
