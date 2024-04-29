@@ -48,7 +48,6 @@
                             {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-control form-control-sm', 'id' => 'industry_code', 'style' => 'width:200px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
                         </div>
 
-
                       <div class="d-inline-flex gap-1 col-auto">
                         {!! Form::open([
                             'route' => ['qbo.receipts.range', 'validate' => 'no'],

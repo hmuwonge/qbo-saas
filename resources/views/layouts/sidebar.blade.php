@@ -471,9 +471,41 @@
                                     </li>
                                 @endcan
                                 @can('manage-sms-template')
-                                    <li class="dash-item {{ request()->is('fiscalised-receipts*') ? 'active' : '' }}">
+                                    <li class="dash-item {{ request()->is('quickbooks/receipts*') ? 'active' : '' }}">
                                         <a class="dash-link"
-                                           href="{{ route('ura.receipts') }}">{{ __('Receipts') }}</a>
+                                           href="#!">{{ __('Receipts') }}</a>
+
+                                        <ul class="dash-submenu">
+                                            <li class="dash-item {{ request()->is('receipts*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.receipts.index') }}">{{ __('All') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('fiscalised*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.receipts.ura') }}">{{ __('Fiscalised') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('validation-errors*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.receipts.errors') }}">{{ __('Validation Errors') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('failed-validations*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.receipts.failed') }}">{{ __('Failed Validations') }}
+                                                </a>
+                                            </li>
+
+                                            <li class="dash-item {{ request()->is('passed-validations*') ? 'active' : '' }}">
+                                                <a class="dash-link"
+                                                   href="{{ route('qbo.receipts.passed') }}">{{ __('Passed Validations') }}
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 @endcan
                                     <li class="dash-item {{ request()->is('quickbooks/goods*') ? 'active' : '' }}">
