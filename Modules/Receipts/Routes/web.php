@@ -31,4 +31,11 @@ Route::group(['prefix' => 'quickbooks/receipts', 'middleware' => ['auth', 'web',
 
   Route::get('receipts-range/{validate}', [ReceiptsController::class, 'receiptsDateRange'])->name('qbo.receipts.range');
 });
-Route::get('validate/all/receipts', [ValidationsController::class, 'validateReceipts'])->name('receipts.validate');
+
+Route::group(['prefix' => 'validate', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token',
+    InitializeTenancyByDomainOrSubdomain::class,
+    PreventAccessFromCentralDomains::class]], function () {
+    Route::get('/receipts', [ValidationsController::class, 'validateReceipts'])->name('receipts.validate');
+});
+
+

@@ -1,12 +1,13 @@
 <template>
-  <div class="card">
+  <div class="">
     <div class="d-flex row card-body">
 
       <div class="col-9 bg-white rounded-md">
         <form id="fiscalise-credit-memo-form" @submit.prevent="submitForm">
-          <h3 class="p-2 font-extrabold text-2xl">
-            Quickbooks credit memo items
-          </h3>
+
+            <div class="card-header">
+                <h3 class="card-title">Quickbooks credit memo items</h3>
+            </div>
           <table
             class="table table-striped table-bordered text-sm text-left text-black"
           >
@@ -63,7 +64,7 @@
             </tbody>
           </table>
 
-          <div class="my-10 table-responsive">
+          <div class="mt-7 table-responsive">
             <h3 class="p-2 font-extrabold text-2xl">Invoice details</h3>
             <table
               class="table table-bordered table-striped text-sm text-left text-black"

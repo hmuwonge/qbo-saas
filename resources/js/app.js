@@ -8,6 +8,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import RegisterProduct from "../../Modules/Goods/Resources/js/RegisterProduct.vue";
 import FiscalNoteFrame from "../../Modules/CreditMemos/Resources/js/FiscalNote/FiscalNoteFrame.vue";
+import RegisterOpeningStock from "../../Modules/Goods/Resources/js/RegisterOpeningStock.vue";
 import SystemInput from "./components/system-input.vue";
 import PrimaryButton from "./components/PrimaryButton.vue";
 import SecondaryButton from "./components/SecondaryButton.vue";
@@ -42,6 +43,7 @@ const app = createApp({});
 
 
 app.component('register-product', RegisterProduct);
+app.component('register-opening-stock', RegisterOpeningStock);
 app.component('fiscal-note-frame', FiscalNoteFrame);
 app.component('system-input', SystemInput);
 app.component('text-input', TextInput);

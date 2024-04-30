@@ -3,6 +3,7 @@
 namespace Modules\Invoices\Http\Controllers;
 
 use App\Facades\Utility;
+use App\Services\QBOServices\QboQueryService;
 use DateTime;
 use Carbon\Carbon;
 use Exception;
@@ -149,68 +150,7 @@ class InvoicesController extends Controller
 
   public function queryInvoices($list): array
   {
-    ini_set('memory_limit', '2048M'); //Allow up to 2GB for this action
-
-    $period = request()->input('invoice_period');
-    $page = request()->input('page', 1);
-
-    $dates = explode(' to ', $period);
-
-    $oneMonthAgo = new DateTime('1 year ago');
-    $month_ago = $oneMonthAgo->format('Y-m-d');
-
-    $startdate = (isset($period)) ? ($dates[0]) : ($month_ago);
-    $enddate = (isset($period)) ? ($dates[1]) : (date('Y-m-d'));
-
-    $startPosition = intval($page - 1) * 10;
-    $countQuery =  "SELECT count(*) FROM Invoice";
-
-    $quickbooks_invoices_count = $this->postQuery($countQuery);
-//    dd($quickbooks_invoices_count);
-
-    $totalRecords = $quickbooks_invoices_count['QueryResponse']['totalCount'];
-
-    $query = 'select * from Invoice  WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
-      . '\' AND TxnDate <= \'' . Carbon::parse($enddate)->format('Y-m-d')
-      . '\' startposition' . ' ' . $startPosition . ' maxresults 10';
-
-//    $queryString = '/query?query='.$query ;
-    $quickbooks_invoices =$this->postQuery($query);  //(new self())->queryString($query);
-
-    //check if we have a search query
-    if (request()->has('q')){
-      $new_query = request()->input('q');
-      $query = "SELECT * FROM Invoice WHERE DocNumber LIKE '%" . $new_query . "%'";
-
-//      $queryString = '/query?query='.$query ;
-      $quickbooks_invoices = $this->postQuery($query);// (new self())->queryString($query);
-
-      $totalRecords = $quickbooks_invoices['QueryResponse']['totalCount'];
-    }
-
-//    dd($quickbooks_invoices['QueryResponse']);
-
-    $invoices = $quickbooks_invoices['QueryResponse']['Invoice'] ?? [];
-
-    $paginator = new LengthAwarePaginator($invoices, (int)$totalRecords,  10);
-    $paginator->setPath(route('qbo.invoices.all'));
-    $invoicesQbo = $paginator->items();
-    $invoices_decode = json_decode(json_encode($invoicesQbo), true);
-
-    $filteredList = [];
-
-    $filteredList[] = EfrisInvoiceSearch::findQbInvoicesByStatus($invoices_decode, 2, 2);
-
-    $filt = $filteredList[0];
-    return [
-      'filteredList' => $filt,
-      'startdate' => $startdate,
-      'enddate' => $enddate,
-      'date' => $period,
-      'period' => $period,
-      'links' =>  $paginator->links(),
-      'total' => $totalRecords
-    ];
+      return QboQueryService::queryInvoicesOrReceipts($list,'invoice');
   }
 
   public function invoicesRange($validate = "no", $list = "all")

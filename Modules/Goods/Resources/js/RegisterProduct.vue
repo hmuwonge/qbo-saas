@@ -241,7 +241,7 @@
                   </div>
 
                   <div
-                    class="bg-label-secondary p-2 rounded"
+                    class="bg-light-secondary p-2 rounded"
                     v-if="form.havePieceUnit === '101'"
                   >
                     <div class="row my-65">
@@ -379,7 +379,7 @@
                 <!-- <div class="border border-gray-300"></div> -->
                 <!-- ======================= START HAVE OTHER MEASURE UNIT ================= -->
                 <div
-                  class="bg-label-secondary p-2 rounded"
+                  class="bg-light-secondary p-2 rounded"
                   v-if="form.haveOtherUnit === '101'"
                 >
                   <div class="row my-3">
@@ -524,7 +524,7 @@
                 <!-- ======================= START HAVE ALTERNATIVE MEASURE UNIT ================= -->
 
                 <div
-                  class="bg-label-secondary p-2 rounded"
+                  class="bg-light-secondary p-2 rounded"
                   v-if="form.hasOpeningStock === '101'"
                 >
                   <hr />

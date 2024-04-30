@@ -158,7 +158,7 @@ class QuickBooksInvoicesDatatable extends Model
 
     public function getIndustryCodeAttribute()
     {
-        if (isset($this->databaseRecord)) {
+        if (isset($this->databaseRecord) && !empty($this->databaseRecord->industryCode)) {
             $code = $this->databaseRecord->industryCode;
             $industryCode = [
                 101 => 'General Industry',
@@ -184,7 +184,6 @@ class QuickBooksInvoicesDatatable extends Model
 
             return '<span class="fw-bolder">Name: </span>'.$this->databaseRecord->customerName.'<br/><span class="fw-bolder">TIN: </span>'.$this->databaseRecord->buyerTin;
         }
-        //    dd( $this->CustomField);
         return '<span class="fw-bolder">Name: </span>'.@$this->databaseRecord->customerName.'<span class="fw-bolder">TIN: </span>'.@$this->databaseRecord->buyerTin;
 
     }

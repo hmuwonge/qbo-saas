@@ -136,13 +136,11 @@
                         </table>
                     </div>
 
-                    @if ($data['filteredList']->hasPages())
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {{ $data['filteredList']->links() }}
-                            </nav>
-                        </div>
-                    @endif
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

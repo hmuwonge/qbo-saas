@@ -44,7 +44,7 @@ class ValidationsController extends Controller
                     $invoiceCols['dueDate'] = $inv->DueDate;
                     $invoiceCols['balance'] = $inv->Balance;
 
-                    QuickBooksInvoice::saveInvoiceSummary2(intval($inv->Id), $invoiceCols);
+                    QuickBooksInvoice::saveInvoiceSummary(intval($inv->Id), $invoiceCols);
                 }
             return redirect()->back()->with('success', 'Invoice validation tests successfully completed');
         } else {
@@ -119,7 +119,7 @@ class ValidationsController extends Controller
                 $invoiceCols['balance'] = $inv->Balance;
 
 
-                QuickBooksInvoice::saveInvoiceSummary2(intval($inv->Id), $invoiceCols);
+                QuickBooksInvoice::saveInvoiceSummary(intval($inv->Id), $invoiceCols);
 
                 // continue;
                 //Skip and go to next record even if there was an error
@@ -190,7 +190,7 @@ class ValidationsController extends Controller
                 $invoiceCols['balance'] = $receipt->Balance;
                 $invoiceCols['tin'] =get_tin($customfields);
 
-                QuickBooksInvoice::saveInvoiceSummary2(intval($receipt->Id), $invoiceCols, 'RECEIPT');
+                QuickBooksInvoice::saveInvoiceSummary(intval($receipt->Id), $invoiceCols, 'RECEIPT');
             }
             //            } catch (\Throwable $th) {
             //                return $th->getMessage();

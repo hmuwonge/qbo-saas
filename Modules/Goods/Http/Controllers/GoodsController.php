@@ -39,12 +39,12 @@ class GoodsController extends Controller
         $startPosition = intval($page - 1) * $limit;
 
         // Quickbooks Items
-      $countQuery =  "query?query=select count(*) from Item";
-      $quickbooks_invoices_count = $this->makeQuery($countQuery);
+      $countQuery =  "SELECT count(*) FROM Item";
+      $quickbooks_invoices_count = $this->postQuery($countQuery);
       $totalRecords=$quickbooks_invoices_count['QueryResponse']['totalCount'];
 
-        $queryString = "/query?query=select * from Item startposition {$startPosition} maxresults {$limit}&minorversion=57";
-        $quickbooks_items = $this->queryString($queryString);
+        $queryString = "SELECT * FROM Item startposition {$startPosition} maxresults {$limit}&minorversion=57";
+        $quickbooks_items = $this->postQuery($queryString);
 
 
 //      if (request()->has('q')){

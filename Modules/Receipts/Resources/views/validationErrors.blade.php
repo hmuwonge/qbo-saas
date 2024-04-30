@@ -51,7 +51,7 @@
                               </thead>
                             <tbody>
                                 @forelse ($data['filteredList'] as $invoice)
-                                <tr class="hover:bg-gray-100 hover:cursor-pointer" v-for="invoice in invoices?.filteredList?.data" :key="invoice">
+                                <tr class="hover:bg-gray-100 hover:cursor-pointer">
                                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                       {{ $invoice->refNumber }}
                                     </th>
@@ -61,26 +61,24 @@
                                     <td class="px-6 py-4">
                                       {!! $invoice->customerDetails !!}>
 
-                                      </span>
                                     </td>
                                     <td class="px-6 py-2 font-bold text-sm">
                                       {!! $invoice->validationErrors !!}
                                     </td>
                                   </tr>
                                 @empty
+                                    <p>nothing found</p>
                                 @endforelse
 
                             </tbody>
                         </table>
                     </div>
 
-                    @if ($data['filteredList']->hasPages())
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {{ $data['filteredList']->links() }}
-                            </nav>
-                        </div>
-                    @endif
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

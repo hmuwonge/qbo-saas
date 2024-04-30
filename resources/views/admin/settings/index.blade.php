@@ -507,17 +507,7 @@ $color = $primary_color ?? 'theme-4';
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
-{{--                                        <div class="form-group">--}}
-{{--                                            {{ Form::label('roles', __('User Registration Role'), ['class' => 'form-label']) }}--}}
-{{--                                            {!! Form::select('roles', $roles, Utility::getsettings('roles'), [--}}
-{{--                                                'class' => 'form-control',--}}
-{{--                                                'data-trigger',--}}
-{{--                                            ]) !!}--}}
-{{--                                            <div class="invalid-feedback">--}}
-{{--                                                {{ __('Role is required') }}--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
+                                    <div class="col-md-4">
 
                                         <div class="form-group">
                                             <label for="time_format" class="form-label">{{ __('Invoice Print Type') }}</label>
@@ -536,7 +526,7 @@ $color = $primary_color ?? 'theme-4';
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
 
                                         <div class="form-group">
                                             <label for="time_format" class="form-label">{{ __('Industry Code') }}</label>
@@ -567,6 +557,24 @@ $color = $primary_color ?? 'theme-4';
                                                 <option value="108"
                                                     {{ Utility::getsettings('industry_code') == '108' ? 'selected' : '' }}>
                                                     {{ __('Other Taxes') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="time_format" class="form-label">{{ __('Buyer Type') }}</label>
+                                            <select name="buyer_type" class="form-select">
+                                                <option value="1"
+                                                    {{ Utility::getsettings('buyer_type') == '1' ? 'selected' : '' }}>
+                                                    {{ __('Consumer') }}</option>
+                                                <option value="0"
+                                                    {{ Utility::getsettings('time_format') == '0' ? 'selected' : '' }}>
+                                                    {{ __('Government/Business') }}</option>
+
+                                                <option value="2"
+                                                    {{ Utility::getsettings('time_format') == '2' ? 'selected' : '' }}>
+                                                    {{ __('Foreigner') }}</option>
                                             </select>
                                         </div>
                                     </div>

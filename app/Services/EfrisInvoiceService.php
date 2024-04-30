@@ -101,7 +101,7 @@ class EfrisInvoiceService
                     get_tin($customFields)
                 ),
                 'itemsBought' => $this->prepareInvoiceLines($qbInv->CurrencyRef->value,$db_invoice),
-                'remarks' => optional($qbInv->CustomerMemo)->value,
+                'remarks' =>  isset($qbInv->CustomerMemo) ? $qbInv->CustomerMemo->value :null,
             ];
 
             return [
@@ -151,7 +151,7 @@ class EfrisInvoiceService
                     get_tin($custpmFields ),
                 ),
                 'itemsBought' => $this->prepareInvoiceLines($qbInv->CurrencyRef->value,$db_invoice),
-                'remarks' => optional($qbInv->CustomerMemo)->value,
+                'remarks' =>  isset($qbInv->CustomerMemo) ? $qbInv->CustomerMemo->value :null,
             ];
 
             return [
