@@ -55,17 +55,16 @@ class EfrisInvoiceService
      */
     public function createEfrisInvoice($qbInvData, $inv_kind)
     {
-//      dd($qbInvData->Invoice);
-      if ($inv_kind === 'INVOICE' && !empty($qbInvData->Invoice)) {
-        // Remove the first element if $inv_kind is 'INVOICE'
-        $qbInv = $qbInvData->Invoice;
-      }
 
-      if ($inv_kind === 'RECEIPT' && !empty($qbInvData->SalesReceipt)) {
-        // Remove the first element if $inv_kind is 'INVOICE'
-        $qbInv = $qbInvData->SalesReceipt;
-      }
+        if ($inv_kind === 'INVOICE' && !empty($qbInvData->Invoice)) {
+            // Remove the first element if $inv_kind is 'INVOICE'
+            $qbInv = $qbInvData->Invoice[0];
+        }
 
+        if ($inv_kind === 'RECEIPT' && !empty($qbInvData->SalesReceipt)) {
+            // Remove the first element if $inv_kind is 'INVOICE'
+            $qbInv = $qbInvData->SalesReceipt[0];
+        }
         // does this invoice exist?
         if ($qbInv) {
             // DB invcice
@@ -118,7 +117,7 @@ class EfrisInvoiceService
      */
     public function createEfrisInvoiceQbo($qbInvData): bool|array
     {
-        $qbInv = $qbInvData;
+        $qbInv = $qbInvData[0];
         // does this invoice exist?
         if ($qbInv) {
             // DB invcice
@@ -151,7 +150,7 @@ class EfrisInvoiceService
                     get_tin($custpmFields ),
                 ),
                 'itemsBought' => $this->prepareInvoiceLines($qbInv->CurrencyRef->value,$db_invoice),
-                'remarks' =>  isset($qbInv->CustomerMemo) ? $qbInv->CustomerMemo->value :null,
+                'remarks' => isset($qbInv->CustomerMemo) ? $qbInv->CustomerMemo->value :null,
             ];
 
             return [
@@ -220,7 +219,10 @@ class EfrisInvoiceService
 
             //Find details of this product and we're going to check if it's registered
             $efrisProduct = EfrisItem::where('id', $is_registered_item_id)->first();
-            $total = optional($item->SalesItemLineDetail)->TaxInclusiveAmt;
+            $total=0;
+            if (property_exists($item->SalesItemLineDetail, 'TaxInclusiveAmt')) {
+                $total = $item->SalesItemLineDetail->TaxInclusiveAmt;
+            }
             if ($efrisProduct) {
                 //check for deemedflag
 
@@ -230,7 +232,6 @@ class EfrisInvoiceService
                 $deemedFlag = ($item->SalesItemLineDetail->TaxCodeRef->value ?? '') ==config('quickbooks.taxpayer_config.quickbooks_deemed_taxcoderef') ? 1 : 2;
               }
 
-//                $total = isset($item->SalesItemLineDetail->TaxInclusiveAmt) ? $item->SalesItemLineDetail->TaxInclusiveAmt : 0;
 
               if (floatval($total) > 0) {
                 $quantity = optional($item->SalesItemLineDetail)->Qty;
