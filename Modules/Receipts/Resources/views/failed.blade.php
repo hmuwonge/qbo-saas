@@ -1,16 +1,8 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
-@section('styles')
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 
 @section('content')
     <!-- PAGE HEADER -->
@@ -20,7 +12,7 @@
             <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
             <li class="breadcrumb-item" aria-current="page">Quickbooks</li>
             <li class="breadcrumb-item" aria-current="page">Invoices</li>
-            <li class="breadcrumb-item active" aria-current="page">Faile validations</li>
+            <li class="breadcrumb-item active" aria-current="page">Failed validations</li>
         </ol><!-- End breadcrumb -->
 
     </div>
@@ -32,11 +24,11 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Failded Validations</h3>
+                    <h3 class="card-title">Failed Validations</h3>
                 </div>
                 <div class="card-body">
 
-                    <p>Found <code class="highlighter-rouge">{{ $data['total'] }}</code>tbetween <code
+                    <p>Found <code class="highlighter-rouge">{{ $data['total'] }}</code> between <code
                             class="highlighter-rouge">{{ $data['startdate'] }} and {{ $data['enddate'] }}</code>.</p>
                     <div class="table-responsive">
                         <table class="table border table-primary text-nowrap text-md-nowrap table-striped mb-0">

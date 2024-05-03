@@ -1,26 +1,22 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
-@section('styles')
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 
 @section('content')
     <!-- PAGE HEADER -->
+
     <div class="page-header d-sm-flex d-block">
         <ol class="breadcrumb mb-sm-0 mb-3">
             <!-- breadcrumb -->
-            <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
-            <li class="breadcrumb-item " aria-current="page">Quickbooks</li>
-            <li class="breadcrumb-item " aria-current="page">Invoices</li>
-            <li class="breadcrumb-item active" aria-current="page">ValidationErrors</li>
+            <li class="breadcrumb-item">
+                <a href="{{ url('index') }}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('quickbooks.index') }}">Quickbooks</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('qbo.receipts.index') }}">Invoices</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Validation Errors</li>
         </ol><!-- End breadcrumb -->
 
     </div>
@@ -32,10 +28,9 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Invoices That Passed Validations</h3>
+                    <h3 class="card-title">Receipts That Passed Validations</h3>
                 </div>
                 <div class="card-body">
-
 
                     <p>Found <code class="highlighter-rouge">{{$data['total']}}</code></p>
                     <div class="table-responsive">

@@ -30,8 +30,8 @@ class QboQueryService
 
         // Define query string based on type (Invoice or SalesReceipt)
         $tableName = ($type === 'invoice') ? 'Invoice' : 'SalesReceipt';
-        $countQuery = "/query?query=select count(*) from " . $tableName;
-        $quickbooks_items_count = (new self)->makeQuery($countQuery);
+        $countQuery = "select count(*) from " . $tableName;
+        $quickbooks_items_count = (new self)->postQuery($countQuery);
         $totalRecords = $quickbooks_items_count['QueryResponse']['totalCount'];
 
         $query = 'select * from ' . $tableName . ' WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
@@ -39,20 +39,7 @@ class QboQueryService
             . '\' startposition' . ' ' . $startPosition . ' maxresults 10';
 
         $queryString = '/query?query=' . $query;
-        $quickbooks_items = (new self())->queryString($queryString);
-
-//    dd($quickbooks_items);
-
-        //check if we have a search query
-//    if (request()->has('q')) {
-//      $new_query = request()->input('q');
-//      $query = "SELECT * FROM " . $tableName . " WHERE DocNumber LIKE '%" . $new_query . "%'";
-//
-//      $queryString = '/query?query=' . $query;
-//      $quickbooks_items = (new self())->queryString($queryString);
-//
-//      $totalRecords = $quickbooks_items['QueryResponse']['totalCount'];
-//    }
+        $quickbooks_items = (new self())->postQuery($query);
 
         $items = json_decode(json_encode($quickbooks_items['QueryResponse'][$tableName])) ?? [];
 

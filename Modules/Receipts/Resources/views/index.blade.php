@@ -1,12 +1,9 @@
 @extends('layouts.main')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/js/daterangepicker/daterangepicker.css') }}" />
-@endsection
-
-@push('javascript')
-    <script src="{{ asset('assets/js/daterangepicker/daterangepicker.js') }}"></script>
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
 @endpush
+
 
 {{--@section('title', 'All Receipts')--}}
 

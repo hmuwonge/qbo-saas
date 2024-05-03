@@ -43,21 +43,18 @@ class GoodsController extends Controller
       $quickbooks_invoices_count = $this->postQuery($countQuery);
       $totalRecords=$quickbooks_invoices_count['QueryResponse']['totalCount'];
 
-        $queryString = "SELECT * FROM Item startposition {$startPosition} maxresults {$limit}&minorversion=57";
+        $queryString = "SELECT * FROM Item startposition {$startPosition} maxresults {$limit}";
         $quickbooks_items = $this->postQuery($queryString);
 
 
-//      if (request()->has('q')){
-//        $new_query = request()->input('q');
-//        $query = "SELECT * FROM Item WHERE FullyQualifiedName LIKE '%" . $new_query . "%'";
-//
-//        $queryString = '/query?query='.$query ;
-//        $quickbooks_items = (new self())->queryString($queryString);
-//
-//        dd($quickbooks_items);
-//
-//        $totalRecords = $quickbooks_items['QueryResponse']['totalCount'];
-//      }
+        if (request()->has('q')){
+            $new_query = request()->input('q');
+            $query = "SELECT * FROM Item WHERE FullyQualifiedName LIKE '%" . $new_query . "%'";
+
+            $quickbooks_items = (new self())->postQuery($query);
+
+            $totalRecords = $quickbooks_items['QueryResponse']['maxResults']??[];
+        }
          // JSON decode
          $itemsQuery = json_decode(json_encode($quickbooks_items['QueryResponse']['Item']),true);
 

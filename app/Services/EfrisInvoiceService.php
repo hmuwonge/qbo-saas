@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Facades\UtilityFacades;
 use App\Models\EfrisInvoice;
 use App\Models\EfrisItem;
 use App\Models\QuickBooksInvoice;
@@ -228,8 +229,8 @@ class EfrisInvoiceService
 
               $deemedFlag = 2;
 
-              if (config('quickbooks.taxpayer_config.is_deemed_registered') === '101') {
-                $deemedFlag = ($item->SalesItemLineDetail->TaxCodeRef->value ?? '') ==config('quickbooks.taxpayer_config.quickbooks_deemed_taxcoderef') ? 1 : 2;
+              if (UtilityFacades::getsettings('is_deemed_registered') === '101') {
+                $deemedFlag = ($item->SalesItemLineDetail->TaxCodeRef->value ?? '') ==UtilityFacades::getsettings('quickbooks_deemed_taxcoderef') ? 1 : 2;
               }
 
 

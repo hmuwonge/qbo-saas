@@ -1,8 +1,9 @@
 
 @extends('layouts.main')
 @section('title', 'Passed Validations')
-@section('styles')
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 
 @section('content')
     <!-- PAGE HEADER -->
@@ -51,7 +52,7 @@
                     <div class="table-responsive">
                         <table class="table border table-striped text-nowrap text-md-nowrap table-striped mb-0">
                             <thead>
-                                <tr class="bg-secondary">
+                                <tr class="bg-light-secondary">
                                     <th scope="col" class="">
                                         <div class="flex items-center">
                                             #
@@ -147,7 +148,9 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('javascript')
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- APEXCHART JS -->
     <script src="{{ asset('build/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -268,4 +271,4 @@
                 'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     </script>
-@endsection
+@endpush

@@ -1,0 +1,1230 @@
+
+2024-05-03 05:58:28AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 8474.58
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 8474.58
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Amount] => 1000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 1000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1251
+                            [name] => Fanta 300mls
+                        )
+
+                    [UnitPrice] => 1000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Id] => 3
+            [LineNum] => 3
+            [Amount] => 20000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 20000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1245
+                            [name] => Gym:Daily Pass
+                        )
+
+                    [UnitPrice] => 20000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 42
+                        )
+
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 29474.58
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:31AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Software Development
+            [Amount] => 423728.81
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 500000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1249
+                            [name] => Software Development
+                        )
+
+                    [UnitPrice] => 423728.81
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 423728.81
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 63559.32
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 15
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:34AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 8474.58
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 8474.58
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 8474.58
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:38AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 2000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 2000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1247
+                            [name] => Maize Flour 1kg
+                        )
+
+                    [UnitPrice] => 2000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Amount] => 6500
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 6500
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1248
+                            [name] => Ground Nuts
+                        )
+
+                    [UnitPrice] => 6500
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 42
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Id] => 3
+            [LineNum] => 3
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 11800
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 18500
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:41AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 1694.92
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 2000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1247
+                            [name] => Maize Flour 1kg
+                        )
+
+                    [UnitPrice] => 1694.92
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 1694.92
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:44AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 12000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 38
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 42
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Id] => 3
+            [LineNum] => 3
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 30000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 05:58:47AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:38AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Monthly Membership
+            [Amount] => 208333.33
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 245833.33
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1246
+                            [name] => Gym:Monthly Membership
+                        )
+
+                    [UnitPrice] => 208333.33
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Amount] => 16949.15
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 20000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1245
+                            [name] => Gym:Daily Pass
+                        )
+
+                    [UnitPrice] => 16949.15
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 225282.48
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 5000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:41AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation --Discount Invoice
+            [Amount] => 8474.58
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 8474.58
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => --Discount Invoice
+            [Amount] => 6500
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 6500
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1248
+                            [name] => Ground Nuts
+                        )
+
+                    [UnitPrice] => 6500
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 14974.58
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 2246.19
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 15
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:44AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 8474.58
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 8474.58
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 8474.58
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:47AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 16666.67
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 20000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1245
+                            [name] => Gym:Daily Pass
+                        )
+
+                    [UnitPrice] => 16666.67
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 38
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => Monthly Membership
+            [Amount] => 208333.33
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 250000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1246
+                            [name] => Gym:Monthly Membership
+                        )
+
+                    [UnitPrice] => 208333.33
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 38
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 225000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:50AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:54AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Software Development
+            [Amount] => 423728.81
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 500000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1249
+                            [name] => Software Development
+                        )
+
+                    [UnitPrice] => 423728.81
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 423728.81
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-03 06:35:57AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 2000000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 2000000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1250
+                            [name] => Road Construction Service
+                        )
+
+                    [UnitPrice] => 2000000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => Software Development
+            [Amount] => 423728.81
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 500000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1249
+                            [name] => Software Development
+                        )
+
+                    [UnitPrice] => 423728.81
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Id] => 3
+            [LineNum] => 3
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 42
+                        )
+
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 2433728.81
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [4] => stdClass Object
+        (
+            [Amount] => 40000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-03 06:36:00AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 847.46
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 1000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1251
+                            [name] => Fanta 300mls
+                        )
+
+                    [UnitPrice] => 847.46
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Id] => 2
+            [LineNum] => 2
+            [Description] => Fanta 500mls
+            [Amount] => 1271.19
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 1500
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1252
+                            [name] => Fanta 500mls
+                        )
+
+                    [UnitPrice] => 1271.19
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 216
+                            [name] => Sales of Product Income
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 2118.65
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [3] => stdClass Object
+        (
+            [Amount] => 423.73
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 20
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-03 06:36:05AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Amount] => 16949.15
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 20000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1245
+                            [name] => Gym:Daily Pass
+                        )
+
+                    [UnitPrice] => 16949.15
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 51
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 16949.15
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)

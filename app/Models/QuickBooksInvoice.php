@@ -120,7 +120,8 @@ class QuickBooksInvoice extends Model
     /**
      * Details we need to get this invoice fiscalised
      *
-     * @param  int  $id
+     * @param int $id
+     * @throws Exception
      */
     public static function getFiscalInvoiceAtrributes($id, $inv_kind = 'INVOICE')
     {
@@ -143,7 +144,6 @@ class QuickBooksInvoice extends Model
     $qb_record = ($inv_kind == 'INVOICE') ? ($invoice->Invoice) : ($invoice->SalesReceipt);
     $efrisInvoice = (new EfrisInvoiceService())->createEfrisInvoiceQbo($qb_record);
 
-//    return is_array($efrisInvoice) ? ($efrisInvoice['data']) : (false);
     return [
       "data" => is_array($efrisInvoice) ? ($efrisInvoice['data']) : (false),
       "errors"=> is_array($efrisInvoice) ? ($efrisInvoice['errors']) : (false),
@@ -161,7 +161,6 @@ class QuickBooksInvoice extends Model
     {
         if ($inv_kind == 'INVOICE') {
             $item = QuickbooksApiClient::getSingleInvoice($id);
-//            dd($item);
         } else {
           $item = QuickbooksApiClient::getSingleReceipts($id);
         }
@@ -185,6 +184,9 @@ class QuickBooksInvoice extends Model
         return static::where('validationStatus', 0)->limit(500)->get()->toArray();
     }
 
+    /**
+     * @throws Exception
+     */
     public static function saveInvoiceSummary($id, $cols, $inv_kind = 'INVOICE')
     {
         // Allow up to 2GB for this action (if necessary)
@@ -270,72 +272,6 @@ class QuickBooksInvoice extends Model
         $invoice = QuickBooksInvoice::getInvoiceDetails($id, $inv_kind);
         $efrisInvoice = (new EfrisInvoiceService())->createEfrisInvoice($invoice, $inv_kind);
         return $efrisInvoice['errors'];
-    }
-
-    public function createEfrisInvoice($qbinvData, $inv_kind): bool|array
-    {
-        if ($inv_kind === 'INVOICE') {
-            $qbinv = $qbinvData->Invoice;
-        }
-        if ($inv_kind === 'RECEIPT') {
-            $qbinv = $qbinvData->SalesReceipt;
-        }
-
-        // does this invoice exist?
-        if ($qbinv) {
-            // DB invcice
-            $dbInvoice = QuickBooksInvoice::where(['id' => $qbinv->Id, 'invoice_kind' => $inv_kind])->first();
-
-            // Init lines
-            (new EfrisInvoiceService())->initInvoiceLines($qbinv->Line);
-
-            // get buyertin
-            $customFields = $qbinv->CustomField;
-
-            if ($customFields[0]->Name == 'TIN') {
-                if (!property_exists($customFields[0], 'StringValue')) {
-                    $this->tin = '';
-                } else {
-                    $this->tin = $customFields[0]->StringValue;
-                }
-            }
-
-            //BuyerType
-            $buyerTyp = isset($dbInvoice->buyerType) ? ($dbInvoice->buyerType) : 0;
-
-            (new EfrisInvoiceService())->prepareInvoiceLines($qbinv->CurrencyRef->value);
-            //Efris Formarted Invoice Request
-            $efrisInvoice = [
-                'sellerDetails' => [
-                    'placeOfBusiness' => auth()->user()->company->address,
-                    'referenceNo' => $qbinv->DocNumber,
-                ],
-                'basicInformation' => [
-                    'invoiceNo' => $qbinv->DocNumber,
-                    'operator' => auth()->user()->name,
-                    'currency' => $qbinv->CurrencyRef->value,
-                    'invoiceType' => 1,
-                    'invoiceKind' => 1,
-                    'invoiceIndustryCode' => 101, //General Industry
-                ],
-                'discountTotal' => $this->getItemDiscountAmount(),
-                'lineDiscounts' => $this->invoiceLineDiscount,
-                'buyerDetails' => (new EfrisInvoiceService())->getCustomerDetails(
-                    $qbinv->CustomerRef->value,
-                    $buyerTyp,
-                    $this->tin,
-                ),
-                'itemsBought' => (new EfrisInvoiceService())->prepareInvoiceLines($qbinv->CurrencyRef->value),
-                'remarks' => optional($qbinv->CustomerMemo)->value,
-            ];
-
-            return [
-                'data' => $this->addInvoiceDiscountLines($efrisInvoice),
-                'errors' => (new EfrisInvoiceService())->getInvoiceValidationMessages($efrisInvoice),
-            ];
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -424,13 +360,4 @@ class QuickBooksInvoice extends Model
         return $this->discountAmount;
     }
 
-
-  public function queryInvoiceData()
-  {
-    $queryString = '/query?query=select * from Invoice maxresults 1000&minorversion=57';
-    $quickbooks_invoices = (new self())->queryString($queryString);
-
-    return json_decode(json_encode($quickbooks_invoices), false)['QueryResponse']['Invoice']??[];
-//    return json_decode(json_encode($invoices), false);
-  }
 }
