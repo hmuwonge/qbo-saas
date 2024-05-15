@@ -569,12 +569,15 @@ $color = $primary_color ?? 'theme-4';
                                                     {{ Utility::getsettings('buyer_type') == '1' ? 'selected' : '' }}>
                                                     {{ __('Consumer') }}</option>
                                                 <option value="0"
-                                                    {{ Utility::getsettings('time_format') == '0' ? 'selected' : '' }}>
-                                                    {{ __('Government/Business') }}</option>
+                                                    {{ Utility::getsettings('buyer_type') == '0' ? 'selected' : '' }}>
+                                                    {{ __('Business') }}</option>
 
                                                 <option value="2"
-                                                    {{ Utility::getsettings('time_format') == '2' ? 'selected' : '' }}>
+                                                    {{ Utility::getsettings('buyer_type') == '2' ? 'selected' : '' }}>
                                                     {{ __('Foreigner') }}</option>
+                                                <option value="3"
+                                                    {{ Utility::getsettings('buyer_type') == '3' ? 'selected' : '' }}>
+                                                    {{ __('Government') }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -2116,11 +2119,17 @@ $color = $primary_color ?? 'theme-4';
                                             </div>
 
                                             <div class="form-group">
-                                                {{ Form::label('Is Deemed flag registered', __('Is Deemed flag registered'), ['class' => 'form-label']) }}
-                                                {!! Form::text('is_deemedflag_registered', Utility::getsettings('is_deemedflag_registered'), [
-                                                    'placeholder' => __('Enter deemed flag registered value'),
-                                                    'class' => 'form-control',
-                                                ]) !!}
+
+                                                <label for="name"
+                                                       class="form-label">{{ __('Is Deemed flag registered') }}</label>
+                                                <select name="is_deemedflag_registered" class="form-select">
+                                                    <option value="101"
+                                                        {{ Utility::getsettings('is_deemedflag_registered') == '101' ? 'selected' : '' }}>
+                                                        {{ __('Yes') }}</option>
+                                                    <option value="102"
+                                                        {{ Utility::getsettings('is_deemedflag_registered') == '102' ? 'selected' : '' }}>
+                                                        {{ __('No') }}</option>
+                                                </select>
                                             </div>
 
                                         </div>

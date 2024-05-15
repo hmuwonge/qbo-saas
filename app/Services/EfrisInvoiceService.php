@@ -218,26 +218,47 @@ class EfrisInvoiceService
                 $is_registered_item_id = $item->SalesItemLineDetail->ItemRef->value;
             }
 
-            //Find details of this product and we're going to check if it's registered
-            $efrisProduct = EfrisItem::where('id', $is_registered_item_id)->first();
             $total=0;
             if (property_exists($item->SalesItemLineDetail, 'TaxInclusiveAmt')) {
                 $total = $item->SalesItemLineDetail->TaxInclusiveAmt;
             }
+
+
+            //Find details of this product and we're going to check if it's registered
+            $efrisProduct = EfrisItem::where('id', $is_registered_item_id)->first();
+//            $total = isset($item->SalesItemLineDetail) ? $item->SalesItemLineDetail->TaxInclusiveAmt : 0;
+
+
+            $is_deemed_registered=UtilityFacades::getsettings('is_deemedflag_registered');
+            $quickbooks_deemed_taxcoderef=UtilityFacades::getsettings('deemed_tax_rate');
+
+
             if ($efrisProduct) {
                 //check for deemedflag
 
-              $deemedFlag = 2;
+                // Check if deemed registered flag indicates specific status
+                if ($is_deemed_registered === '101' && property_exists($item->SalesItemLineDetail, 'TaxCodeRef')) {
+                    // Attempt to get tax code reference from item details
+                    $taxCodeRef = $item->SalesItemLineDetail ? $item->SalesItemLineDetail->TaxCodeRef->value : '';
+                }
 
-              if (UtilityFacades::getsettings('is_deemed_registered') === '101') {
-                $deemedFlag = ($item->SalesItemLineDetail->TaxCodeRef->value ?? '') ==UtilityFacades::getsettings('quickbooks_deemed_taxcoderef') ? 1 : 2;
-              }
+
+//                1: deemed 2: not deemed
+
+                // Compare with QuickBooks reference, handle potential null values
+                if (isset($taxCodeRef) && $taxCodeRef === $quickbooks_deemed_taxcoderef) {
+                    $deemedFlag = 1;
+                } else {
+                    $deemedFlag = 2;
+                }
+
+//                dd($deemedFlag);
 
 
-              if (floatval($total) > 0) {
-                $quantity = optional($item->SalesItemLineDetail)->Qty;
+                if (floatval($total) > 0) {
+                    $quantity = optional($item->SalesItemLineDetail)->Qty;
 
-                $unitPrice = ($quantity == 0) ? (0) : (round(($total / $quantity), 7)); //UnitPrice
+                    $unitPrice = ($quantity == 0) ? (0) : (round(($total / $quantity), 7)); //UnitPrice
                     //$unitPrice = @$item->SalesItemLineDetail->UnitPrice;
                     if ($quantity == 0) {
                         //Record validation error
@@ -252,46 +273,30 @@ class EfrisInvoiceService
 
                         // hard code unit of measure for adept
                         $unit_of_measure = $efrisProduct->unitOfMeasure;
+
+
+                        // Define tax codes from the .env file
+                        $exemptTaxCode = UtilityFacades::getsettings('exempt_tax_rate');
+                        $standardTaxCode = UtilityFacades::getsettings('standard_tax_rate');
+                        $zeroRatedTaxCode = UtilityFacades::getsettings('zero_tax_rate');
+                        $deemedTaxCode = UtilityFacades::getsettings('deemed_tax_rate');
+
+                        // Retrieve the tax code value from the item
                         $item_tax_value = isset($item->SalesItemLineDetail) ? $item->SalesItemLineDetail->TaxCodeRef->value : null;
 
-//                        dd($item_tax_value);
-                        //check for exempt tins
-                        // dd($item_tax_value);
-                        // $standardTaxCodRef = config('quickbooks.taxpayerConfig.standard_taxcodref');
+                        $taxRule = '';
 
-                          // 01:A: Standard (18%)
-                          // 02:B: Zero (0%)
-                          // 03:C: Exempt (-)
-                          // 04:D: Deemed (18%)
-                          // 05:E: Excise Duty
-                          // 06:Over the Top Service (OTT)
-                          // 07:Stamp Duty
-                          // 08:Local Hotel Service Tax
-                          // 09:UCC Levy
-                          // 10:Others
-                          // 11:F: VAT Not Applicable
-
-                          // For example, the taxRate is
-                          // 18% Fill in: 0.18
-                          // For example, the taxRate is
-                          // zero Fill in: 0
-                          // For example, the taxRate is
-                          // deemed Fill in: ‘-’ or ' '
-                          // Integer digits cannot exceed
-                          // 1, decimal digits cannot
-                          // exceed 4;
-
-
-
-                        if ($item_tax_value == env('EXEMPT')) {
+                        // Determine the tax rule based on the tax code value
+                        if ($item_tax_value == $exemptTaxCode) {
                             $taxRule = 'EXEMPT';
-                        }elseif($item_tax_value === env('DEEMED')) {
-                          $taxRule = 'DEEMED';
-                        } elseif (isset($invoice_data) &&($invoice_data->buyerType == "1") && ($invoice_data->industryCode == '101')) {
-                        $taxRule = 'ZERORATED';
-                      }else{
-                          $taxRule = 'STANDARD';
+                        } elseif ($item_tax_value === $deemedTaxCode) {
+                            $taxRule = 'DEEMED';
+                        } elseif (isset($invoice_data) && $invoice_data->buyerType == "1" && $invoice_data->industryCode == '101') {
+                            $taxRule = 'ZERO_RATED';
+                        } elseif($item_tax_value === $standardTaxCode) {
+                            $taxRule = 'STANDARD';
                         }
+
 
                         $_item = [
                             'itemCode' => $efrisProduct->itemCode,
@@ -360,7 +365,7 @@ class EfrisInvoiceService
 //
 //                }
 //                if (property_exists($item->SalesItemLineDetail, 'ItemRef')) {
-                    $this->errorMsg[] = $item->SalesItemLineDetail->ItemRef->name . ' is not registered with URA. Please register this item to generate a Fiscal Invoice';
+                $this->errorMsg[] = $item->SalesItemLineDetail->ItemRef->name . ' is not registered with URA. Please register this item to generate a Fiscal Invoice';
 //                }
             }
         }
