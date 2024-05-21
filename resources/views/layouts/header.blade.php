@@ -41,6 +41,8 @@
                 </li>
             </ul>
         </div>
+
+      <h2> {{Utility::getsettings('app_name')}}</h2>
         <div class="ms-auto">
             <ul class="list-unstyled">
                 @impersonating($guard = null)

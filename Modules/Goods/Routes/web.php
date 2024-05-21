@@ -26,4 +26,5 @@ Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 't
     Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
     Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
     Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
+    Route::get('sync-product', 'GoodsController@syncProducts')->name('efris.syncproducts');
 });

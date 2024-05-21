@@ -154,7 +154,7 @@
         </div>
         <div class="w-50 float-left logo mt-10">
             <p>
-                <b>FDN.:</b>: <span class="text-xs font-thin"> </span><br>
+                <b>FDN.:</b>: <span class="text-xs font-thin"> {{ $doc->data->basicInformation->invoiceNo }}</span><br>
                 <b>Verification Code</b>: <span
                     class="text-xs font-thin">{{ $doc->data->basicInformation->antifakeCode }}</span><br>
                 <b>Issue Date</b>: <span

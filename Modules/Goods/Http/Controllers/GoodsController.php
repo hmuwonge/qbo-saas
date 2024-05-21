@@ -352,4 +352,23 @@ class GoodsController extends Controller
 
         return json_encode($data->original);
     }
+
+    public function  syncProducts()
+    {
+        try {
+            $efrisApi = new ApiRequestHelper('efris');
+            $response = $efrisApi->makePost('sync-products', (array)null);
+
+            $data_response = json_decode($response);
+
+            if ($data_response->status == 200){
+                return redirect()->back()->with('success', 'Products synced successfully!');
+            }
+        }catch (\Throwable $throwable){
+            return redirect()->back()->with('failed', $throwable->getMessage());
+        }
+
+
+
+    }
 }

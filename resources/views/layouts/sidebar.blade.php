@@ -20,6 +20,7 @@
                 @endif
             </a>
         </div>
+
         <div class="navbar-content">
             <ul class="dash-navbar">
                 <li class="dash-item dash-hasmenu">
@@ -568,6 +569,13 @@
                             @endcan
                         </ul>
                     </li>
+
+                        <li class="dash-item dash-hasmenu">
+                            <a href="{{ route('efris.syncproducts') }}" class="dash-link">
+                                <span class="dash-micon"><i class="ti ti-refresh"></i></span>
+                                <span class="dash-mtext">{{ __('Sync Products') }}</span>
+                            </a>
+                        </li>
                     {{--                        @endcanany--}}
                 @endif
             </ul>

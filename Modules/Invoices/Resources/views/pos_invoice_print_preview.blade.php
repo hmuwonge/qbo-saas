@@ -144,7 +144,11 @@
 
 <body>
 <header>
-  <div id="logo" class="media" data-src="logo.png" src="./logo.png"></div>
+  <div id="logo" class="media">
+      <img
+          src="{{ Utility::getsettings('app_logo') ? Utility::getpath('logo/app-logo.png') : asset('assets/images/logo/app-logo.png') }}"
+          class="footer-light-logo">
+  </div>
 </header>
 <header style="text-align: center; font-weight: 600;">
   <p>{!! $doc->data->sellerDetails->legalName !!}</p>
@@ -154,7 +158,7 @@
 <table class="bill-details">
   <tbody style="font-weight: 500;">
   <tr >
-    <td style="font-weight: 500;">FDN : <span>15837699643969543</span></td>
+    <td style="font-weight: 500;">FDN : <span>{{ $doc->data->basicInformation->invoiceNo ?? null }}</span></td>
   </tr>
   <tr>
     <td>V.Code : <span>{{ $doc->data->basicInformation->antifakeCode }}</span></td>
@@ -162,9 +166,14 @@
   <tr>
     <td>Date : <span>{{ $doc->data->basicInformation->issuedDate }}</span></td>
   </tr>
-{{--  <tr>--}}
-{{--    <td>Customer : <span>Muwonge Hassan Saava</span></td>--}}
-{{--  </tr>--}}
+  <tr>
+      <td>Customer : <span>
+         @if(property_exists($doc->data->buyerDetails, 'buyerBusinessName'))
+                  <span class="text-xs font-thin">{{ $doc->data->buyerDetails->buyerBusinessName  }}</span>
+              @endif
+      </span>
+      </td>
+  </tr>
   <tr>
     @if (property_exists($doc->data->buyerDetails, 'buyerTin'))
     <td>
