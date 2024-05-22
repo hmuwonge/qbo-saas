@@ -145,7 +145,7 @@ class TenantDatabaseSeeder extends Seeder
             ['key' => 'apps_setting_enable', 'value' => 'on'],
             ['key' => 'apps_name', 'value' => 'Quickbooks saas'],
             ['key' => 'apps_bold_name', 'value' => 'Admin Saas'],
-            ['key' => 'app_detail', 'value' => 'Full Tenancy is an ownership system wherein a tenant pays rent to occupy any property belonging to someone else. The terms
+            ['key' => 'app_detail', 'value' => 'Quickbooks Efris Integrator is an ownership system wherein a tenant pays rent to occupy any property belonging to someone else. The terms
                 and conditions of tenancy are clearly stated in a rent agreement. Tenants have fundamental rights and legal protections.'],
             ['key' => 'apps_image', 'value' => 'seeder-image/app.png'],
             ['key' => 'apps_multiple_image_setting', 'value' => '[
@@ -161,7 +161,7 @@ class TenantDatabaseSeeder extends Seeder
             ]'],
 
             ['key' => 'feature_setting_enable', 'value' => 'on'],
-            ['key' => 'feature_name', 'value' => 'Full Multi Tenancy Laravel Admin Saas'],
+            ['key' => 'feature_name', 'value' => 'Quickbooks Efris Integrator'],
             ['key' => 'feature_bold_name', 'value' => 'Features'],
             ['key' => 'feature_detail', 'value' => 'Full Multi Tenant means that a single instance of the software and its supporting infrastructure serves multiple customers.
                 Each customer shares the software application and also shares a single database. Each tenants data is isolated and remains invisible to other tenants.'],
@@ -233,8 +233,8 @@ class TenantDatabaseSeeder extends Seeder
             ['key' => 'faq_name', 'value' => 'Frequently asked questions'],
 
             ['key' => 'start_view_setting_enable', 'value' => 'on'],
-            ['key' => 'start_view_name', 'value' => 'Start Using Full Multi Tenancy Laravel Admin Saas'],
-            ['key' => 'start_view_detail', 'value' => 'a Full Multi Tenancy Laravel Admin Saas application is a complex process that requires careful planning and development.'],
+            ['key' => 'start_view_name', 'value' => 'Start Using Quickbooks Efris Integrator'],
+            ['key' => 'start_view_detail', 'value' => 'a Quickbooks Efris Integrator application is a complex process that requires careful planning and development.'],
             ['key' => 'start_view_link_name', 'value' => 'Contact Us'],
             ['key' => 'start_view_link', 'value' => route('contact.us')],
             ['key' => 'start_view_image', 'value' => 'seeder-image/startview.png'],
@@ -245,7 +245,7 @@ class TenantDatabaseSeeder extends Seeder
             ['key' => 'login_detail', 'value' => 'The more effortless the writing looks, the more effort the writer actually put into the process.'],
 
             ['key' => 'testimonial_setting_enable', 'value' => 'on'],
-            ['key' => 'testimonial_name', 'value' => 'Full Tenancy Laravel Admin Saas'],
+            ['key' => 'testimonial_name', 'value' => 'Quickbooks Efris Integrator'],
             ['key' => 'testimonial_bold_name', 'value' => 'Testimonial'],
             ['key' => 'testimonial_detail', 'value' => 'A testimonial is an honest endorsement of your product or service that usually comes from a customer, colleague, or peer who has benefited from or experienced success as a result of the work you did for them.'],
 
@@ -306,7 +306,7 @@ class TenantDatabaseSeeder extends Seeder
             'answer'    => 'To customize your dashboard, navigate to the "Settings" section in your dashboard.',
             'order'     => '3'
         ]);
-        Faq::firstOrCreate(['quetion' => 'What is Full Tenancy Laravel Saas?'], [
+        Faq::firstOrCreate(['quetion' => 'What is Quickbooks Efris Integrator?'], [
             'answer'    => 'Full Tenancy Laravel Saas is a software-as-a-service (SaaS) solution built on the Laravel framework. It is designed to provide a multi-tenant architecture for Laravel applications, allowing you to easily create and manage multiple independent instances of your application within a single codebase.',
             'order'     => '4'
         ]);
@@ -373,7 +373,7 @@ class TenantDatabaseSeeder extends Seeder
             'url_type'      => null,
             'page_url'      => null,
             'friendly_url'  => null,
-            'description'   => 'At Full Tenancy Laravel Admin Saas, we understand the importance of data privacy and security. Thats why we offer robust privacy settings
+            'description'   => 'At Quickbooks Efris Integrator, we understand the importance of data privacy and security. Thats why we offer robust privacy settings
             to ensure the protection of your sensitive information. Here&#39;s how our privacy settings work:\r\n\r\n\r\n\r\nData Encryption: We employ industry-standard
             encryption protocols to safeguard your data during transit and storage. Your form submissions and user information are encrypted, making it extremely difficult
             for unauthorized parties to access or tamper with the data.\r\n\r\n\r\nUser Consent Management: Our privacy settings include options for managing user consents.
@@ -582,23 +582,23 @@ class TenantDatabaseSeeder extends Seeder
             'url_type'      => null,
             'page_url'      => null,
             'friendly_url'  => null,
-            'description'   => 'Full Tenancy Laravel Admin SaasTerms and Conditions
+            'description'   => 'Quickbooks Efris Integrator Terms and Conditions
                 Acceptance of Terms By accessing and using [Full Tenancy Laravel Admin Saas] (the &quot;Service&quot;), you agree to be bound by these terms and conditions.
                 If you do not agree with any part of these terms, please refrain from using the Service.
-                Intellectual Property Rights All content and materials provided on the Service are the property of [Full Tenancy Laravel Admin Saas- Saas]&nbsp;and protected
+                Intellectual Property Rights All content and materials provided on the Service are the property of [Quickbooks Efris Integrator- Saas]&nbsp;and protected
                 by applicable intellectual property laws. You may not use, reproduce, distribute, or modify any content from the Service without prior written consent
-                from [Full Tenancy Laravel Admin Saas].
+                from [Quickbooks Efris Integrator].
                 User Responsibilities a. You are solely responsible for any content you submit or upload on the Service. You agree not to post, transmit, or share any
                 material that is unlawful, harmful, defamatory, obscene, or infringes upon the rights of others. b. You agree not to interfere with or disrupt the Service
                 or its associated servers and networks. c. You are responsible for maintaining the confidentiality of your account information and agree to notify
                 [Full Tenancy Laravel Admin Saas- Saas] immediately of any unauthorized use of your account.
-                Disclaimer of Warranties The Service is provided on an &quot;as-is&quot; and &quot;as available&quot; basis. [Full Tenancy Laravel Admin Saas] makes no warranties,
+                Disclaimer of Warranties The Service is provided on an &quot;as-is&quot; and &quot;as available&quot; basis. [Quickbooks Efris Integrator] makes no warranties,
                 expressed or implied, regarding the accuracy, reliability, or availability of the Service. Your use of the Service is at your own risk.
-                Limitation of Liability In no event shall [Full Tenancy Laravel Admin Saas] be liable for any direct, indirect, incidental, consequential, or punitive damages
+                Limitation of Liability In no event shall [Quickbooks Efris Integrator] be liable for any direct, indirect, incidental, consequential, or punitive damages
                 arising out of or in connection with the use of the Service. This includes but is not limited to any errors or omissions in the content, loss of data, or
                 any other loss or damage. Indemnification You agree to indemnify and hold&nbsp; harmless from any claims, damages, liabilities, or expenses arising out of
                 your use of the Service, your violation of these terms and conditions, or your infringement of any rights of a third party.
-                Modification and Termination [Full Tenancy Laravel Admin Saas- Saas] reserves the right to modify or terminate the Service at any time, without prior notice.
+                Modification and Termination [Quickbooks Efris Integrator- Saas] reserves the right to modify or terminate the Service at any time, without prior notice.
                 We also reserve the right to update these terms and conditions from time to time. It is your responsibility to review the most current version regularly.
                 Governing Law These terms and conditions shall be governed by and construed in accordance with the laws of India. Any disputes arising out of these terms
                 shall be subject to the exclusive jurisdiction of the courts located in india.',
@@ -631,13 +631,13 @@ class TenantDatabaseSeeder extends Seeder
             'page_url'      => null,
             'friendly_url'  => null,
             'description'   => '
-                Acceptance of Terms By accessing and using [Full Tenancy Laravel Admin Saas] (the &quot;Service&quot;), you agree to be bound by these terms and conditions. If you do not agree with any part of these terms, please refrain from using the Service.
-                Intellectual Property Rights All content and materials provided on the Service are the property of [Full Tenancy Laravel Admin Saas- Saas]&nbsp;and protected by applicable intellectual property laws. You may not use, reproduce, distribute, or modify any content from the Service without prior written consent from [Full Tenancy Laravel Admin Saas].
+                Acceptance of Terms By accessing and using [Quickbooks Efris Integrator] (the &quot;Service&quot;), you agree to be bound by these terms and conditions. If you do not agree with any part of these terms, please refrain from using the Service.
+                Intellectual Property Rights All content and materials provided on the Service are the property of [Quickbooks Efris Integrator]&nbsp;and protected by applicable intellectual property laws. You may not use, reproduce, distribute, or modify any content from the Service without prior written consent from [Full Tenancy Laravel Admin Saas].
                 User Responsibilities a. You are solely responsible for any content you submit or upload on the Service. You agree not to post, transmit, or share any material that is unlawful, harmful, defamatory, obscene, or infringes upon the rights of others. b. You agree not to interfere with or disrupt the Service or its associated servers and networks. c. You are responsible for maintaining the confidentiality of your account information and agree to notify [Full Tenancy Laravel Admin Saas- Saas] immediately of any unauthorized use of your account.
-                Disclaimer of Warranties The Service is provided on an &quot;as-is&quot; and &quot;as available&quot; basis. [Full Tenancy Laravel Admin Saas] makes no warranties, expressed or implied, regarding the accuracy, reliability, or availability of the Service. Your use of the Service is at your own risk.
-                Limitation of Liability In no event shall [Full Tenancy Laravel Admin Saas] be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of or in connection with the use of the Service. This includes but is not limited to any errors or omissions in the content, loss of data, or any other loss or damage.
+                Disclaimer of Warranties The Service is provided on an &quot;as-is&quot; and &quot;as available&quot; basis. [Quickbooks Efris Integrator] makes no warranties, expressed or implied, regarding the accuracy, reliability, or availability of the Service. Your use of the Service is at your own risk.
+                Limitation of Liability In no event shall [Quickbooks Efris Integrator] be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of or in connection with the use of the Service. This includes but is not limited to any errors or omissions in the content, loss of data, or any other loss or damage.
                 Indemnification You agree to indemnify and hold&nbsp; harmless from any claims, damages, liabilities, or expenses arising out of your use of the Service, your violation of these terms and conditions, or your infringement of any rights of a third party.
-                Modification and Termination [Full Tenancy Laravel Admin Saas- Saas] reserves the right to modify or terminate the Service at any time, without prior notice. We also reserve the right to update these terms and conditions from time to time. It is your responsibility to review the most current version regularly.
+                Modification and Termination [Quickbooks Efris Integrator] reserves the right to modify or terminate the Service at any time, without prior notice. We also reserve the right to update these terms and conditions from time to time. It is your responsibility to review the most current version regularly.
                 Governing Law These terms and conditions shall be governed by and construed in accordance with the laws of India. Any disputes arising out of these terms shall be subject to the exclusive jurisdiction of the courts located in india.',
         ]);
 
