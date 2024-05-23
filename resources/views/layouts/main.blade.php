@@ -13,11 +13,11 @@ $color = $primary_color ?? 'theme-1';
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
     <meta name="title"
-        content="{{ !empty(Utility::getsettings('meta_title')) ? Utility::getsettings('meta_title') : 'Full Multi Tenancy Laravel Admin Saas' }}">
+        content="{{ !empty(Utility::getsettings('meta_title')) ? Utility::getsettings('meta_title') : 'Quickbooks Efris Integrator Saas' }}">
     <meta name="keywords"
-        content="{{ !empty(Utility::getsettings('meta_keywords')) ? Utility::getsettings('meta_keywords') : 'Full Multi Tenancy Laravel Admin Saas,Multi Domains,Multi Databases' }}">
+        content="{{ !empty(Utility::getsettings('meta_keywords')) ? Utility::getsettings('meta_keywords') : 'Quickbooks Efris Integrator Saas,Multi Domains,Multi Databases' }}">
     <meta name="description"
-        content="{{ !empty(Utility::getsettings('meta_description')) ? Utility::getsettings('meta_description') : 'Discover the efficiency of Full Multi Tenancy, a user-friendly web application by Quebix Apps.' }}">
+        content="{{ !empty(Utility::getsettings('meta_description')) ? Utility::getsettings('meta_description') : 'Discover the efficiency of Quickbooks Efris Integrator Saas, a user-friendly web application by Saavatech Apps.' }}">
     <meta property="og:image"
         src="{{ !empty(Utility::getsettings('meta_image_logo'))
             ? Utility::getpath(Utility::getsettings('meta_image_logo'))
@@ -127,7 +127,7 @@ $color = $primary_color ?? 'theme-1';
     <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/perfect-scrollbar.min.js') }}"></script>
     {{-- tostr notification close --}}
-    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
+{{--    <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>--}}
     <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
     {{-- sidebar active deactive menu --}}
     <script src="{{ asset('assets/js/dash.js') }}"></script>

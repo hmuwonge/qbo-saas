@@ -1,6 +1,7 @@
 import 'bootstrap';
 import Swal from "sweetalert2";
 import moment from "moment";
+import '@popperjs/core'
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the

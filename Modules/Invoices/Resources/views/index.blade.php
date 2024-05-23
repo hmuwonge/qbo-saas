@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
-@endpush
+
 @section('title', 'All Invoices')
 
 @section('content')
@@ -52,7 +50,7 @@
                             ]) !!}
 
                             <div class="input-group ">
-                                {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4', 'id' => 'date', 'style' => '']) }}
+                                {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4 date', 'id' => 'date', 'style' => '']) }}
                                 <button type="submit" class="btn btn-sm btn-primary">Choose From
                                     Date Range</button>
 
@@ -168,7 +166,9 @@
     {{--    </div> --}}
     <!-- END ROW -->
 @endsection
-
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 @push('javascript')
     <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
@@ -295,7 +295,7 @@
             updateInvoiceBuyerType();
         }
 
-        $('#date').daterangepicker({
+        $('.date').daterangepicker({
             ranges: {
                 'Today': [moment(), moment()],
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
