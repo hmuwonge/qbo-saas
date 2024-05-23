@@ -13,6 +13,7 @@ use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Superadmin\ConatctMail;
 use App\Mail\Superadmin\DisapprovedMail;
@@ -340,12 +341,14 @@ class RequestDomainController extends Controller
             $data->phone                = str_replace(' ', '', $request->phone);
             $data->save();
             $database                   = $request->all();
+
             try {
                 \DB::beginTransaction();
                 UtilityFacades::approved_request($data->id, $database);
                 \DB::commit();
             } catch (\Exception $e) {
-                return redirect()->back()->with('errors', 'Please check database name, database user name and database password.');
+                Log::error($e->getMessage());
+                return redirect()->back()->with('errors', 'Please check database name, database user name and database password.'. $e->getMessage());
             }
             return redirect()->route('request.domain.index')->with('success', __('User created successfully.'));
         } else {

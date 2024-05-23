@@ -35,13 +35,8 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset('vendor/landing-page2/image/slider-image-dark.png') }}" class="home-bg-image">
-            <img src="{{ asset('vendor/landing-page2/image/bacground-image.png') }}" class="bg-fir-img">
-            <img src="{{ asset('vendor/landing-page2/image/bacground-image-2.png') }}" class="bg-sec-img">
-            <img src="{{ asset('vendor/landing-page2/image/slider-sec-image.png') }}" class="bg-the-img">
         </section>
         <section class="admin-saas-sec pt pb">
-            <img src="{{ asset('vendor/landing-page2/image/bacground-image-3.png') }}" class="admin-bg">
             <div class="container">
                 <div class="text-center section-title">
                     <h2>
@@ -76,8 +71,6 @@
         </section>
         @if (isset($appsMultipleImageSettings))
             <section class="client-logo-section">
-                <img src="{{ asset('vendor/landing-page2/image/client-logo-bg1.png') }}" class="client-bg" loading="lazy">
-                <img src="{{ asset('vendor/landing-page2/image/client-logo-bg2.png') }}" class="client-bg2" loading="lazy">
                 <div class="container">
                     <div class="client-logo-wrap">
                         <div class="client-logo-slider slick-slider">
@@ -138,7 +131,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <img src="{{ asset('vendor/landing-page2/image/features-bg-image') }}.png" class="features-bg">
                 </div>
             </section>
         @endif
@@ -146,15 +138,10 @@
 
     @if (Utility::getsettings('menu_setting_section1_enable') == 'on')
         <section class="apex-chart-sec pt home-sec" id="menu_section_1">
-            <img src="{{ asset('vendor/landing-page2/image/features-bg-2.png') }}" class="features-sec-bg">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-6 col-12">
                         <div class="chart-left-side">
-                            <img src="{{ asset('vendor/landing-page2/image/blue.png') }}" class="blue-bg left-blue">
-                            <img src="{{ asset('vendor/landing-page2/image/purple.png') }}" class="purple-bg left-purple">
-                            <img src="{{ asset('vendor/landing-page2/image/yellow-squre.png') }}"
-                                class="yellow-bg left-yellow">
                             <img src="{{ Utility::getsettings('menu_image_section1')
                                 ? Utility::getpath(Utility::getsettings('menu_image_section1'))
                                 : Storage::url('seeder-image/menusection1.png') }}"
@@ -191,11 +178,6 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 col-12">
                         <div class="chart-left-side">
-                            <img src="{{ asset('vendor/landing-page2/image/blue-small-round.png') }}"
-                                class="blue-small-round blue-bg">
-                            <img src="{{ asset('vendor/landing-page2/image/purple.png') }}" class="purple-bg left-purple">
-                            <img src="{{ asset('vendor/landing-page2/image/yellow-squre.png') }}"
-                                class="yellow-bg section2-yellow">
                             <img src="{{ Utility::getsettings('menu_image_section2')
                                 ? Utility::getpath(Utility::getsettings('menu_image_section2'))
                                 : Storage::url('seeder-image/menusection2.png') }}"
@@ -232,10 +214,6 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 col-12">
                         <div class="chart-left-side">
-                            <img src="{{ asset('vendor/landing-page2/image/blue.png') }}" class="blue-bg section3-blue">
-                            <img src="{{ asset('vendor/landing-page2/image/purple.png') }}" class="section3-purple">
-                            <img src="{{ asset('vendor/landing-page2/image/yellow-squre.png') }}"
-                                class="section3-yellow">
                             <img src="{{ Utility::getsettings('menu_image_section3')
                                 ? Utility::getpath(Utility::getsettings('menu_image_section3'))
                                 : Storage::url('seeder-image/menusection3.png') }}"
@@ -306,8 +284,6 @@
                     </div>
                 </div>
             </div>
-            <img src="{{ asset('vendor/landing-page2/image/video-bg.png') }}" class="video-bg">
-            <img src="{{ asset('vendor/landing-page2/image/video-bg-2.png') }}" class="video-bg-sec">
         </section>
         <section class="counter-sec pb">
             <div class="container">
@@ -422,9 +398,6 @@
                         @endforeach
                     @endif
                 </div>
-                <img src="{{ asset('vendor/landing-page2/image/test-bg.png') }}" class="testimonial-bg">
-                <img src="{{ asset('vendor/landing-page2/image/test-bg-2.png') }}" class="testimonial-bg-2">
-                <img src="{{ asset('vendor/landing-page2/image/test-bg-3.png') }}" class="testimonial-bg-3">
             </div>
         </section>
     @endif
@@ -662,7 +635,6 @@
                         </div>
                     </div>
                 @endif
-                <img src="{{ asset('vendor/landing-page2/image/features-bg-image') }}.png" class="pricing-bg">
             </div>
         </section>
     @endif
@@ -700,7 +672,6 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <img src="{{ asset('vendor/landing-page2/image/test-bg.png') }}" class="faqs-bg">
                         </div>
                     </div>
                 </div>
@@ -752,7 +723,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <img src="{{ asset('vendor/landing-page2/image/features-bg-image.png') }}" class="article-bg">
                 </div>
             </section>
         @endif
@@ -808,7 +778,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <img src="{{ asset('vendor/landing-page2/image/features-bg-image.png') }}" class="article-bg">
                 </div>
             </section>
         @endif
@@ -849,7 +818,6 @@
                     </div>
                     <div class="col-md-6">
                         <div class="demo-bannerimg">
-                            <img src="{{ asset('vendor/landing-page2/image/bg-round.png') }}" class="demo-bg-img">
                             <img src="{{ Utility::getsettings('start_view_image')
                                 ? Utility::getpath(Utility::getsettings('start_view_image'))
                                 : asset('vendor/landing-page2/image/contact-us-banner.png') }}"
@@ -857,7 +825,6 @@
                         </div>
                     </div>
                 </div>
-                <img src="{{ asset('vendor/landing-page2/image/test-bg.png') }}" class="contact-bg">
             </div>
         </section>
     @endif

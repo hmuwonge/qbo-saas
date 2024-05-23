@@ -294,55 +294,55 @@ class TenantDatabaseSeeder extends Seeder
             Setting::firstOrCreate($setting);
         }
 
-        Faq::firstOrCreate(['quetion' => 'How do I sign up for a tenant account?'], [
-            'answer'    => 'To sign up for a tenant account, click the Sign Up button on the homepage, fill out the required information, and follow the on-screen instructions.',
-            'order'     => '1',
-        ]);
-        Faq::firstOrCreate(['quetion' => 'What types of subscription plans do you offer?'], [
-            'answer'    => 'We offer a range of subscription plans to accommodate various needs. Our plans include Basic, Pro, and Enterprise tiers, each with different features and pricing.',
-            'order'     => '2',
-        ]);
-        Faq::firstOrCreate(['quetion' => 'How can I customize the appearance of my dashboard?'], [
-            'answer'    => 'To customize your dashboard, navigate to the "Settings" section in your dashboard.',
-            'order'     => '3'
-        ]);
-        Faq::firstOrCreate(['quetion' => 'What is Quickbooks Efris Integrator?'], [
-            'answer'    => 'Full Tenancy Laravel Saas is a software-as-a-service (SaaS) solution built on the Laravel framework. It is designed to provide a multi-tenant architecture for Laravel applications, allowing you to easily create and manage multiple independent instances of your application within a single codebase.',
-            'order'     => '4'
-        ]);
+//        Faq::firstOrCreate(['quetion' => 'How do I sign up for a tenant account?'], [
+//            'answer'    => 'To sign up for a tenant account, click the Sign Up button on the homepage, fill out the required information, and follow the on-screen instructions.',
+//            'order'     => '1',
+//        ]);
+//        Faq::firstOrCreate(['quetion' => 'What types of subscription plans do you offer?'], [
+//            'answer'    => 'We offer a range of subscription plans to accommodate various needs. Our plans include Basic, Pro, and Enterprise tiers, each with different features and pricing.',
+//            'order'     => '2',
+//        ]);
+//        Faq::firstOrCreate(['quetion' => 'How can I customize the appearance of my dashboard?'], [
+//            'answer'    => 'To customize your dashboard, navigate to the "Settings" section in your dashboard.',
+//            'order'     => '3'
+//        ]);
+//        Faq::firstOrCreate(['quetion' => 'What is Quickbooks Efris Integrator?'], [
+//            'answer'    => 'Full Tenancy Laravel Saas is a software-as-a-service (SaaS) solution built on the Laravel framework. It is designed to provide a multi-tenant architecture for Laravel applications, allowing you to easily create and manage multiple independent instances of your application within a single codebase.',
+//            'order'     => '4'
+//        ]);
 
-        Testimonial::firstOrCreate(['name' => 'Jeny'], [
-            'title'         => 'Customer Support Specialist',
-            'description'   => 'As a Customer Support Specialist for Full Tenancy Laravel Admin Saas, I have had the incredible opportunity to assist our valued customers in their journey of utilizing this revolutionary form-building solution.',
-            'designation'   => 'Support Specialist',
-            'image'         => 'seeder-image/13.jpg',
-            'rating'        => 5.0,
-            'status'        => 1,
-        ]);
-        Testimonial::firstOrCreate(['name' => 'Johnsi'], [
-            'title'         => 'A Journey of Growth and Transformation',
-            'description'   => 'As the Lead Developer for Full Tenancy Laravel Admin Saas, I have had the privilege of being at the forefront of developing a cutting-edge product that revolutionizes form-building.',
-            'designation'   => 'Lead Developer',
-            'image'         => 'seeder-image/14.jpg',
-            'rating'        => 5.0,
-            'status'        => 1,
-        ]);
-        Testimonial::firstOrCreate(['name' => 'Trisha'], [
-            'title'         => 'Customer Support Specialist',
-            'description'   => 'As a Customer Support Specialist for Full Tenancy Laravel Admin Saas, I have had the incredible opportunity to assist our valued customers in their journey of utilizing this revolutionary form-building solution.',
-            'designation'   => 'Support Specialist',
-            'image'         => 'seeder-image/15.jpg',
-            'rating'        => 5.0,
-            'status'        => 1,
-        ]);
-        Testimonial::firstOrCreate(['name' => 'Trusha'], [
-            'title'         => 'A Remarkable Journey of Collaboration and Success',
-            'description'   => 'As a Project Manager, my primary responsibility has been to ensure that projects are delivered on time, within budget. I have had the opportunity to work closely with cross-functional teams, marketers, and stakeholders, initiation to completion.',
-            'designation'   => 'Project Manager',
-            'image'         => 'seeder-image/16.jpg',
-            'rating'        => 5.0,
-            'status'        => 1,
-        ]);
+//        Testimonial::firstOrCreate(['name' => 'Jeny'], [
+//            'title'         => 'Customer Support Specialist',
+//            'description'   => 'As a Customer Support Specialist for Full Tenancy Laravel Admin Saas, I have had the incredible opportunity to assist our valued customers in their journey of utilizing this revolutionary form-building solution.',
+//            'designation'   => 'Support Specialist',
+//            'image'         => 'seeder-image/13.jpg',
+//            'rating'        => 5.0,
+//            'status'        => 1,
+//        ]);
+//        Testimonial::firstOrCreate(['name' => 'Johnsi'], [
+//            'title'         => 'A Journey of Growth and Transformation',
+//            'description'   => 'As the Lead Developer for Full Tenancy Laravel Admin Saas, I have had the privilege of being at the forefront of developing a cutting-edge product that revolutionizes form-building.',
+//            'designation'   => 'Lead Developer',
+//            'image'         => 'seeder-image/14.jpg',
+//            'rating'        => 5.0,
+//            'status'        => 1,
+//        ]);
+//        Testimonial::firstOrCreate(['name' => 'Trisha'], [
+//            'title'         => 'Customer Support Specialist',
+//            'description'   => 'As a Customer Support Specialist for Full Tenancy Laravel Admin Saas, I have had the incredible opportunity to assist our valued customers in their journey of utilizing this revolutionary form-building solution.',
+//            'designation'   => 'Support Specialist',
+//            'image'         => 'seeder-image/15.jpg',
+//            'rating'        => 5.0,
+//            'status'        => 1,
+//        ]);
+//        Testimonial::firstOrCreate(['name' => 'Trusha'], [
+//            'title'         => 'A Remarkable Journey of Collaboration and Success',
+//            'description'   => 'As a Project Manager, my primary responsibility has been to ensure that projects are delivered on time, within budget. I have had the opportunity to work closely with cross-functional teams, marketers, and stakeholders, initiation to completion.',
+//            'designation'   => 'Project Manager',
+//            'image'         => 'seeder-image/16.jpg',
+//            'rating'        => 5.0,
+//            'status'        => 1,
+//        ]);
 
         $parent_id1 = FooterSetting::firstOrCreate(['menu' => 'Company'], [
             'slug'      => 'company',
