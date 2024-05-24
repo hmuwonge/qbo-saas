@@ -113,11 +113,6 @@
                                         <button class="btn btn-sm btn-success text-white w-40 rounded py-1.5 px-2">
                                           Stocked</button>
                                       @else
-{{--                                        <button type="button" onclick="handleAddStock({{ $dbPurchases[$purchase['Id']]['id']}})"--}}
-{{--                                                class="btn btn-sm btn-primary bg-violet-950">--}}
-{{--                                          Add Stock--}}
-{{--                                          <i class="fa fa-spinner fa-spin ms-2"></i>--}}
-{{--                                        </button>--}}
 
                                         <button type="button" onclick="handleAddStock({{ $index }},{{ $dbPurchases[$purchase['Id']]['id']}})"
                                                 class="btn btn-sm btn-primary bg-violet-950">
@@ -162,7 +157,7 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('javascript')
 
     <script>
         function getCsrfToken() {
@@ -194,9 +189,9 @@
                         id: keys,
                         stockIn: $('#stockin_type').val()
                     }
-                };
+                }; //"
                 // Send Request
-                fetch(route('purchase.stockUpdate'), {
+                fetch("{{route('purchase.stockUpdate')}}", {
                     method: 'POST',
                     headers: {
                         Accept: '*/*',
@@ -289,4 +284,4 @@
         }
 
     </script>
-@endsection
+@endpush

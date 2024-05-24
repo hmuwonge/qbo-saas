@@ -50,7 +50,7 @@
                             ]) !!}
 
                             <div class="input-group ">
-                                {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4 date', 'id' => 'date', 'style' => '']) }}
+                                {{ Form::text('invoice_period', null, ['class' => 'form-control form-control-sm col-4', 'id' => 'date', 'style' => '']) }}
                                 <button type="submit" class="btn btn-sm btn-primary">Choose From
                                     Date Range</button>
 
@@ -295,7 +295,7 @@
             updateInvoiceBuyerType();
         }
 
-        $('.date').daterangepicker({
+        $('#date').daterangepicker({
             ranges: {
                 'Today': [moment(), moment()],
                 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],

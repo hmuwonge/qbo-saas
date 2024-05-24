@@ -202,13 +202,15 @@ class StockAdjustmentsController extends Controller
 
         $items = json_decode(json_encode($decreaseResponse));
 
+
+
         $col = [];
         $row = [];
       $stock_adjust = [];
 
       $stock_keyword =(UtilityFacades::getsettings('stock_adjust_keyword') != "") ? UtilityFacades::getsettings('stock_adjust_keyword') : "Stock Qty Adjust";
 
-      if (! is_null($items)) {
+      if (!is_null($items)) {
 
         foreach ($items->Rows->Row as $item) {
           // first row
@@ -218,7 +220,7 @@ class StockAdjustmentsController extends Controller
               $col = $colData->ColData;
               if (is_array($col)) {
                 foreach ($col as $data) {
-                  if ($data->value == $stock_keyword) {
+                  if ($data->value == "Stock Qty Adjust") {
                     $stock_adjust[] = $col;
                   }
                 }
@@ -226,7 +228,7 @@ class StockAdjustmentsController extends Controller
             }
           }
         }
-
+//          dd($stock_adjust);
         // Save valid records to the DB
 //        $stock_adjust = $list;
         $adjust_items = [];
@@ -251,6 +253,8 @@ class StockAdjustmentsController extends Controller
             $adjust_items[] = $stockadj;
           }
         }
+
+        dd($adjust_items);
 
         $collect = collect($adjust_items)->toArray();
 
