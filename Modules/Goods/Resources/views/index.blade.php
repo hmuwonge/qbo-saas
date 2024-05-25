@@ -37,7 +37,7 @@
                     <h3 class="card-title">Quickbooks Goods & Services</h3>
 
                     <div class="demo-inline-spacing">
-                        <a type="button" class="btn btn-sm btn-primary p-2 " href="{{route('goods.syncItems')}}">
+                        <a type="button" class="btn btn-sm btn-primary" href="{{route('goods.syncItems')}}">
                             Verify With Efris
                         </a>
 
