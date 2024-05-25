@@ -216,14 +216,13 @@ $data = [
         </div>
         <!-- END ROW -->
     @endsection
-
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
     @push('javascript')
-        <!-- ECHARTS JS -->
-        <script src="{{ asset('assets/js/plugins/echarts/echarts.js') }}"></script>
-{{--        @vite("resources/assets/js/echarts.js")--}}
-        <script src="{{ asset('assets/js/plugins/apexcharts/apexcharts.min.js') }}"></script>
-        <!-- INDEX JS -->
-        {{-- @vite('resources/assets/js/index4.js') --}}
+        <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+        <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></script>
+        <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
 
         <script>
             $(function(e) {

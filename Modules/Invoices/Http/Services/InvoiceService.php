@@ -32,7 +32,7 @@ class InvoiceService
                 $invoiceCols['dueDate'] = $inv->DueDate;
                 $invoiceCols['balance'] = $inv->Balance;
 
-                QuickBooksInvoice::saveInvoiceSummary2(intval($inv->Id), $invoiceCols);
+                QuickBooksInvoice::saveInvoiceSummary(intval($inv->Id), $invoiceCols);
             }
 
             return redirect()->back()->with('success', 'Invoice validation tests successfully completed');

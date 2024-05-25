@@ -90,13 +90,13 @@
                                     <td>{{ number_format($item['grossAmount'], 2) }}</td>
                                     <td>{{ number_format($item['taxAmount'], 2) }}</td>
                                     <td>
-                                        <a href="{{ route('invoice.download.rt', $item['invoiceNo']) }}"
-                                            class="btn btn-sm btn-primary hover:bg-green-900
-                                                            font-normal rounded-sm text-sm px-3 py-1 mr-2 mb-2
-                                                            "
-                                            target="_blank">Preview
-                                        </a>
-
+{{--                                        <a href="{{ route('invoice.download.rt', $item['invoiceNo']) }}"--}}
+{{--                                            class="btn btn-sm btn-primary hover:bg-green-900--}}
+{{--                                                            font-normal rounded-sm text-sm px-3 py-1 mr-2 mb-2--}}
+{{--                                                            "--}}
+{{--                                            target="_blank">Preview--}}
+{{--                                        </a>--}}
+                                        <button class="preview-btn btn btn-primary btn-sm" data-id="{{ $item['invoiceNo'] }}">Preview</button>
                                     </td>
                                 </tr>
                             @empty
@@ -107,6 +107,7 @@
 
                         </tbody>
                     </table>
+                    @include('invoice_preview_modal')
                 </div>
 
                 <div class="pagination-wrapper my-1">
@@ -172,5 +173,27 @@
       $(this).val('');
     });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.preview-btn');
+        buttons.forEach(function(button) {
+            button.addEventListener('click',async function() {
+                const id = this.getAttribute('data-id');
+                var buttonText = this.innerText;
+                this.innerText = 'Loading...';
+                await previewPdf(id);
+                this.innerText = buttonText;
+                $('#pdfModal').modal('show'); //
+            });
+        });
+    });
+    function previewPdf(id) {
+        var iframe = document.getElementById('pdfViewer');
+        var url = `{{ route('invoice.download.rt', ['id' => 'id']) }}`.replace('id', id);
+        iframe.src = url;
+        return new Promise(resolve => {
+            iframe.onload = () => resolve();
+        });//ow the modal
+    }
   </script>
 @endpush
