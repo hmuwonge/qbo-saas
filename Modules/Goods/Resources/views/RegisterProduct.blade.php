@@ -53,7 +53,7 @@ use Carbon\Carbon;
 
     </div>
     <!-- END PAGE HEADER -->
-    <div id="appp">
+    <div id="app">
       @if ($efItem && $redo == "no")
         <div class="alert alert-warning">
           <span class="micon dw dw-info"></span>

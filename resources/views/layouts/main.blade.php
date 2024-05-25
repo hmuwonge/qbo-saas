@@ -86,7 +86,7 @@ $color = $primary_color ?? 'theme-1';
             <!-- [ Main Content ] start -->
             <div class="row">
                 <!-- [ sample-page ] start -->
-                <div class="col-sm-12" id="app">
+                <div class="col-sm-12">
                     @yield('content')
                 </div>
                 <!-- [ sample-page ] end -->
