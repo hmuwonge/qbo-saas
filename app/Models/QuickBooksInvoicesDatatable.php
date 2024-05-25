@@ -229,7 +229,7 @@ class QuickBooksInvoicesDatatable extends Model
             if ($this->databaseRecord->fiscalStatus == 1) {
                 return "<span class='badge bg-success'>Fiscalised</span>";
             } else {
-                return "<span class='badge bg-danger'>Not Yet Fiscalised</span>";
+                return "<span class='badge bg-danger '>Not Yet Fiscalised</span>";
             }
         }
     }

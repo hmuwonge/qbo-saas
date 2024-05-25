@@ -36,12 +36,12 @@
                 <div class="card-header d-inline-flex justify-content-between">
                     <h3 class="card-title">Quickbooks Goods & Services</h3>
 
-                    <div class="d-inline-flex justify-between col-3">
-                        <a type="button" class="btn btn-sm btn-outline-primary p-2 col-4" href="{{route('goods.syncItems')}}">
+                    <div class="demo-inline-spacing">
+                        <a type="button" class="btn btn-sm btn-primary p-2 " href="{{route('goods.syncItems')}}">
                             Verify With Efris
                         </a>
 
-                        <a class="btn btn-sm btn-primary ml-1 col-6" href="{{route('goods.syncItems')}}">
+                        <a type="button" class="btn btn-sm btn-secondary" href="{{route('goods.syncItems')}}">
                             Fetch From QBO
                         </a>
                     </div>

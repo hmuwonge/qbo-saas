@@ -35,7 +35,7 @@ class GoodsController extends Controller
         $cname = $request->input('code');
 
         $total = null;
-        $limit = 100;
+        $limit = 10;
         $startPosition = intval($page - 1) * $limit;
 
         // Quickbooks Items
