@@ -135,7 +135,10 @@
 <div class="company" style="">
     <div id="company">
         <p>
-            <b>Billed To</b>: <span class="text-xs font-thin"> {{ $doc->data->buyerDetails->buyerBusinessName  }}</span><br>
+            @if (property_exists($doc->data->buyerDetails, 'buyerBusinessName'))
+                <b>Billed To</b>: <span class="text-xs font-thin">
+                    {{ $doc->data->buyerDetails->buyerBusinessName }}</span><br>
+            @endif
             <b>Email</b>: <span class="text-xs font-thin">{{$doc->data->buyerDetails->buyerEmail ?? ''}}</span><br>
 
             @if(property_exists($doc->data->buyerDetails, 'buyerTin'))
@@ -161,7 +164,7 @@
         @foreach ($doc->data->goodsDetails as $item)
             <tr align="center">
                 <td>{{ $item->item }}</td>
-                <td class="text-sm">{{ $item->goodsCategoryName }}</td>
+                <td class="text-sm">{{ @$item->goodsCategoryName }}</td>
                 <td class="text-center">{{ @$item->qty }}</td>
                 <td class="text-right">
                     {{
@@ -246,9 +249,9 @@
             <td colspan="2" class="tx-right">
                 <h4 class="text-black font-bold">{{ number_format($doc->data->summary->grossAmount,2) }}</h4>
               @php
-                $currency = $doc->data->taxDetails[0]->exciseCurrency;
+                $currency =property_exists($doc->data->taxDetails[0],'exciseCurrency') ?$doc->data->taxDetails[0]->exciseCurrency:'UGX';
               @endphp
-              <p>{{ numberConvert($doc->data->summary->grossAmount,$currency) }}</p>
+              <p>{{ ($doc->data->summary->grossAmount>0)? numberConvert($doc->data->summary->grossAmount,$currency):null }}</p>
             </td>
         </tr>
 

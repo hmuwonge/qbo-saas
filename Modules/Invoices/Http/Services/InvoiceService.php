@@ -14,6 +14,9 @@ class InvoiceService
     use DataServiceConnector;
   use DataServiceConnector;
 
+    /**
+     * @throws \Exception
+     */
     public static function validateInvoices($data)
     {
         //        try {

@@ -172,10 +172,13 @@
     <div class="company" style="">
         <div id="company">
             <p>
-                <b>Billed To</b>: <span class="text-xs font-thin">
+                @if (property_exists($doc->data->buyerDetails, 'buyerBusinessName'))
+                    <b>Billed To</b>: <span class="text-xs font-thin">
                     {{ $doc->data->buyerDetails->buyerBusinessName }}</span><br>
+                @endif
+
                 <b>Email</b>: <span
-                    class="text-xs font-thin">{{ $doc->data->buyerDetails->buyerEmail }}</span><br>
+                    class="text-xs font-thin">{{ $doc->data->buyerDetails->buyerEmail??null }}</span><br>
 
                 @if (property_exists($doc->data->buyerDetails, 'buyerTin'))
                     <b>Tin</b>: <span class="text-xs font-thin">{{ $doc->data->buyerDetails->buyerTin }}</span>
