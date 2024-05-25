@@ -35,29 +35,26 @@ class GoodsController extends Controller
         $cname = $request->input('code');
 
         $total = null;
-        $limit = 100;
+        $limit = 10;
         $startPosition = intval($page - 1) * $limit;
 
         // Quickbooks Items
-      $countQuery =  "query?query=select count(*) from Item";
-      $quickbooks_invoices_count = $this->makeQuery($countQuery);
+      $countQuery =  "SELECT count(*) FROM Item";
+      $quickbooks_invoices_count = $this->postQuery($countQuery);
       $totalRecords=$quickbooks_invoices_count['QueryResponse']['totalCount'];
 
-        $queryString = "/query?query=select * from Item startposition {$startPosition} maxresults {$limit}&minorversion=57";
-        $quickbooks_items = $this->queryString($queryString);
+        $queryString = "SELECT * FROM Item startposition {$startPosition} maxresults {$limit}";
+        $quickbooks_items = $this->postQuery($queryString);
 
 
-//      if (request()->has('q')){
-//        $new_query = request()->input('q');
-//        $query = "SELECT * FROM Item WHERE FullyQualifiedName LIKE '%" . $new_query . "%'";
-//
-//        $queryString = '/query?query='.$query ;
-//        $quickbooks_items = (new self())->queryString($queryString);
-//
-//        dd($quickbooks_items);
-//
-//        $totalRecords = $quickbooks_items['QueryResponse']['totalCount'];
-//      }
+        if (request()->has('q')){
+            $new_query = request()->input('q');
+            $query = "SELECT * FROM Item WHERE FullyQualifiedName LIKE '%" . $new_query . "%'";
+
+            $quickbooks_items = (new self())->postQuery($query);
+
+            $totalRecords = $quickbooks_items['QueryResponse']['maxResults']??[];
+        }
          // JSON decode
          $itemsQuery = json_decode(json_encode($quickbooks_items['QueryResponse']['Item']),true);
 
@@ -354,5 +351,24 @@ class GoodsController extends Controller
         $data = $this->urlQueryBuilderById('item', $id);
 
         return json_encode($data->original);
+    }
+
+    public function  syncProducts()
+    {
+        try {
+            $efrisApi = new ApiRequestHelper('efris');
+            $response = $efrisApi->makePost('sync-products', (array)null);
+
+            $data_response = json_decode($response);
+
+            if ($data_response->status == 200){
+                return redirect()->back()->with('success', 'Products synced successfully!');
+            }
+        }catch (\Throwable $throwable){
+            return redirect()->back()->with('failed', $throwable->getMessage());
+        }
+
+
+
     }
 }

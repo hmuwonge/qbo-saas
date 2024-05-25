@@ -1,0 +1,648 @@
+
+2024-05-15 07:36:35AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 3000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 30
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-15 07:40:17AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 3000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 30
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-15 08:48:23AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 08:51:00AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 08:52:17AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 08:53:47AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 09:01:32AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 3000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 30
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)
+
+2024-05-15 09:02:10AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 09:43:51AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 09:44:17AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 09:51:21AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 52
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+)
+
+2024-05-15 09:53:17AM |-------------------------------------------------------------------
+Array
+(
+    [0] => stdClass Object
+        (
+            [Id] => 1
+            [LineNum] => 1
+            [Description] => Consultation
+            [Amount] => 10000
+            [DetailType] => SalesItemLineDetail
+            [SalesItemLineDetail] => stdClass Object
+                (
+                    [TaxInclusiveAmt] => 10000
+                    [ItemRef] => stdClass Object
+                        (
+                            [value] => 1243
+                            [name] => Consultation
+                        )
+
+                    [UnitPrice] => 10000
+                    [Qty] => 1
+                    [ItemAccountRef] => stdClass Object
+                        (
+                            [value] => 210
+                            [name] => Services
+                        )
+
+                    [TaxCodeRef] => stdClass Object
+                        (
+                            [value] => 49
+                        )
+
+                )
+
+        )
+
+    [1] => stdClass Object
+        (
+            [Amount] => 10000
+            [DetailType] => SubTotalLineDetail
+            [SubTotalLineDetail] => Array
+                (
+                )
+
+        )
+
+    [2] => stdClass Object
+        (
+            [Amount] => 3000
+            [DetailType] => DiscountLineDetail
+            [DiscountLineDetail] => stdClass Object
+                (
+                    [PercentBased] => 1
+                    [DiscountPercent] => 30
+                    [DiscountAccountRef] => stdClass Object
+                        (
+                            [value] => 226
+                            [name] => Discounts given
+                        )
+
+                )
+
+        )
+
+)

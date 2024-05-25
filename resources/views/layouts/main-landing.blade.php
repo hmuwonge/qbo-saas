@@ -8,15 +8,15 @@
     <meta name="title"
         content="{{ !empty(Utility::getsettings('meta_title'))
             ? Utility::getsettings('meta_title')
-            : 'Full Multi Tenancy Laravel Admin Saas' }}">
+            : 'Quickbooks Efris Integrator Saas' }}">
     <meta name="keywords"
         content="{{ !empty(Utility::getsettings('meta_keywords'))
             ? Utility::getsettings('meta_keywords')
-            : 'Full Multi Tenancy Laravel Admin Saas,Multi Domains,Multi Databases' }}">
+            : 'Quickbooks Efris Integrator Saas' }}">
     <meta name="description"
         content="{{ !empty(Utility::getsettings('meta_description'))
             ? Utility::getsettings('meta_description')
-            : 'Discover the efficiency of Full Multi Tenancy, a user-friendly web application by Quebix Apps.' }}">
+            : 'Discover the efficiency of Quickbooks Efris Integrator Saas, a user-friendly web application by SaavaTech.' }}">
     <meta property="og:image"
         src="{{ !empty(Utility::getsettings('meta_image_logo'))
             ? Utility::getpath(Utility::getsettings('meta_image_logo'))

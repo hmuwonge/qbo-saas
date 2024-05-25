@@ -25,4 +25,9 @@ yarn-error.log
 node_modules
 storage/*.key
 storage/logs/
+storage/2
+storage/3
+storage/4
+storage/5
+storage/11
 /.env

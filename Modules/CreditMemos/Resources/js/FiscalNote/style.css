@@ -505,12 +505,12 @@ p {
     -webkit-box-shadow: 0 0 28px rgba(0, 0, 0, 0.08);
     box-shadow: 0 0 28px rgba(0, 0, 0, 0.08);
 }
-.wave1 {
-    background-image: url(../images/wave.png);
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-}
+/*.wave1 {*/
+/*    background-image: url(../images/wave.png);*/
+/*    background-size: cover;*/
+/*    background-position: center bottom;*/
+/*    background-repeat: no-repeat;*/
+/*}*/
 .card-box,
 .da-card {
     background-color: #fff;
@@ -726,7 +726,7 @@ textarea.form-control {
 }
 .form-control-success {
     border-color: #28a745;
-    background-image: url(../images/check-mark-green.png);
+    /*background-image: url(../images/check-mark-green.png);*/
     background-repeat: no-repeat;
     background-position: center right 10px;
     background-size: 20px 20px;
@@ -741,7 +741,7 @@ textarea.form-control {
 }
 .form-control-warning {
     border-color: #ffc107;
-    background-image: url(../images/caution-sign.png);
+    /*background-image: url(../images/caution-sign.png);*/
     background-repeat: no-repeat;
     background-position: center right 10px;
     background-size: 20px 20px;
@@ -756,7 +756,7 @@ textarea.form-control {
 }
 .form-control-danger {
     border-color: #dc3545;
-    background-image: url(../images/cross.png);
+    /*background-image: url(../images/cross.png);*/
     background-repeat: no-repeat;
     background-position: center right 10px;
     background-size: 14px 14px;
@@ -876,7 +876,7 @@ textarea.form-control {
     background-color: #1b00ff;
 }
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
-    background-image: url(../images/check-mark.png);
+    /*background-image: url(../images/check-mark.png);*/
     background-repeat: no-repeat;
     background-position: center center;
 }
@@ -1005,7 +1005,7 @@ table.dataTable > tbody > tr.child ul.dtr-details .dtr-title {
     color: #131e22;
 }
 .bootstrap-select.btn-group .dropdown-menu li a span.check-mark {
-    background: url(../images/check-mark-green.png);
+    /*background: url(../images/check-mark-green.png);*/
     width: 15px;
     height: 15px;
     background-size: contain;
@@ -1142,7 +1142,7 @@ div.dataTables_wrapper div.dataTables_paginate {
 }
 .dt-checkbox span:before {
     content: "";
-    background: url(../images/check-mark.png) no-repeat;
+    /*background: url(../images/check-mark.png) no-repeat;*/
     position: absolute;
     left: 0;
     top: -1px;
@@ -1956,7 +1956,7 @@ body.IE .register-page-wrap .container {
     border-color: rgba(24, 31, 72, 0.3);
 }
 .register-page-wrap .wizard-content .wizard > .steps > ul > li.done > a .step {
-    background: url(../images/tick.svg) no-repeat #ecf0f4;
+    /*background: url(../images/tick.svg) no-repeat #ecf0f4;*/
     font-size: 0;
     background-size: 22px;
     background-position: center center;

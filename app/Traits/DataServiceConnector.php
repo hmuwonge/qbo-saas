@@ -85,33 +85,39 @@ trait DataServiceConnector
 
     public function postQuery($query)
     {
+        try {
+            $company_id = UtilityFacades::getsettings('company_id');
+            $company_url = UtilityFacades::getsettings('qbo_base_url');
 
-        $company_id = UtilityFacades::getsettings('company_id');
-        $company_url = UtilityFacades::getsettings('qbo_base_url');
+            $token =$this->getToken();
+            $url = "{$company_url}/v3/company/{$company_id}/query?minorversion=57";
 
-        $token =$this->getToken();
-        $url = "{$company_url}/v3/company/{$company_id}/query?minorversion=57";
 
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>$query,
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Content-Type: application/text',
-                'Authorization: Bearer' .' ' .$token,  // Include bearer token in header
-            ),
-        ));
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>$query,
+                CURLOPT_HTTPHEADER => array(
+                    'Accept: application/json',
+                    'Content-Type: application/text',
+                    'Authorization: Bearer' .' ' .$token,  // Include bearer token in header
+                ),
+            ));
 
-        $response = curl_exec($curl);
-        return json_decode($response,true);
+            $response = curl_exec($curl);
+            return json_decode($response,true);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('failed',$e->getMessage());
+        }
+
+
     }
 
   public function makeQuery($query)

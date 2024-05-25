@@ -45,7 +45,7 @@
 
                     <p>Found <code class="highlighter-rouge">{{count($data['filteredList'])}}</code></p>
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped text-nowrap text-md-nowrap  table-danger mb-0">
+                        <table class="table table-bordered table-striped text-nowrap text-md-nowrap  mb-0">
                             <thead class="">
                                 <tr>
                                   <th scope="col" class="px-6 py-3 text-dark">Ref Number</th>

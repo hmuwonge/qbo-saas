@@ -64,7 +64,7 @@ class EfrisController extends Controller
 
     public function invoices(Request $request)
     {
-        $pageNo = $request->page ?? 1;
+        $pageNo = $request->input('page',1);
         $customer = $request->input('customer_name');
         $period = $request->input('invoice_period');
         //Seperate the dates
@@ -152,7 +152,7 @@ class EfrisController extends Controller
       $responseData = json_decode($records, true);
 
       if ($responseData['status']['returnCode'] !== '00') {
-        return \view('errors.500');
+          return redirect()->back()->with('failed', $responseData['status']['returnMessage']);
       }
       $records = $responseData['data']['records'];
       $pagination = $responseData['data']['page'];
@@ -365,32 +365,18 @@ class EfrisController extends Controller
     public function goodsAndServices2(Request $request)
     {
         ini_set('memory_limit', '2048M');
-
         $api = new ApiRequestHelper('efris');
-
         $goodsName = $request->goodsName;
         $goodsCode = $request->goodsCode;
-        $pageNo = $request->page;
-
-        if (($goodsName != null) && ($goodsCode != null)) {
-            $query = [
-                'goodsName' => $goodsName,
-                'goodsCode' => $goodsCode,
-            ];
-        } elseif ($goodsName != null && $goodsCode == null) {
-            $query = [
-                'goodsName' => $goodsName,
-            ];
-        } elseif ($goodsName == null && $goodsCode != null) {
-            $query = [
-                'goodsCode' => $goodsCode,
-            ];
-        } else {
-            $query = [
-                'pageSize' => $pageSize ??  99,
-                'pageNo' => $pageNo ??  1,
-            ];
-        }
+        $pageNo = $request->input('page',1);
+        $query = array_filter([
+            'goodsName' => $goodsName,
+            'goodsCode' => $goodsCode,
+            'pageSize' => $pageSize ?? 99,
+            'pageNo' => $pageNo,
+        ], function ($value) {
+            return $value !== null;
+        });
 
         $records = $api->makePost('goods-and-services', $query);
         $responseData = json_decode($records, true);

@@ -23,11 +23,13 @@ class CreditMemosController extends Controller
     {
         ini_set('memory_limit', '4096M'); //Allow up to 2GB for this action
         $credit_notes = $this->urlQueryBuilderAll('CreditMemo');
-        //    dd($credit_notes);
+//            dd($credit_notes);
 
         $invoiceStatus = CreditMemo::all()->keyBy('id');
 
-        $credits = (new Collection($credit_notes['QueryResponse']['CreditMemo']))->paginate(100);
+        $qbo_data= $credit_notes['QueryResponse']['CreditMemo']??[];
+
+        $credits = (new Collection($qbo_data))->paginate(100);
 
 
         // Should we run validations?

@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-md">
+  <div class="">
     <div class="card invoice-preview-card">
       <div class="invoice-header card-body">
         <div
@@ -22,6 +22,7 @@
           </h1>
         </div>
       </div>
+
       <hr class="my-0" />
       <div class="card-body">
         <div class="row p-sm-3 p-0">
@@ -64,11 +65,13 @@
           </div>
         </div>
       </div>
+
       <hr class="my-0" />
       <div class="card-body">
+
         <div class="table-responsive mt-10">
           <h4 class="text-2xl mb-2">Goods & Services</h4>
-          <table class="table table-striped table-bordered w-full border">
+          <table class="table-border-style">
             <thead class="border bg-secondary text-base">
               <tr>
                 <th scope="col" class="">Type</th>

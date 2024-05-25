@@ -1,23 +1,11 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
-@section('styles')
-    <link rel="stylesheet" href="{{ asset('assets/js/daterangepicker/daterangepicker.css') }}" />
-@endsection
-
-@push('javascript')
-    <script src="{{ asset('assets/js/daterangepicker/daterangepicker.js') }}"></script>
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
 @endpush
 
-@section('title', 'All Receipts')
+
+{{--@section('title', 'All Receipts')--}}
 
 @section('content')
     <!-- PAGE HEADER -->
@@ -56,7 +44,6 @@
                         <div class="col-sm-3">
                             {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-control form-control-sm', 'id' => 'industry_code', 'style' => 'width:200px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
                         </div>
-
 
                       <div class="d-inline-flex gap-1 col-auto">
                         {!! Form::open([
@@ -171,13 +158,19 @@
                         </table>
                     </div>
 
-                    @if ($data['filteredList']->hasPages())
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {{ $data['filteredList']->links() }}
-                            </nav>
-                        </div>
-                    @endif
+{{--                    @if ($data['filteredList']->hasPages())--}}
+{{--                        <div class="pagination-wrapper my-1">--}}
+{{--                            <nav aria-label="Page navigation">--}}
+{{--                                {{ $data['filteredList']->links() }}--}}
+{{--                            </nav>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
+
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

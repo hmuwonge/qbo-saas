@@ -20,6 +20,10 @@ class CreateRequestDomainTable extends Migration
             $table->string('domain_name');
             $table->string('password');
             $table->string('tenant_id')->nullable();
+            $table->string('plan_id')->nullable();
+            $table->string('country_code')->nullable();
+            $table->string('dial_code')->nullable();
+            $table->string('phone')->nullable();
             $table->string('type');
             $table->boolean('is_approved')->default(0);
             $table->timestamps();
@@ -33,6 +37,6 @@ class CreateRequestDomainTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requestdomain');
+        Schema::dropIfExists('request_domains');
     }
 }

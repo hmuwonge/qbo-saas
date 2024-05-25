@@ -367,7 +367,7 @@
             <div class="footer-bottom">
                 <div class="row align-items-center">
                     <div class="col-12">
-                        <p> {{ __('© 2023 Full Multi Tenancy Laravel Admin Saas') }} </p>
+                        <p> {{ __('© 2024 Quickbooks EFris Saas Integrator') }} </p>
                     </div>
                 </div>
             </div>

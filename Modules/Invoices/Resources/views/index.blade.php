@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
-@endpush
+
 @section('title', 'All Invoices')
 
 @section('content')
@@ -168,7 +166,9 @@
     {{--    </div> --}}
     <!-- END ROW -->
 @endsection
-
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 @push('javascript')
     <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
     <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
@@ -313,43 +313,5 @@
                 'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
 
-        //  $('input[name="invoice_period"]').daterangepicker({
-        //     ranges: {
-        //         'Today': [moment(), moment()],
-        //         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        //         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-        //         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        //         'This Month': [moment().startOf('month'), moment().endOf('month')],
-        //         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-        //             'month')],
-        //         'This Year': [moment().startOf('year'), moment().endOf('year')]
-        //     },
-        //     autoUpdateInput: false,
-        //     "alwaysShowCalendars": true,
-        //     "startDate": "01-01-2023",
-        //     "endDate": "07-28-2023"
-        // },
-        // function(start, end, label) {
-        //     start.format('YYYY-MM-DD') + ' toooo ' + end.format('YYYY-MM-DD');
-        // });
-        //
-        //   $('input[name="invoice_period"]').on('apply.daterangepicker', function(ev, picker) {
-        //     const encodedDateRange = moment(picker.startDate).format('MM/DD/YYYY') + ' to ' + picker.endDate.format(
-        //       'MM/DD/YYYY');
-        //     // Decode the URL-encoded string
-        //     const decodedDateRange = decodeURIComponent(encodedDateRange);
-        //
-        //     // Split the date range into start and end dates
-        //     const dateParts = decodedDateRange.split(' to ');
-        //
-        //     // Format the dates as desired (e.g., 'MM/DD/YYYY')
-        //     const startDate = dateParts[0]; // Assuming 'MM/DD/YYYY' format
-        //     const endDate = dateParts[1]; // Assuming 'MM/DD/YYYY' format
-        //       $(this).val(startDate + ' to ' + endDate);
-        //   });
-        //
-        //   $('input[name="invoice_period"]').on('cancel.daterangepicker', function(ev, picker) {
-        //       $(this).val('');
-        //   });
     </script>
 @endpush

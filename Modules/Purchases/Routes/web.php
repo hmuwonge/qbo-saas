@@ -14,8 +14,8 @@ use Modules\Purchases\Http\Controllers\PurchasesController;
 */
 
 //Route::prefix('quickbooks/purchases')->group(function() {
-    Route::group(['prefix' => 'quickbooks/purchases', 'middleware' => ['auth','xss', 'web', 'token', 'verified', 'qbo.token']], function () {
-    Route::get('/', 'PurchasesController@index')->name('purchases.index');
-    Route::post('update-invoice-buyer-type', [PurchasesController::class, 'updatePurchaseStockInType'])->name('purchase.stockUpdate');
-    Route::get('fiscalise-increase-stock/{id}', [PurchasesController::class, 'increasePurchaseStock'])->name('quickbooks.fiscalise-increase-stock');
-});
+//    Route::group(['prefix' => 'quickbooks/purchases', 'middleware' => ['auth','xss', 'web', 'token', 'verified', 'qbo.token']], function () {
+//    Route::get('/', 'PurchasesController@index')->name('purchases.index');
+//    Route::post('update-invoice-buyer-type', [PurchasesController::class, 'updatePurchaseStockInType'])->name('purchase.stockUpdate');
+//    Route::get('fiscalise-increase-stock/{id}', [PurchasesController::class, 'increasePurchaseStock'])->name('quickbooks.fiscalise-increase-stock');
+//});

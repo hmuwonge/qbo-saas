@@ -4,6 +4,7 @@ namespace Modules\Receipts\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\EfrisInvoiceSearch;
+use App\Services\QBOServices\QboQueryService;
 use Carbon\Carbon;
 use DateTime;
 use Exception;
@@ -21,15 +22,15 @@ class ReceiptsController extends Controller
      */
 
     // Buyer Types
-    protected $buyerType = [
+    protected array $buyerType = [
       1 => 'Consumer',
       0 => 'Government/Business',
       2 => 'Foreigner',
     ];
 
     // Industry Codes
-    protected $industryCode = [
-      101 => 'General Industry',
+    protected array $industryCode = [
+      101 => "General Industry",
       102 => 'Export',
       104 => 'Imported Service',
       105 => 'Telecom',
@@ -40,7 +41,7 @@ class ReceiptsController extends Controller
 
     public function index(Request $request){
 
-        $data = $this->queryReceiptsRange('all');
+        $data = $this->queryReceipts('all');
 
         // Buyer Types
         $buyerType = [
@@ -68,7 +69,7 @@ class ReceiptsController extends Controller
 
     public function passedValidations(Request $request){
 
-        $data = $this->queryReceiptsRange($request,'passed');
+        $data = $this->queryReceipts('passed');
 
         // Buyer Types
         $buyerType = [
@@ -100,30 +101,31 @@ class ReceiptsController extends Controller
      */
     public function errors()
     {
-        $data = $this->queryReceiptsRange('failed');
+        $data = $this->queryReceipts('failed');
         $tin =53465867;
-        // dd($data);
-        // $paginatedData = $collection->paginate(100);
 
         return view('receipts::validationErrors', compact('data','tin'));
     }
 
     public function failed()
     {
-        $data = $this->queryReceiptsRange('failed');
+        $data = $this->queryReceipts('failed');
         $tin =53465867;
-        // dd($data);
-        // $paginatedData = $collection->paginate(100);
 
         return view('receipts::failed', compact('data','tin'));
     }
 
     public function fiscalised()
     {
-        $data = $this->queryReceiptsRange('ura');
+        $data = $this->queryReceipts('ura');
         $tin =53465867;
 
         return view('receipts::fiscalised', compact('data','tin'));
+    }
+
+    public function queryReceipts($list): array
+    {
+        return QboQueryService::queryInvoicesOrReceipts($list,'receipt');
     }
 
     /**

@@ -1,61 +1,59 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
-@section('styles')
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 
 @section('content')
     <!-- PAGE HEADER -->
-    <div class="page-header d-sm-flex d-block">
-        <ol class="breadcrumb mb-sm-0 mb-3">
-            <!-- breadcrumb -->
-            <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Quickbooks</li>
-            <li class="breadcrumb-item active" aria-current="page">Index</li>
-        </ol><!-- End breadcrumb -->
-
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="page-header-title">
+                        <h4 class="m-b-10">{{ __('All Quickbooks Receipts') }}</h4>
+                    </div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item "><a href="{{ route('home') }}">{{ __('Dashboard') }}</a></li>
+                        <li class="breadcrumb-item">{{ __('Quickbooks') }}</li>
+                        <li class="breadcrumb-item active">{{ __('Receipts') }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- END PAGE HEADER -->
 
     <!-- ROW -->
     <div class="row">
-
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Invoices That Passed Validations</h3>
+                    <h3 class="card-title">Receipts That Passed Validations</h3>
                 </div>
-                <div class="card-body">
-                    <div class="d-flex row form-group">
-                        <div class="col-lg-3">
-                            {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-control', 'id' => 'buyer_type', 'style' => 'width:250px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
-                        </div>
-                        <div class="col-lg-3">
-                            {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-control', 'id' => 'industry_code', 'style' => 'width:250px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="text" name="datetimes" id="demo" class="form-control col-2"/>
-                        </div>
-                        <div class="col-lg-2">
-                            <a type="button" id="validateButton" class="btn btn-primary" href="{{route('validate.invoices')}}">Validate Invoices</a>
-                        </div>
-
+                <div class="d-flex row form-group m-2">
+                    <div class="col-lg-3">
+                        {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-control form-control-sm', 'id' => 'buyer_type', 'style' => 'width:250px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
                     </div>
+                    <div class="col-lg-3">
+                        {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-control form-control-sm', 'id' => 'industry_code', 'style' => 'width:250px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" name="datetimes" id="demo" class="form-control col-2 form-control-sm"/>
+                    </div>
+                    <div class="col-lg-2">
+                        <a type="button" id="validateButton" class="btn btn-primary" href="{{route('validate.invoices')}}">Validate Invoices</a>
+                    </div>
+                </div>
 
 
-                    <p>Found <code class="highlighter-rouge">{{$data['total']}}</code>tbetween <code class="highlighter-rouge">{{$data['startdate']}} and {{$data['enddate']}}</code>.</p>
+                <p>Found <code class="highlighter-rouge">{{$data['total']}}</code> between <code class="highlighter-rouge">{{$data['startdate']}} and {{$data['enddate']}}</code>.</p>
+                <div class="card-body">
+
                     <div class="table-responsive">
-                        <table class="table border table-primary text-nowrap text-md-nowrap table-striped mb-0">
+                        <table class="table border  text-nowrap text-md-nowrap table-striped mb-0">
                             <thead>
-                                <tr class="bg-secondary">
+                                <tr class="bg-light-secondary">
                                     <th scope="col" class="p-4">
                                         <div class="flex items-center">
                                             #
@@ -95,12 +93,12 @@
                             <tbody>
                                 @forelse ($data['filteredList'] as $invoice)
                                     <tr>
-                                        <td>
+
                                         <td>
                                             <input type="checkbox" name="invoice_checkbox"
                                                 value="{{ $invoice->checkboxField }}" id="row{{ $invoice->checkboxField }}">
                                         </td>
-                                        </td>
+
                                         <td>{{ $invoice->industryCode }}</td>
                                         <td>{{ $invoice->refNumber }}</td>
                                         <td>{{ $invoice->transactionDate }}</td>
@@ -109,7 +107,7 @@
                                         </td>
                                         <td>{{ $invoice->buyerType }}</td>
                                         <td>{{ $invoice->totalAmount }}</td>
-                                        {{-- <td>{!! $invoice->fiscalStatus !!}</td> --}}
+                                         <td>{!! $invoice->fiscalStatus !!}</td>
                                         <td>
                                             @if ($invoice->fisStatus === 'fiscalise')
                                                 <span>
@@ -136,22 +134,22 @@
                         </table>
                     </div>
 
-                    @if ($data['filteredList']->hasPages())
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {{ $data['filteredList']->links() }}
-                            </nav>
-                        </div>
-                    @endif
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('javascript')
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- APEXCHART JS -->
     <script src="{{ asset('build/assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 
@@ -272,4 +270,4 @@
                 'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     </script>
-@endsection
+@endpush

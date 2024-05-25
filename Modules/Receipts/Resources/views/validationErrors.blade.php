@@ -1,26 +1,22 @@
-{{-- @extends('invoices::layouts.master')
-
-@section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('invoices.name') !!}
-    </p>
-@endsection --}}
 @extends('layouts.main')
 
-@section('styles')
-@endsection
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
 
 @section('content')
     <!-- PAGE HEADER -->
+
     <div class="page-header d-sm-flex d-block">
         <ol class="breadcrumb mb-sm-0 mb-3">
             <!-- breadcrumb -->
-            <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
-            <li class="breadcrumb-item " aria-current="page">Quickbooks</li>
-            <li class="breadcrumb-item " aria-current="page">Invoices</li>
-            <li class="breadcrumb-item active" aria-current="page">ValidationErrors</li>
+            <li class="breadcrumb-item">
+                <a href="{{ url('index') }}">Home</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('quickbooks.index') }}">Quickbooks</a></li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('qbo.receipts.index') }}">Invoices</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Validation Errors</li>
         </ol><!-- End breadcrumb -->
 
     </div>
@@ -32,10 +28,9 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Invoices That Passed Validations</h3>
+                    <h3 class="card-title">Receipts That Passed Validations</h3>
                 </div>
                 <div class="card-body">
-
 
                     <p>Found <code class="highlighter-rouge">{{$data['total']}}</code></p>
                     <div class="table-responsive">
@@ -51,7 +46,7 @@
                               </thead>
                             <tbody>
                                 @forelse ($data['filteredList'] as $invoice)
-                                <tr class="hover:bg-gray-100 hover:cursor-pointer" v-for="invoice in invoices?.filteredList?.data" :key="invoice">
+                                <tr class="hover:bg-gray-100 hover:cursor-pointer">
                                     <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                       {{ $invoice->refNumber }}
                                     </th>
@@ -61,26 +56,24 @@
                                     <td class="px-6 py-4">
                                       {!! $invoice->customerDetails !!}>
 
-                                      </span>
                                     </td>
                                     <td class="px-6 py-2 font-bold text-sm">
                                       {!! $invoice->validationErrors !!}
                                     </td>
                                   </tr>
                                 @empty
+                                    <p>nothing found</p>
                                 @endforelse
 
                             </tbody>
                         </table>
                     </div>
 
-                    @if ($data['filteredList']->hasPages())
-                        <div class="pagination-wrapper my-1">
-                            <nav aria-label="Page navigation">
-                                {{ $data['filteredList']->links() }}
-                            </nav>
-                        </div>
-                    @endif
+                    <div class="pagination-wrapper my-1">
+                        <nav aria-label="Page navigation">
+                            {!! $data['links'] !!}
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,9 +8,9 @@
       <div class="page-block">
         <div class="row align-items-center">
           <div class="col-md-12">
-            <div class="page-header-title">
-              <h4 class="m-b-10">{{ __('All Efris goods and services') }}</h4>
-            </div>
+{{--            <div class="page-header-title">--}}
+{{--              <h4 class="m-b-10">{{ __('All Efris goods and services') }}</h4>--}}
+{{--            </div>--}}
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a href="{{ url('index') }}">Home</a></li>
               <li class="breadcrumb-item" aria-current="page">URA Reports</li>
@@ -50,13 +50,13 @@
                         {!! Form::close() !!}
                     </div>
 
+                    <p class="my-2">Found <code class="highlighter-rouge">{{ $total }}</code> Records</p>
+
                 </div>
 
-
-                <p class="my-2">Found <code class="highlighter-rouge">{{ $total }}</code> Records</p>
                 <div class="table-responsive">
                     <table class="table table-bordered table-striped text-nowrap text-md-nowrap mb-0">
-                        <thead class="bg-secondary">
+                        <thead class="bg-blend-darken">
                             <tr>
                                 <th scope="col" class="">
                                     Commodity Category Code

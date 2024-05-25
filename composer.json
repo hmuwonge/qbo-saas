@@ -47,8 +47,8 @@
         "twilio/sdk": "^7.4",
         "whichbrowser/parser": "^2.1",
         "yajra/laravel-datatables": "^9.0",
-        "yajra/laravel-datatables-oracle": "^10.2",
-        "ext-oauth": "*"
+        "yajra/laravel-datatables-oracle": "^10.2"
+
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -9,6 +9,7 @@ use Modules\EfrisReports\Http\Controllers\EfrisController;
 use Modules\Goods\Http\Controllers\GoodsController;
 use Modules\Invoices\Http\Controllers\InvoicesController;
 use Modules\Invoices\Http\Controllers\ValidationsController;
+use Modules\Purchases\Http\Controllers\PurchasesController;
 use Modules\QuickbooksDashboard\Http\Controllers\QuickbooksDashboardController;
 use Stancl\Tenancy\Features\UserImpersonation;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomainOrSubdomain;
@@ -108,6 +109,7 @@ Route::middleware([
             Route::get('fiscal-invoice/details/{id}', [EfrisController::class, 'invoicesDetails'])->name('fiscal-invoice.preview');
             Route::get('fiscal-invoice-download/{id}', [EfrisController::class, 'actionViewInvoicePdf'])->name('invoice.download.rt');
             Route::get('fiscal-creditnote-download/{id}', [EfrisController::class, 'actionViewCreditnotePdf'])->name('creditnote.download');
+
             Route::get('fiscalise/{id}/{kind}', [InvoicesController::class, 'actionFiscaliseInvoice'])->name('invoice.fiscalise');
 
             Route::get('issued-credit-notes', [EfrisController::class, 'creditNotes'])->name('ura.creditnotes');
@@ -115,9 +117,16 @@ Route::middleware([
         });
 
         Route::prefix('efrisreports')->group(function() {
-            Route::get('/', 'EfrisController@invoices')->name('efris.invoices');
-            Route::get('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods');
-            Route::post('/goods-services', 'EfrisController@goodsAndServices2')->name('efris.goods.get');
+            Route::get('/', [EfrisController::class,'invoices'])->name('efris.invoices');
+            Route::get('/goods-services', [EfrisController::class,'goodsAndServices2'])->name('efris.goods');
+            Route::post('/goods-services', [EfrisController::class,'goodsAndServices2'])->name('efris.goods.get');
+        });
+
+        // purchases routes
+        Route::group(['prefix' => 'quickbooks/purchases', 'middleware' => ['auth','xss', 'web', 'token', 'verified', 'qbo.token']], function () {
+            Route::get('/', [PurchasesController::class,'index'])->name('purchases.index');
+            Route::post('update-invoice-buyer-type', [PurchasesController::class, 'updatePurchaseStockInType'])->name('purchase.stockUpdate');
+            Route::get('fiscalise-increase-stock/{id}', [PurchasesController::class, 'increasePurchaseStock'])->name('quickbooks.fiscalise-increase-stock');
         });
 
         Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'xss', 'verified', 'qbo.token']], function () {
@@ -134,16 +143,38 @@ Route::middleware([
             Route::get('invoices-sync', [InvoicesController::class,'syncInvoices'])->name('invoices.sync');
         });
 
-        Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
-            Route::get('/', [GoodsController::class,'index'])->name('goods.all');//->middleware('is_connected');
-            Route::get('/not-registered', 'GoodsController@index')->name('goods.noregistered');
-            Route::get('sync-items', 'GoodsController@syncItems')->name('goods.syncItems');
-            Route::get('register-opening-stock/{id}', 'GoodsController@registerOpeningStockView')->name('quickbooks.register-stock');
-            Route::post('register-opening-stock/{id}', 'GoodsController@registerOpeningStock')->name('quickbooks.register-stock.store');
-            Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
-            Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
-            Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
-        });
+        /////////////////receipts////////////////
+//        Route::group(['prefix' => 'quickbooks/receipts', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+//            Route::get('/', [ReceiptsController::class, 'index'])->name('qbo.receipts.index');
+//            Route::get('/passed-validations', [ReceiptsController::class, 'passedValidations'])->name('qbo.receipts.passed');
+//            Route::get('/failed-validations', [ReceiptsController::class, 'failed'])->name('qbo.receipts.failed');
+//            Route::get('/validation-errors', [ReceiptsController::class, 'errors'])->name('qbo.receipts.errors');
+//            Route::get('/fiscalised', [ReceiptsController::class, 'fiscalised'])->name('qbo.receipts.ura');
+//            Route::post('update-invoice-industry-code', [ReceiptsController::class, 'updateInvoiceIndustry'])->name('receipts.update.industrycode');
+//            Route::post('update-invoice-buyer-type', [ReceiptsController::class, 'updateBuyerType'])->name('receipts.update.buyerType');
+//
+//            Route::get('receipts-range/{validate}', [ReceiptsController::class, 'receiptsDateRange'])->name('qbo.receipts.range');
+//        });
+        Route::get('validate/all/receipts', [ValidationsController::class, 'validateReceipts'])->name('receipts.validate');
+
+//        Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+//            Route::get('/', [GoodsController::class,'index'])->name('goods.all');//->middleware('is_connected');
+//            Route::get('/not-registered', 'GoodsController@index')->name('goods.noregistered');
+//            Route::get('sync-items', 'GoodsController@syncItems')->name('goods.syncItems');
+//            Route::get('register-opening-stock/{id}', 'GoodsController@registerOpeningStockView')->name('quickbooks.register-stock');
+//            Route::post('register-opening-stock/{id}', 'GoodsController@registerOpeningStock')->name('quickbooks.register-stock.store');
+//            Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
+//            Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
+//            Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
+//        });
+
+        // stock adjustments
+//        Route::group(['prefix' => 'quickbooks/stockadjustments', 'middleware' => ['auth', 'web', 'token', 'verified', 'qbo.token']], function () {
+//            Route::get('/', 'StockAdjustmentsController@index')->name('qbo.stockadjustments');
+//            Route::get('/sync', 'StockAdjustmentsController@sync')->name('qbo.stockadjustments.sync');
+//            Route::get('reduce-stock/{id}/{stock}', 'StockAdjustmentsController@actionReduceStock')->name('stockAdjust.reduce-stock');
+//            Route::post('update-stockin-type', [StockAdjustmentsController::class, 'updateStockADType'])->name('update.stockInType');
+//        });
 
         Route::group(['prefix' => 'quickbooks/invoices', 'middleware' => ['auth', 'web', 'token', 'verified']], function () {
             Route::post('update-invoice-industry-type', [InvoicesController::class, 'updateInvoiceIndustry'])->name('update.industrycode');

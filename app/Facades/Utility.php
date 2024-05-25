@@ -209,6 +209,7 @@ class Utility
                 return redirect()->back()->with('errors', $e->getMessage());
             }
         } else {
+//            dd($database);
             $tenant = Tenant::create([
                 'id' => $user->id,
                 'tenancy_db_name' => $database['db_name'],
@@ -223,6 +224,7 @@ class Utility
             $user->tenant_id = $tenant->id;
             $user->save();
         }
+
         $usercoupon =  UserCoupon::where('domainrequest', $req->id)->first();
         if ($usercoupon) {
             $usercoupon->user = $user->id;

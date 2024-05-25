@@ -3,6 +3,8 @@
     $users = \Auth::user();
     $currantLang = $users->currentLanguage();
     $primary_color = \App\Facades\UtilityFacades::getsettings('color');
+    $client = \App\Facades\UtilityFacades::getsettings('client_id');
+//    var_dump($client);
     if (isset($primary_color)) {
         $color = $primary_color;
     } else {
@@ -34,14 +36,22 @@
 @section('title', __('Dashboard'))
 @section('content')
     <div class="row">
-        @if (!$paymentTypes && Auth::user()->type == 'Admin')
-            <div class="col-md-12">
-                <div class="alert alert-warning">{{ __('Please set your payment key & payment secret') }} -
-                    <a href="{{ url('/settings') }}/#payment_setting">{{ __('Click') }}</a>
+{{--        @if (!$paymentTypes && Auth::user()->type == 'Admin')--}}
+{{--            <div class="col-md-12">--}}
+{{--                <div class="alert alert-warning">{{ __('Please set your payment key & payment secret') }} ---}}
+{{--                    <a href="{{ url('/settings') }}/#payment_setting">{{ __('Click') }}</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        @endif--}}
+
+            @if (empty($client))
+                <div class="col-md-12">
+                    <div class="alert alert-warning">{{ __('Please set your client id and secrete key') }} -
+                        <a href="{{ url('/settings') }}/#payment_setting">{{ __('Click') }}</a>
+                    </div>
                 </div>
-            </div>
-        @endif
-        <div class="col-xxl-7">
+            @endif
+        <div class="col-xxl-12">
             <div class="row">
                 @can('manage-user')
                     <div class="col-lg-3 col-6">
@@ -57,6 +67,7 @@
                         </div>
                     </div>
                 @endcan
+
                 @can('manage-plan')
                     <div class="col-lg-3 col-6">
                         <div class="card">
@@ -112,53 +123,6 @@
                         </div>
                     </div>
                 @endif
-            </div>
-        </div>
-        <div class="col-xxl-5">
-            <div class="card bg-primary">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-sm-8">
-                            <h2 class="text-white mb-3">{{ __('Hey Admin!') }}</h2>
-                            <p class="text-white mb-4">
-                                {{ __('Have a nice day! you can quickly add your forms or polls Chart') }}
-                            </p>
-                            <div class="dropdown quick-add-btn">
-                                <a class="btn-q-add dropdown-toggle dash-btn btn btn-default btn-light"
-                                    data-bs-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="false"
-                                    aria-expanded="false">
-                                    <i class="ti ti-plus drp-icon"></i>
-                                    <span class="ms-1">{{ __('Quick add') }}</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    @can('manage-user')
-                                        <a href="{{ route('users.create') }}" data-size="lg" data-ajax-popup="true"
-                                            data-title="Add User" class="dropdown-item" data-bs-placement="top">
-                                            <span> {{ __('Add New User') }} </span>
-                                        </a>
-                                    @endcan
-                                    @if (Auth::user()->type != 'Super Admin')
-                                        @can('manage-document')
-                                            <a href="{{ route('document.create') }}" data-size="lg" data-ajax-popup="true"
-                                                data-title="Add Document" class="dropdown-item" data-bs-placement="top">
-                                                <span> {{ __('Add New Document') }} </span>
-                                            </a>
-                                        @endcan
-                                    @endif
-                                    @can('manage-support-ticket')
-                                        <a href="{{ route('support-ticket.create') }}" data-size="lg" data-ajax-popup="true"
-                                            data-title="Add Support" class="dropdown-item" data-bs-placement="top">
-                                            <span> {{ __('Add New Support') }} </span>
-                                        </a>
-                                    @endcan
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 d-none d-sm-flex">
-                            <img src="{{ asset('vendor/landing-page2/image/img-auth-3.svg') }}" class="img-fluid">
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-xxl-7">
@@ -232,168 +196,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xxl-4">
-            <div class="card dash-table">
-                <div class="card-header">
-                    <h5>{{ __('Documents') }}</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('Status') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($documentsDatas as $documentsData)
-                                    @php
-                                        $documentMenu = App\Models\DocumentMenu::where('document_id', $documentsData->id)->first();
-                                    @endphp
-                                    <tr>
-                                        @if ($documentMenu)
-                                            <td>
-                                                <a href="{{ route('document.public', $documentMenu->slug) }}">
-                                                    {{ __($documentsData->title) }}
-                                                </a>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <a href="javascript:void(0);">
-                                                    {{ __($documentsData->title) }}
-                                                </a>
-                                            </td>
-                                        @endif
-                                        <td>
-                                            @if ($documentsData->status == 1)
-                                                <h6 class="badge rounded-pill bg-primary p-2 px-3">
-                                                    {{ __('Active') }}
-                                                </h6>
-                                            @else
-                                                <h6 class="badge rounded-pill bg-danger p-2 px-3">
-                                                    {{ __('Deactive') }}
-                                                </h6>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="10" class="text-center">
-                                            <div class="text-center">
-                                                <i class="fas fa-folder-open text-primary fs-40"></i>
-                                                <h2>{{ __('Opps...') }}</h2>
-                                                <h6> {!! __('No Data Found') !!} </h6>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4">
-            <div class="card dash-table">
-                <div class="card-header">
-                    <h5>{{ __('Posts') }}</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('Category') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($posts as $post)
-                                    @php
-                                        $categoryName = App\Models\Category::select('name')
-                                            ->join('posts', 'categories.id', '=', 'posts.category_id')
-                                            ->where('posts.category_id', $post->category_id)
-                                            ->value('name');
-                                    @endphp
-                                    <tr>
-                                        <td>
-                                            <a href="{{ route('blogs.edit', $post->id) }}">
-                                                {{ __($post->title) }}
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <h6 class="m-0">{{ $categoryName }}</h6>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="10" class="text-center">
-                                            <div class="text-center">
-                                                <i class="fas fa-folder-open text-primary fs-40"></i>
-                                                <h2>{{ __('Opps...') }}</h2>
-                                                <h6> {!! __('No Data Found') !!} </h6>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-4">
-            <div class="card dash-table">
-                <div class="card-header">
-                    <h5>{{ __('Events') }}</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>{{ __('Title') }}</th>
-                                    <th>{{ __('User Name') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($events as $event)
-                                    @php
-                                        $userIds = explode(',', $event->user);
-                                        $userNames = App\Models\User::whereIn('id', $userIds)->get();
-                                        $Name = '';
-                                        foreach ($userNames as $userName) {
-                                            $Name .= $userName->name . ',';
-                                        }
-                                        $eventUser = rtrim($Name, ',');
-                                    @endphp
-                                    <tr>
-                                        <td>
-                                            <h6 class="m-0">{{ $event->title }}</h6>
-                                        </td>
-                                        <td>
-                                            <h6 class="badge rounded-pill bg-primary p-2 px-3"> {{ $eventUser }}
-                                            </h6>
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="10" class="text-center">
-                                            <div class="text-center">
-                                                <i class="fas fa-folder-open text-primary fs-40"></i>
-                                                <h2>{{ __('Opps...') }}</h2>
-                                                <h6> {!! __('No Data Found') !!} </h6>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 @endsection
 @push('css')

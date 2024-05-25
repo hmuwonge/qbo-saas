@@ -10,7 +10,7 @@ use App\Models\Plan;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Models\Role;
-use DB;
+//use DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Stancl\Tenancy\Database\Models\Domain;
