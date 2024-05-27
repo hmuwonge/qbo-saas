@@ -227,6 +227,7 @@ class EfrisInvoiceService
             //Find details of this product and we're going to check if it's registered
             $efrisProduct = EfrisItem::where('id', $is_registered_item_id)->first();
 //            $total = isset($item->SalesItemLineDetail) ? $item->SalesItemLineDetail->TaxInclusiveAmt : 0;
+//            dd($efrisProduct);
 
 
             $is_deemed_registered=UtilityFacades::getsettings('is_deemedflag_registered');
@@ -251,8 +252,6 @@ class EfrisInvoiceService
                 } else {
                     $deemedFlag = 2;
                 }
-
-//                dd($deemedFlag);
 
 
                 if (floatval($total) > 0) {

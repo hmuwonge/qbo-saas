@@ -266,40 +266,41 @@ class GoodsController extends Controller
             return response()->json(['status'=>'SUCCESS', 'msg'=>$stockInResponse]);
           }
 
-          $efrisdb = new EfrisItem();
+            QuickBooksServiceHelper::logToFile('posted',json_encode($posted));
 
-          $efrisdb->fill($posted);
-//                    $efrisdb->id = $request->Id;
-//                    $efrisdb->unitOfMeasure = $request->stockInDate;
-//                    $efrisdb->stockStatus = $request->stockinQuantity;
-//                    $efrisdb->itemCode = $request->stockinMeasureUnit;
-//                    $efrisdb->commodityCategoryId = $request->stockinPrice;
-//                    $efrisdb->havePieceUnit = $request->stockinSupplierTin;
-//                    $efrisdb->haveExciseTax = $request->stockInsupplier;
-//                    $efrisdb->pieceUnitPrice = $request->stockStatus;
-//                    $efrisdb->stockin_price = $request->stockinPrice;
-//                    $efrisdb->pieceScaledValue = $request->itemCode;
-//                    $efrisdb->pieceMeasureUnit = $request->itemCode;
-//                    $efrisdb->packageScaledValue = $request->itemCode;
-//                    $efrisdb->item_tax_rule = $request->itemCode;
-//                    $efrisdb->hasOpeningStock = $request->itemCode;
-//                    $efrisdb->haveExciseDuty = $request->itemCode;
-//                    $efrisdb->haveOtherUnit = $request->itemCode;
-//                    $efrisdb->hasOpeningStock = $request->itemCode;
-//                    $efrisdb->stockin_supplier_tin = $request->itemCode;
-//                    $efrisdb->stockin_supplier = $request->itemCode;
-//                    $efrisdb->opening_stock_remarks = $request->stockInRemarks;
-//                    $efrisdb->stock_in_date = $request->itemCode;
-//                    $efrisdb->stockin_price = $request->itemCode;
-//                    $efrisdb->stockin_quantity = $request->itemCode;
-//                    $efrisdb->currency = $request->itemCode;
-//                    $efrisdb->otherUnit = $request->itemCode;
-//                    $efrisdb->otherPrice = $request->itemCode;
-//                    $efrisdb->isRegisteredInEfris = $request->itemCode;
-//                    $efrisdb->exciseDutyCode = $request->itemCode;
-//                    $efrisdb->packageScaled = $request->itemCode;
-//                    $efrisdb->otherScaled = $request->itemCode;
-//                    $efrisdb->registration_status = 1;
+          $efrisdb = new EfrisItem;
+//            $posted['registration_status']=1;
+//          $efrisdb->fill($posted);
+            $efrisdb->id = request()->Id;
+            $efrisdb->unitOfMeasure = request()->stockInDate;
+            $efrisdb->stockStatus = request()->stockinQuantity;
+            $efrisdb->itemCode = request()->stockinMeasureUnit;
+            $efrisdb->commodityCategoryId = request()->stockinPrice;
+            $efrisdb->havePieceUnit = request()->stockinSupplierTin;
+            $efrisdb->haveExciseTax = request()->stockInsupplier;
+            $efrisdb->pieceUnitPrice = request()->stockStatus;
+            $efrisdb->stockin_price = request()->stockinPrice;
+            $efrisdb->pieceScaledValue = request()->pieceScaledValue;
+            $efrisdb->pieceMeasureUnit = request()->pieceMeasureUnit;
+//            $efrisdb->packageScaledValue = request()->packageScaledValue;
+            $efrisdb->item_tax_rule = request()->itemTaxRule;
+//            $efrisdb->haveExciseDuty = request()->haveExciseDuty;
+            $efrisdb->haveOtherUnit = request()->haveOtherUnit;
+            $efrisdb->hasOpeningStock = request()->hasOpeningStock;
+            $efrisdb->stockin_supplier_tin = request()->stockinSupplierTin;
+            $efrisdb->stockin_supplier = request()->stockInsupplier;
+            $efrisdb->opening_stock_remarks = request()->stockInRemarks;
+            $efrisdb->stock_in_date = request()->stockInDate;
+            $efrisdb->stockin_price = request()->stockinPrice;
+            $efrisdb->stockin_quantity = request()->stockinQuantity;
+            $efrisdb->currency = request()->currency;
+            $efrisdb->otherUnit = request()->otherUnit;
+            $efrisdb->otherPrice = request()->otherPrice;
+            $efrisdb->isRegisteredInEfris = request()->isRegisteredInEfris;
+            $efrisdb->exciseDutyCode = request()->exciseDutyCode;
+            $efrisdb->packageScaled = request()->packageScaled;
+            $efrisdb->otherScaled = request()->otherScaled;
+            $efrisdb->registration_status = 1;
           if ($efrisdb->save()) {
             return response()->json(['status'=>'SUCCESS','msg'=> $data->data->data]);//'Product Successfully Registered with URA'
           } else {

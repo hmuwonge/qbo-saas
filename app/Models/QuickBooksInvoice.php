@@ -142,7 +142,11 @@ class QuickBooksInvoice extends Model
   {
     $invoice = self::getInvoiceDetails($id, $inv_kind);
     $qb_record = ($inv_kind == 'INVOICE') ? ($invoice->Invoice) : ($invoice->SalesReceipt);
+
+
     $efrisInvoice = (new EfrisInvoiceService())->createEfrisInvoiceQbo($qb_record);
+
+//      dd($efrisInvoice);
 
     return [
       "data" => is_array($efrisInvoice) ? ($efrisInvoice['data']) : (false),

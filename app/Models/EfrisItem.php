@@ -48,6 +48,7 @@ class EfrisItem extends Model
         'otherPrice',
         'otherScaled',
         'packageScaled',
+        'packageScaledValue',
         'item_tax_rule',
     ];
 
@@ -161,13 +162,16 @@ class EfrisItem extends Model
                 $id = Arr::get($qbItems, $record['goodsCode']);
                 self::customInsert($record, $id['Id']);
             }
-            continue;
         }
         return true;
     }
 
     public static function customInsert($fromefris, $qbId)
     {
+
+//        Log::info($qbId);
+
+//        dd($fromefris,$qbId);
         $item = new EfrisItem;
         $item->id = $qbId;
         $item->itemCode = $fromefris['goodsCode'];
@@ -196,6 +200,28 @@ class EfrisItem extends Model
                 QuickBooksServiceHelper::logToFile($e->getMessage());
             }
         }
+
+//        dd('we can update record');
+        $update_item =  EfrisItem::find($qbId);
+//        $update_item->id = $qbId;
+        $update_item->itemCode = $fromefris['goodsCode'];
+        $update_item->currency = $fromefris['currency'];
+        $update_item->unitOfMeasure = $fromefris['measureUnit'];
+        $update_item->commodityCategoryId = $fromefris['commodityCategoryCode'];
+        $update_item->havePieceUnit = $fromefris['havePieceUnit'];
+        $update_item->pieceUnitPrice = @$fromefris['pieceUnitPrice'];
+        $update_item->haveExciseTax = $fromefris['haveExciseTax'];
+        $update_item->stockStatus = $fromefris['statusCode'];
+        $update_item->stockin_remarks = @$fromefris['remarks'];
+        $update_item->stockin_quantity = $fromefris['stock'];
+        $update_item->exciseDutyCode = @$fromefris['exciseDutyCode'];
+        $update_item->pieceScaledValue = @$fromefris['pieceScaledValue'];
+        $update_item->packageScaleValue = @$fromefris['packageScaledValue'];
+        $update_item->pieceMeasureUnit = @$fromefris['pieceMeasureUnit'];
+        $update_item->haveOtherUnit = $fromefris['haveOtherUnit'];
+        $update_item->item_tax_rule = 'URA';
+        $update_item->registration_status = 1;
+        $update_item->update();
 
         return true;
     }

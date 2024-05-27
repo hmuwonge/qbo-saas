@@ -303,6 +303,8 @@ class InvoicesController extends Controller
       //get invoice preview details
       $res = $efris->makePost('generate-fiscal-invoice-preview', ['data' => $efris_invoice['data']]);
 
+//      dd($res);
+
       $response = json_decode($res);
       if (isset($response->data->sellerDetails)) {
 

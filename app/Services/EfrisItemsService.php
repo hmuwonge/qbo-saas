@@ -63,6 +63,8 @@ class EfrisItemsService
             $efris_indexed = $efris_indexed->merge($ef_items['data']['records']);
         }
 
+//        dd($efris_indexed);
+
 
         // perform a batch insert of matched data
         EfrisItem::batchInsert($efris_indexed, $indexed);
