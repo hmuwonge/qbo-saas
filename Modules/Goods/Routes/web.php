@@ -25,6 +25,8 @@ Route::group(['prefix' => 'quickbooks/goods', 'middleware' => ['auth', 'web', 't
     Route::post('register-opening-stock/{id}', 'GoodsController@registerOpeningStock')->name('quickbooks.register-stock.store');
     Route::get('/product-details/{id}', 'GoodsController@actionItemProductDetails')->name('goods.product-details');
     Route::post('register-product/{id}', 'GoodsController@registerProductn')->name('quickbooks.register-product-efris');
-    Route::match(['get','post'],'/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
+    Route::get('/register-product/{id}/{redo?}', 'GoodsController@registerProduct')->name('quickbooks.register-product');
+
+    Route::post('/register-product/{id}/{redo?}', 'GoodsController@registerEfrisProduct')->name('quickbooks.register-product.register');
     Route::get('sync-product', 'GoodsController@syncProducts')->name('efris.syncproducts');
 });

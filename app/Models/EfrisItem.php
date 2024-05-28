@@ -50,6 +50,8 @@ class EfrisItem extends Model
         'packageScaled',
         'packageScaledValue',
         'item_tax_rule',
+        'packageScaledValue',
+        'haveExciseDuty'
     ];
 
     public static function getItemsRegistered()

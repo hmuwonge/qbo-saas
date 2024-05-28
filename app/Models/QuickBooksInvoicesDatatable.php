@@ -199,9 +199,11 @@ class QuickBooksInvoicesDatatable extends Model
             $type = $this->databaseRecord->buyerType;
 
             $buyer_type = [
-                1 => 'Consumer',
-                0 => 'Government/Business',
+                ''=>'Select buyer type',
+                0 => 'Business(B2B)',
+                1 => 'Consumer (B2C)',
                 2 => 'Foreigner',
+                3 => 'Government(B2G)',
             ];
 
             return isset($type) ? ($buyer_type[$type]) : ('');

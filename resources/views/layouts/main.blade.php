@@ -3,6 +3,9 @@
 $color = $primary_color ?? 'theme-1';
     $users = \Auth::user();
     $currantLang = $users->currentLanguage();
+
+      $is_set_buyer_type = \App\Facades\UtilityFacades::getsettings('buyer_type') !== "";
+  $is_set_industry_code = \App\Facades\UtilityFacades::getsettings('industry_code') !== "";
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
@@ -85,8 +88,23 @@ $color = $primary_color ?? 'theme-1';
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row">
+                <div>
+                    @if(!$is_set_buyer_type)
+                        <div class="alert alert-danger" role="alert">
+                            Please set the default buyer type
+                        </div>
+                    @endif
+
+                    @if(!$is_set_industry_code)
+                        <div class="alert alert-danger" role="alert">
+                            Please set the default industry code
+                        </div>
+                    @endif
+
+                </div>
                 <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
+                    @include('layouts.includes.alerts2')
                     @yield('content')
                 </div>
                 <!-- [ sample-page ] end -->

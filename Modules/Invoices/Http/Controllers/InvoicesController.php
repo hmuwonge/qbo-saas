@@ -27,11 +27,13 @@ use Modules\Receipts\Http\Services\ReceiptsService;
 class InvoicesController extends Controller
 {
   // Buyer Types
-  protected $buyerType = [
-    1 => 'Consumer',
-    0 => 'Government/Business',
-    2 => 'Foreigner',
-  ];
+    protected $buyerType = [
+        ''=>'Select buyer type',
+        0 => 'Business(B2B)',
+        1 => 'Consumer (B2C)',
+        2 => 'Foreigner',
+        3 => 'Government(B2G)',
+    ];
 
   // Industry Codes
   protected $industryCode = [
@@ -54,9 +56,11 @@ class InvoicesController extends Controller
     $data = $this->queryInvoices('all');
     // Buyer Types
     $buyerType = [
-      1 => 'Consumer',
-      0 => 'Government/Business',
-      2 => 'Foreigner',
+        ''=>'Select buyer type',
+        0 => 'Business(B2B)',
+        1 => 'Consumer (B2C)',
+        2 => 'Foreigner',
+        3 => 'Government(B2G)',
     ];
 
     // Industry Codes
@@ -84,9 +88,11 @@ class InvoicesController extends Controller
   {
     // Buyer Types
     $buyerType = [
-      1 => 'Consumer',
-      0 => 'Government/Business',
-      2 => 'Foreigner',
+        ''=>'Select buyer type',
+        0 => 'Business(B2B)',
+        1 => 'Consumer (B2C)',
+        2 => 'Foreigner',
+        3 => 'Government(B2G)',
     ];
 
     // Industry Codes

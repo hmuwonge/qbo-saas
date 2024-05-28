@@ -34,11 +34,11 @@ use Carbon\Carbon;
             $efris->haveExciseTax = 102;
 //            $efris->exciseDutyCode = $efItem->exciseDutyCode;
         }
-
-        if ($redo == "yes") {
-            // Are we re-registering? First remove the record from the DB
-            \DB::table('efris_items')->where('id', $item->Item->Id)->delete();
-        }
+//
+//        if ($redo == "yes") {
+//            // Are we re-registering? First remove the record from the DB
+//            \DB::table('efris_items')->where('id', $item->Item->Id)->delete();
+//        }
     @endphp
 
 @section('content')

@@ -145,6 +145,7 @@ class EfrisInvoiceService
                     'invoiceIndustryCode' => 101,
                     //General Industry
                 ],
+                "discountTotal" => $this->getItemDiscountAmount(),
                 'buyerDetails' => $this->getCustomerDetails(
                     $qbInv->CustomerRef->value,
                     $buyerType,
@@ -155,7 +156,7 @@ class EfrisInvoiceService
             ];
 
             return [
-                'data' =>  $efrisInvoice,//$this->addInvoiceDiscountLines($efrisInvoice),
+                'data' =>  $this->addInvoiceDiscountLines($efrisInvoice),
                 'errors' => $this->getInvoiceValidationMessages($efrisInvoice),
             ];
         } else {
@@ -543,4 +544,9 @@ class EfrisInvoiceService
 
     return $inv;
   }
+
+    private function getItemDiscountAmount()
+    {
+        return $this->discountAmount;
+    }
 }
