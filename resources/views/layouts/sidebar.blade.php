@@ -29,7 +29,7 @@
                         <span class="dash-mtext">{{ __('Dashboard') }}</span>
                     </a>
                 </li>
-
+                @if ($users->type != 'Super Admin')
                 <span class="dash-mtext; mx-auto font-extrabold text-gray-50 items-center">{{ __('QUICKBOOKS SECTION') }}</span>
                 <li
                     class="dash-item dash-hasmenu bg-green-50 {{ request()->is('quickbooks*') || request()->is('invoices*') || request()->is('receipts*') ? 'active dash-trigger' : 'collapsed' }}">
@@ -41,6 +41,7 @@
                         <span  class="dash-mtext">{{ __('Quickbooks Reports') }}</span>
                         <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
+                   
                     <ul class="dash-submenu">
                         @can('manage-email-template')
 
@@ -137,8 +138,9 @@
                                href="{{ route('qbo.creditnotes.index') }}">{{ __('Credit Notes') }}</a>
                         </li>
                     </ul>
+                   
                 </li>
-
+               
                 <span class="ml-3.5 mx-auto font-extrabold text-gray-50 items-center">{{ __('URA EFRIS SECTION') }}</span>
 
                 <li
@@ -184,6 +186,7 @@
                         <span class="dash-mtext">{{ __('Sync Products') }}</span>
                     </a>
                 </li>
+                @endif
                 @if ($users->type == 'Super Admin')
                     <li
                         class="dash-item dash-hasmenu {{ request()->is('users*') || request()->is('roles*') ? 'active dash-trigger' : 'collapsed' }}">

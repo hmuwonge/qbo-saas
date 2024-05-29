@@ -144,7 +144,12 @@
 
 <body>
 <header>
-  <div id="logo" class="media" data-src="logo.png" src="./logo.png"></div>
+  <div id="logo" class="media" data-src="logo.png" src="{{ Utility::getpath(Utility::getsettings('app_logo')) }}">
+    <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+                                                            target="_blank">
+                                                            <img src="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+                                                                id="app_light" alt="{{Utility::getpath(Utility::getsettings('app_logo'))}}">
+                                                        </a></div>
 </header>
 <header style="text-align: center; font-weight: 600;">
   <p>MWH FOUNDATION UGANDA 00 PAJULE PADER ARUU NORTH PAJULLE PALWO</p>

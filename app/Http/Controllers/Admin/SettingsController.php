@@ -39,12 +39,54 @@ class SettingsController extends Controller
         $data = [
             'app_name' => $request->app_name,
         ];
+        $tenant = tenant();
+        // dd($request->app_logo);
         if ($request->app_logo) {
             Storage::delete(UtilityFacades::getsettings('app_logo'));
-            $appLogoName        = 'app-logo.' . $request->app_logo->extension();
+            $appLogoName        = 'aapp-logo.' . $request->app_logo->extension();
+
+            $tenantLogoPath = 'storage/' . $tenant->id . '/logo';
+            // dd($tenantLogoPath);
             $request->app_logo->storeAs('logo', $appLogoName);
             $data['app_logo']   = 'logo/' . $appLogoName;
         }
+        // if ($request->hasFile('app_logo')) {
+        //     $appDarkLogo = $request->file('app_logo');
+    
+        //     try {
+        //         // Delete existing logo if present
+        //         $existingLogoPath = UtilityFacades::getsettings('app_logo');
+        //         if (Storage::disk('local')->exists($existingLogoPath)) {
+        //             Storage::disk('local')->delete($existingLogoPath);
+        //         }
+    
+        //         // Generate new filename
+        //         $appDarkLogoName = 'app-logo.' . $appDarkLogo->getClientOriginalExtension();
+    
+        //         // Remove image resize section (commented out)
+        //         // $image = Image::make($appDarkLogo);
+        //         // $image->resize(200, 200, function ($constraint) {
+        //         //     $constraint->aspectRatio();
+        //         // })->save(storage_path('app/logo/' . $appDarkLogoName));
+
+        //         $tenant = $this->tenant();
+        //         // dd($appDarkLogoName);
+        //          // Use tenant ID directly in the path
+        //     $tenantLogoPath = 'storage/' . $tenant->id . '/logo';
+
+        //     dd($tenantLogoPath);
+    
+        //         // Store the uploaded file
+        //         $appDarkLogo->storeAs($tenantLogoPath, $appDarkLogoName);
+    
+        //         // Update data with new logo path
+        //         $data['app_logo'] = 'logo/' . $appDarkLogoName;
+    
+        //         return back()->with('success', 'Logo uploaded successfully!');
+        //     } catch (\Exception $e) {
+        //         return back()->with('error', 'Failed to upload logo: ' . $e->getMessage());
+        //     }
+        // }
         if ($request->app_dark_logo) {
             Storage::delete(UtilityFacades::getsettings('app_dark_logo'));
             $appDarkLogoName        = 'app-dark-logo.' . $request->app_dark_logo->extension();
@@ -57,6 +99,8 @@ class SettingsController extends Controller
             $request->favicon_logo->storeAs('logo', $faviconLogoName);
             $data['favicon_logo']   = 'logo/' . $faviconLogoName;
         }
+
+        // dd($data);
         foreach ($data as $key => $value) {
             UtilityFacades::storesettings([
                 'key'   => $key,

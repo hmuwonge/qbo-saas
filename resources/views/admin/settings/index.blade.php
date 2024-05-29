@@ -164,10 +164,11 @@ $color = $primary_color ?? 'theme-4';
                                             <div class="pt-0 card-body bg-primary">
                                                 <div class="inner-content">
                                                     <div class="py-2 mt-4 text-center logo-content light-logo-content">
+                                                        
                                                         <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
                                                             target="_blank">
                                                             <img src="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
-                                                                id="app_light">
+                                                                id="app_light" alt="{{Utility::getpath(Utility::getsettings('app_logo'))}}">
                                                         </a>
                                                     </div>
                                                     <div class="mt-3 text-center choose-files">

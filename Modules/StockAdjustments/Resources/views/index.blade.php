@@ -149,7 +149,7 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('javascript')
     <script>
         function getCsrfToken() {
             return document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -190,7 +190,7 @@
                 const responseMessage = document.getElementById('responseMessage');
                 const responseErrorMessage = document.getElementById('responseErrorMessage');
                 try {
-                  axios.post(route('update.stockInType'), stockins, {
+                  axios.post("{{route('update.stockInType')}}", stockins, {
                     headers: {
                       'Accept': '*/*',
                       'Content-Type': 'application/json',
@@ -250,4 +250,4 @@
         })()
 
     </script>
-@endsection
+@endpush

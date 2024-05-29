@@ -29,6 +29,7 @@ class UserController extends Controller
     public function create()
     {
         $settingData    = UtilityFacades::getsettings('plan_setting');
+//        dd($settingData);
         $plans          = json_decode($settingData, true);
         $user           = User::all()->count();
         if ($user <= $plans['max_roles']) {

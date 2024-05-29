@@ -145,7 +145,7 @@
 <body>
 <header>
     <div id="logo" class="media" data-src="logo.png" src="./logo.png">
-        <img src="{{$doc->data->sellersLogo ?? Utility::getsettings('app_logo')}}" alt="" srcset="" width="50">
+        <img src="{{Utility::getsettings('app_logo')}}" alt="" srcset="" width="50">
     </div>
 </header>
 <header style="text-align: center; font-weight: 600;">

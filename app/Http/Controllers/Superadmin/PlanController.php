@@ -149,6 +149,8 @@ class PlanController extends Controller
                     "updated_at"        => $plan->updated_at,
                 ];
                 $planSetting = json_encode($plans);
+
+                // dd($planSetting);
                 Setting::updateOrCreate(
                     ['key'      => 'plan_setting'],
                     ['value'    => $planSetting]

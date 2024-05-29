@@ -103,6 +103,11 @@
 <body>
 <div class="head-title">
     <h1 class="text-center m-0 p-0">Fiscal Invoice</h1>
+    <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+    target="_blank">
+    <img src="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+        id="app_light">
+</a>
 </div>
 
 <header>
