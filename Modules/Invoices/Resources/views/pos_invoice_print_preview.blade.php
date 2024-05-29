@@ -144,8 +144,10 @@
 
 <body>
 <header>
-    <div id="logo" class="media" data-src="logo.png" src="./logo.png">
-        <img src="{{Utility::getsettings('app_logo')}}" alt="" srcset="" width="50">
+    <div id="logo" class="media" data-src="logo.png" src="{{Utility::getsettings('app_logo')}}">
+        <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+        target="_blank">
+        <img src="{{ url(Utility::getpath(Utility::getsettings('app_logo'))) }}" id="app_light" width="200">
     </div>
 </header>
 <header style="text-align: center; font-weight: 600;">
@@ -236,7 +238,9 @@
 {{--  <p style="text-align: center">Thank you for your visit!</p>--}}
 {{--</section>--}}
 <footer style="text-align: center;">
-    <img src="https://chart.apis.google.com/chart?cht=qr&chl=Hello&chs=248" alt="" srcset="" width="150">
+    <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
+        target="_blank">
+        <img src="{{ url(Utility::getpath(Utility::getsettings('app_logo'))) }}" id="app_light" width="150">
     <p>All Prices are VAT inclusive where applicable</p>
     <p>Thank you for shopping with us!!!</p>
     <p>EFRIS solution provided by Weaf Company Uganda Ltd +256-756-508-361</p>
