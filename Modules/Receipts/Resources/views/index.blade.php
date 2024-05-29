@@ -36,7 +36,8 @@
                     <div class="d-flex justify-content-between row-sm my-3">
                     <div class="d-flex justify-content-between">
                         <div class="col-sm-3 mr-1">
-                            {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-control form-control-sm ', 'id' => 'buyer_type', 'style' => 'width:200px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
+                            {{ Form::select('buyer_type', $buyerType, null, ['class' => 'form-select form-control form-control-sm',
+ 'id' => 'buyer_type', 'style' => 'width:200px;', 'onchange' => 'InvoiceBuyerType()', 'prompt' => 'Update Buyer Type...']) }}
                         </div>
                         <div class="col-sm-3">
                             {{ Form::select('industry_code', $industryCode, null, ['class' => 'form-control form-control-sm', 'id' => 'industry_code', 'style' => 'width:200px;', 'onchange' => 'IndustryCode()', 'prompt' => 'Update Industry Code...']) }}
@@ -82,78 +83,79 @@
 
                     {{-- <p>Found <code class="highlighter-rouge">{{ $data['total'] }}</code>between <code
                             class="highlighter-rouge">{{ $data['startdate'] }} and {{ $data['enddate'] }}</code>.</p> --}}
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped  mb-0">
-                            <thead>
-                                <tr class="bg-secondary">
-                                    <th scope="col" class="">
-                                        <div class="flex items-center">
-                                            #
+                    <div class="mx-2 card-body table-border-style">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped  mb-0">
+                                    <thead>
+                                        <tr class="bg-secondary">
+                                            <th scope="col" class="">
+                                                <div class="flex items-center">
+                                                    #
 
-                                            {{-- <check-box @click="selectAllViaCheckBox
-                                                    " v-model="allSelect"
-                                                    class="w-4 h-4 text-black bg-gray-100 rounded  focus:ring-gray-500 focus:ring-1" /> --}}
-                                        </div>
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Industry Code
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Ref. Number
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Transaction Date
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Customer Details
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Buyer Type
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Total Amount
-                                    </th>
+                                                    {{-- <check-box @click="selectAllViaCheckBox
+                                                            " v-model="allSelect"
+                                                            class="w-4 h-4 text-black bg-gray-100 rounded  focus:ring-gray-500 focus:ring-1" /> --}}
+                                                </div>
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Industry Code
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Ref. Number
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Transaction Date
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Customer Details
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Buyer Type
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Total Amount
+                                            </th>
 
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Fiscal Status
-                                    </th>
-                                    <th scope="col" class="whitespace-nowrap">
-                                        Action
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($data['filteredList'] as $receipt)
-                                    <tr>
-                                        <td>
-                                            <input type="checkbox" name="invoice_checkbox" value="{{ $receipt['Id'] }}"
-                                                id="row{{ $receipt['Id'] }}" class="form-contro-sm">
-                                        </td>
-                                        <td>{{ $receipt->industryCode }}</td>
-                                        <td>{{ $receipt->refNumber??null }}</td>
-                                        <td>{{ $receipt->transactionDate }}</td>
-                                        <td>
-                                            {!! $receipt->customerDetails !!}
-                                        </td>
-                                        <td>{{ $receipt->buyerType??null }}</td>
-                                        <td>{{ $receipt->totalAmount }}</td>
-                                        <td>{!! $receipt->fiscalStatus !!}</td>
-                                        <td>
-                                          {!! $receipt['invoiceOptions'] !!}
-                                        </td>
-                                    </tr>
-                                @empty
-                                    <div class="justify-content-center align-items-center flex-column mb-3">
-                                        {{-- <img src="../../../../assets/folder.png" width="100"> --}}
-                                        <p class="mt-3 text-black font-bold text-lg my-10">
-                                            No Receipts Data Available
-                                        </p>
-                                    </div>
-                                @endforelse
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Fiscal Status
+                                            </th>
+                                            <th scope="col" class="whitespace-nowrap">
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($data['filteredList'] as $receipt)
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="itemCheckbox" id="row{{ $receipt['Id'] }}"
+                                                           data-id="{{ $receipt['Id'] }}">
+                                                </td>
+                                                <td>{{ $receipt->industryCode }}</td>
+                                                <td>{{ $receipt->refNumber??null }}</td>
+                                                <td>{{ $receipt->transactionDate }}</td>
+                                                <td>
+                                                    {!! $receipt->customerDetails !!}
+                                                </td>
+                                                <td>{{ $receipt->buyerType??null }}</td>
+                                                <td>{{ $receipt->totalAmount }}</td>
+                                                <td>{!! $receipt->fiscalStatus !!}</td>
+                                                <td>
+                                                  {!! $receipt['invoiceOptions'] !!}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <div class="justify-content-center align-items-center flex-column mb-3">
+                                                {{-- <img src="../../../../assets/folder.png" width="100"> --}}
+                                                <p class="mt-3 text-black font-bold text-lg my-10">
+                                                    No Receipts Data Available
+                                                </p>
+                                            </div>
+                                        @endforelse
 
-                            </tbody>
-                        </table>
-                    </div>
+                                    </tbody>
+                                </table>
+                            </div>
 
 {{--                    @if ($data['filteredList']->hasPages())--}}
 {{--                        <div class="pagination-wrapper my-1">--}}
@@ -187,50 +189,62 @@
         function getCsrfToken() {
             return document.head.querySelector('meta[name="csrf-token"]').getAttribute('content');
         }
-
-        function getSelectedRows() {
-            return $('input:checked').map(function() {
-                return this.value;
-            }).get();
-        }
-
         const csrfToken = getCsrfToken();
+        // Initialize an array to hold selected IDs
+        let selectedIds = [];
 
-        function getSelectedInvoices(_keys) {
-            return _keys.map(function(_key) {
-                return $('#row' + _key).val();
+        // Function to add selected ID to the array
+        function getSelectedRows() {
+            const checkboxes = document.querySelectorAll('input.itemCheckbox:checked');
+            return Array.from(checkboxes).map(function(checkbox) {
+                // Extract the ID from the checkbox ID
+                const checkboxId = checkbox.id;
+                const itemId = checkboxId.replace('row', ''); // Remove 'row' prefix
+                return itemId;
             });
         }
 
         function updateInvoiceBuyerType() {
-            const tin = <?= json_encode($tin) ?>;
             const keys = getSelectedRows();
+            console.log(keys)
+            const tin = {{ $tin }};
 
             if (keys.length > 0) {
-                const invoice_mod = {
-                    invoices: {
-                        buyerType: $('#buyer_type').val(),
-                        id: getSelectedInvoices(keys)
-                    }
+                const invoices = {
+                    buyerType: $('#buyer_type').val(),
+                    invoiceIds: keys
                 };
                 // Get the CSRF token
+                // console.log(invoices)
 
-                fetch(route('update.buyerType'), {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                            'tin': tin,
-                            'Connection': 'keep-alive'
-                        },
-                        body: JSON.stringify(invoice_mod)
-                    }).then(response => response.json())
+                fetch("{{route('invoices.update.buyerType')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'tin': tin,
+                        'Connection': 'keep-alive'
+                    },
+                    body: JSON.stringify(invoices)
+                }).then(response => response.json())
                     .then(response => {
-                        if (response.Message >= 1) {
-                            location.reload();
+                        if (response.status === true) {
+                            Swal.fire({
+                                // title: 'Are you sure?',
+                                text: response.payload,
+                                icon: 'success',
+                            })
+                            // You can also choose to hide the message after a few seconds if needed
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
                         } else {
-                            InvoiceBuyerType();
+                            Swal.fire({
+                                title: 'Something Wrong occured',
+                                text: response.payload,
+                                icon: 'warning',
+                            })
                         }
                     });
             }
@@ -243,28 +257,39 @@
 
             if (keys.length > 0) {
                 const invoice_mod = {
-                    invoices: {
-                        industryCode: $('#industry_code').val(),
-                        id: getSelectedInvoices(keys)
-                    }
+                    industryCode: $('#industry_code').val(),
+                    invoiceIds: keys
+
                 };
 
-                fetch(route('update.industrycode'), {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': csrfToken,
-                            'tin': tin,
-                            'Connection': 'keep-alive'
-                        },
-                        body: JSON.stringify(invoice_mod)
-                    }).then(response => response.json())
+                fetch("{{route('update.industrycode')}}", {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'tin': tin,
+                        'Connection': 'keep-alive'
+                    },
+                    body: JSON.stringify(invoice_mod)
+                }).then(response => response.json())
                     .then(response => {
-                        if (response.Message >= 1) {
-                            location.reload();
+                        if (response.status === true) {
+                            Swal.fire({
+                                // title: 'Are you sure?',
+                                text: response.payload,
+                                icon: 'success',
+                            })
+                            // You can also choose to hide the message after a few seconds if needed
+                            setTimeout(function() {
+                                window.location.reload();
+                            }, 2000);
                         } else {
-                            IndustryCode();
+                            Swal.fire({
+                                title: 'Something Wrong occured',
+                                text: response.payload,
+                                icon: 'warning',
+                            })
                         }
                     });
             }

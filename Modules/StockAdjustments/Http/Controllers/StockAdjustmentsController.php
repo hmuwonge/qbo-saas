@@ -254,7 +254,7 @@ class StockAdjustmentsController extends Controller
           }
         }
 
-        dd($adjust_items);
+//        dd($adjust_items);
 
         $collect = collect($adjust_items)->toArray();
 

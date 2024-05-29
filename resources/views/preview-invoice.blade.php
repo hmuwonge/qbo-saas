@@ -206,8 +206,18 @@
                 <td>{{ number_format($tax->netAmount,2) }}
 
                 </td>
-                <td class="text-center">{{ number_format($tax->taxAmount,2) }}</td>
-                <td class="text-right">{{ number_format($tax->grossAmount,2) }}</td>
+                <td class="text-center">
+                    @if(property_exists($tax, 'taxAmount'))
+                        {{ number_format($tax->taxAmount,2) }}
+                    @endif
+
+                </td>
+                <td class="text-right">
+                    @if(property_exists($tax, 'grossAmount'))
+                        {{ number_format($tax->grossAmount,2) }}
+                    @endif
+
+                </td>
             </tr>
         @endforeach
     </table>
