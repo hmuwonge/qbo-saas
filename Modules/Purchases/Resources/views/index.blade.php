@@ -115,10 +115,10 @@
                                       @else
 
                                         <button type="button" onclick="handleAddStock({{ $index }},{{ $dbPurchases[$purchase['Id']]['id']}})"
-                                                class="btn btn-sm btn-primary bg-violet-950">
+                                                class="btn btn-sm btn-secondary ">
                                           <span class="button-text">Add Stock</span>
 {{--                                          <span class="loader">Loading...</span>--}}
-                                          <i class="fa fa-spinner fa-spin ms-2 loader"></i>
+                                          <i class="fa fa-spinner fa-spin ms-2  loader"></i>
                                         </button>
                                       @endif
                                     </td>
@@ -239,6 +239,7 @@
         }
 
         function handleAddStock(index,id){
+            const increaseStockRoute = "{{ route('quickbooks.fiscalise-increase-stock', ['id' => 'PLACEHOLDER_ID']) }}";
           const button = document.getElementsByClassName('btn')[index+1];
           const loader = button.querySelector('.loader');
           const buttonText = button.querySelector('.button-text');
@@ -247,7 +248,9 @@
           loader.style.display = 'inline-block';
           buttonText.style.display = 'none';
           // alert('add')
-          fetch(route('quickbooks.fiscalise-increase-stock',id), {
+            // Replace placeholder ID in the route
+            const url = increaseStockRoute.replace('PLACEHOLDER_ID', id);
+          fetch(url, {
             method: 'GET',
             headers: {
               Accept: '*/*',
@@ -275,7 +278,7 @@
               }, 2000);
             } else {
               Swal.fire({
-                title: 'Something Wrong occured',
+                title: 'Something Wrong occurred',
                 text: response.payload,
                 icon: 'warning',
               })
