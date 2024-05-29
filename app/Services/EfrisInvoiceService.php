@@ -79,6 +79,8 @@ class EfrisInvoiceService
 
             //BuyerType
             $buyerTyp = isset($db_invoice->buyerType) ? ($db_invoice->buyerType) : 0;
+            $buyer_id = isset($qbInv->CustomerRef) ? $qbInv->CustomerRef->value:null;
+//            dd($buyer_id);
 
             //Efris Formarted Invoice Request
             $efrisInvoice = [
@@ -95,11 +97,11 @@ class EfrisInvoiceService
                     'invoiceIndustryCode' => 101,
                     //General Industry
                 ],
-                'buyerDetails' => $this->getCustomerDetails(
-                    $qbInv->CustomerRef->value,
+                'buyerDetails' => isset($buyer_id)? $this->getCustomerDetails(
+                    $buyer_id,
                     $buyerTyp,
                     get_tin($customFields)
-                ),
+                ):[],
                 'itemsBought' => $this->prepareInvoiceLines($qbInv->CurrencyRef->value,$db_invoice),
                 'remarks' =>  isset($qbInv->CustomerMemo) ? $qbInv->CustomerMemo->value :null,
             ];
@@ -130,6 +132,7 @@ class EfrisInvoiceService
             $custpmFields = $qbInv->CustomField;
             //BuyerType
             $buyerType = isset($db_invoice->buyerType) ? ($db_invoice->buyerType) : 0;
+            $buyer_id = isset($qbInv->CustomerRef) ? $qbInv->CustomerRef->value:null;
             //Efris Formarted Invoice Request
             $efrisInvoice = [
                 'sellerDetails' => [
@@ -147,7 +150,7 @@ class EfrisInvoiceService
                 ],
                 "discountTotal" => $this->getItemDiscountAmount(),
                 'buyerDetails' => $this->getCustomerDetails(
-                    $qbInv->CustomerRef->value,
+                    $buyer_id,
                     $buyerType,
                     get_tin($custpmFields ),
                 ),
@@ -384,20 +387,22 @@ class EfrisInvoiceService
             $this->errorMsg[] = "The customer 'BuyerType' is not specified";
         }
 
-        if (is_null($data['buyerDetails']['buyerLegalName'])) {
+        if (!isset($data['buyerDetails']['buyerLegalName'])) {
             $this->errorMsg[] = 'The customer name is not supplied';
         }
+//        dd($data);
 
         //If we are dealing with B2G or B2C but the TIN is not specified...
-        if ($data['buyerDetails']['buyerType'] == 0 && strlen($data['buyerDetails']['buyerTin']) != 10) {
+        if (isset($data['buyerDetails']['buyerType']) && isset($data['buyerDetails']['buyerTin']) && $data['buyerDetails']['buyerType'] == 0 && strlen($data['buyerDetails']['buyerTin']) != 10) {
             $this->errorMsg[] = 'The customer TIN is not valid. TIN should be 10 character digits';
         }
 
-        if ($data['buyerDetails']['buyerType'] == 0 && empty($data['buyerDetails']['buyerTin'])) {
+
+        if (isset($data['buyerDetails']['buyerTin']) && $data['buyerDetails']['buyerType'] == 0 && empty($data['buyerDetails']['buyerTin'])) {
             $this->errorMsg[] = 'The customer TIN is not specified';
         }
 
-        if ($data['buyerDetails']['buyerType'] == 0 && is_null($data['buyerDetails']['buyerLegalName']) ) {
+        if (isset($data['buyerDetails']['buyerTin']) && $data['buyerDetails']['buyerType'] == 0 && is_null($data['buyerDetails']['buyerLegalName']) ) {
             $this->errorMsg[] = 'The buyerLegalName is not specified';
         }
 

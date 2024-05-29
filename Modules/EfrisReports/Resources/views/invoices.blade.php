@@ -82,10 +82,10 @@
                             @forelse ($records as $item)
                                 <tr>
                                     <td>{{ $item['invoiceNo'] }}</td>
-                                    <td>{{ $item['referenceNo'] }}</td>
+                                    <td>{{ $item['referenceNo']??null }}</td>
                                     <td>{{ Carbon\Carbon::createFromFormat('d/m/Y H:i:s', $item['issuedDate'])->format('d-m-Y') }}
                                     </td>
-                                    <td>{{ $item['buyerBusinessName'] }}</td>
+                                    <td>{{ $item['buyerBusinessName']??null }}</td>
                                     <td>{{ $item['currency'] }}</td>
                                     <td>{{ number_format($item['grossAmount'], 2) }}</td>
                                     <td>{{ number_format($item['taxAmount'], 2) }}</td>

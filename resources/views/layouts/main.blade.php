@@ -88,20 +88,20 @@ $color = $primary_color ?? 'theme-1';
             <!-- [ breadcrumb ] end -->
             <!-- [ Main Content ] start -->
             <div class="row">
-                <div>
-                    @if(!$is_set_buyer_type)
-                        <div class="alert alert-danger" role="alert">
-                            Please set the default buyer type
-                        </div>
-                    @endif
+{{--                <div>--}}
+{{--                    @if(!$is_set_buyer_type)--}}
+{{--                        <div class="alert alert-danger" role="alert">--}}
+{{--                            Please set the default buyer type--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
 
-                    @if(!$is_set_industry_code)
-                        <div class="alert alert-danger" role="alert">
-                            Please set the default industry code
-                        </div>
-                    @endif
+{{--                    @if(!$is_set_industry_code)--}}
+{{--                        <div class="alert alert-danger" role="alert">--}}
+{{--                            Please set the default industry code--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
 
-                </div>
+{{--                </div>--}}
                 <!-- [ sample-page ] start -->
                 <div class="col-sm-12">
                     @include('layouts.includes.alerts2')

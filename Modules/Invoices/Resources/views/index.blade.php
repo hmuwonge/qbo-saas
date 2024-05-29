@@ -129,12 +129,12 @@
                                                 data-id="{{ $invoice['Id'] }}">
                                         </td>
                                         <td>{{ $invoice->industryCode }}</td>
-                                        <td>{{ $invoice->refNumber }}</td>
+                                        <td>{{ $invoice->refNumber??null }}</td>
                                         <td>{{ $invoice->transactionDate }}</td>
                                         <td>
                                             {!! $invoice->customerDetails !!}
                                         </td>
-                                        <td>{{ $invoice->buyerType }}</td>
+                                        <td>{{ $invoice->buyerType??null }}</td>
                                         <td>{{ $invoice->totalAmount }}</td>
                                         <td>{!! $invoice->fiscalStatus !!}</td>
                                         <td>

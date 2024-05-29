@@ -180,9 +180,13 @@ class QuickBooksInvoicesDatatable extends Model
     {
         if (isset($this->databaseRecord)) {
             $customfields = $this->CustomField;
+            $cust_name = $this->databaseRecord->customerName;
+//            if (isset($cust_name)){
+//
+//            }
 
 
-            return '<span class="fw-bolder">Name: </span>'.$this->databaseRecord->customerName.'<br/><span class="fw-bolder">TIN: </span>'.$this->databaseRecord->buyerTin;
+            return '<span class="fw-bolder">Name: </span>'.@$this->databaseRecord->customerName.'<br/><span class="fw-bolder">TIN: </span>'.@$this->databaseRecord->buyerTin;
         }
         return '<span class="fw-bolder">Name: </span>'.@$this->databaseRecord->customerName.'<span class="fw-bolder">TIN: </span>'.@$this->databaseRecord->buyerTin;
 

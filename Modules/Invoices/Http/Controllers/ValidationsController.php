@@ -185,7 +185,7 @@ class ValidationsController extends Controller
                 $customfields = $receipt->CustomField;
                 $invoiceCols['refNumber'] = $receipt->DocNumber;
                 $invoiceCols['qb_created_at'] = $receipt->MetaData->CreateTime;
-                $invoiceCols['customerName'] = $receipt->CustomerRef->name;
+                $invoiceCols['customerName'] = isset($receipt->CustomerRef) ? $receipt->CustomerRef->name : null;
                 $invoiceCols['totalAmount'] = $receipt->TotalAmt;
                 $invoiceCols['balance'] = $receipt->Balance;
                 $invoiceCols['tin'] =get_tin($customfields);

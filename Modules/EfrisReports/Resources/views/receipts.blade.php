@@ -60,9 +60,9 @@
           <table class="table table-bordered text-nowrap text-md-nowrap  table-info mb-0">
             <thead class="text-base text-black uppercase bg-gray-300 ">
             <tr>
-              <th scope="col" class="p-4">
-                FDN
-              </th>
+{{--              <th scope="col" class="p-4">--}}
+{{--                FDN--}}
+{{--              </th>--}}
               <th scope="col" class="px-6 py-3">
                 Receipt No
               </th>
@@ -90,14 +90,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr class=" hover:bg-gray-50">
+{{--            <tr class=" hover:bg-gray-50">--}}
             @forelse ($data as $item)
               <tr>
-                <td>
-                  {{ $item['id'] }}
-                </td>
-                <td>{{ $item['invoiceNo'] }}</td>
-                <td>{{ $item['referenceNo'] }}</td>
+{{--                <td>--}}
+{{--                  {{ $item['id'] }}--}}
+{{--                </td>--}}
+{{--                <td>{{ $item['invoiceNo'] }}</td>--}}
+                <td>{{ $item['referenceNo']??null }}</td>
                 <td>{{ $item['issuedDate'] }}</td>
                 <td>{{ $item['buyerBusinessName']??null }}</td>
                 <td>{{ $item['currency'] }}</td>
@@ -111,13 +111,12 @@
 
                 </td>
               </tr>
-            @empty
-              <p class="mt-3 text-black font-bold text-lg my-10">
-                No items Data Available
-              </p>
-            @endforelse
 
-            </tr>
+            @empty
+                <p class="mt-3 text-black font-bold text-lg my-10">
+                    No items Data Available
+                </p>
+            @endforelse
             </tbody>
           </table>
         </div>

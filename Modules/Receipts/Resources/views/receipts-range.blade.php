@@ -164,7 +164,7 @@
 {{--                  @endif--}}
                   <div class="pagination-wrapper my-1">
                     <nav aria-label="Page navigation">
-                      {!! $data['links'] !!}
+                        {{ $data['filteredList']->links() }}
                     </nav>
                   </div>
                 </div>
@@ -175,7 +175,12 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
+@push('javascript')
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- INDEX JS -->
     <script>
         // import moment from "moment";
@@ -288,4 +293,4 @@
             'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     </script>
-@endsection
+@endpush

@@ -23,9 +23,11 @@ class ReceiptsController extends Controller
 
     // Buyer Types
     protected array $buyerType = [
-      1 => 'Consumer',
-      0 => 'Government/Business',
-      2 => 'Foreigner',
+        ''=>'Select buyer type',
+        0 => 'Business(B2B)',
+        1 => 'Consumer (B2C)',
+        2 => 'Foreigner',
+        3 => 'Government(B2G)',
     ];
 
     // Industry Codes
@@ -45,9 +47,11 @@ class ReceiptsController extends Controller
 
         // Buyer Types
         $buyerType = [
-            1 => 'Consumer',
-            0 => 'Government/Business',
+            ''=>'Select buyer type',
+            0 => 'Business(B2B)',
+            1 => 'Consumer (B2C)',
             2 => 'Foreigner',
+            3 => 'Government(B2G)',
         ];
 
         // Industry Codes
@@ -73,9 +77,11 @@ class ReceiptsController extends Controller
 
         // Buyer Types
         $buyerType = [
-            1 => 'Consumer',
-            0 => 'Government/Business',
+            ''=>'Select buyer type',
+            0 => 'Business(B2B)',
+            1 => 'Consumer (B2C)',
             2 => 'Foreigner',
+            3 => 'Government(B2G)',
         ];
 
         // Industry Codes

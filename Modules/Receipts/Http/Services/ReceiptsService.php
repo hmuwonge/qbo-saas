@@ -25,12 +25,12 @@ class ReceiptsService
             $customfields = $inv->CustomField;
             $invoiceCols['refNumber'] = $inv->DocNumber;
             $invoiceCols['qb_created_at'] = $inv->MetaData->CreateTime;
-            $invoiceCols['customerName'] = $inv->CustomerRef->name;
+            $invoiceCols['customerName'] = $inv->CustomerRef->name??null;
             $invoiceCols['totalAmount'] = $inv->TotalAmt;
             $invoiceCols['balance'] = $inv->Balance;
             $invoiceCols['tin'] = get_tin($customfields);
 
-            QuickBooksInvoice::saveInvoiceSummary2(intval($inv->Id), $invoiceCols, 'RECEIPT');
+            QuickBooksInvoice::saveInvoiceSummary(intval($inv->Id), $invoiceCols, 'RECEIPT');
           }
 
             return redirect()->back()->with('success', 'Receipts validation tests successfully completed');

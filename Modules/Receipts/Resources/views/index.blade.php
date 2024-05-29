@@ -1,8 +1,5 @@
 @extends('layouts.main')
 
-@push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
-@endpush
 
 
 {{--@section('title', 'All Receipts')--}}
@@ -133,12 +130,12 @@
                                                 id="row{{ $receipt['Id'] }}" class="form-contro-sm">
                                         </td>
                                         <td>{{ $receipt->industryCode }}</td>
-                                        <td>{{ $receipt->refNumber }}</td>
+                                        <td>{{ $receipt->refNumber??null }}</td>
                                         <td>{{ $receipt->transactionDate }}</td>
                                         <td>
                                             {!! $receipt->customerDetails !!}
                                         </td>
-                                        <td>{{ $receipt->buyerType }}</td>
+                                        <td>{{ $receipt->buyerType??null }}</td>
                                         <td>{{ $receipt->totalAmount }}</td>
                                         <td>{!! $receipt->fiscalStatus !!}</td>
                                         <td>
@@ -179,7 +176,12 @@
     <!-- END ROW -->
 @endsection
 
-@section('scripts')
+@push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+@endpush
+@push('javascript')
+    <script src="{{ asset('vendor/modules/moment.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.min.js') }}"></script>
     <!-- INDEX JS -->
     <script>
         function getCsrfToken() {
@@ -294,4 +296,4 @@
                 'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
         });
     </script>
-@endsection
+@endpush
