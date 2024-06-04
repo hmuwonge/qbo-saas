@@ -43,7 +43,7 @@
                     </a>
                    
                     <ul class="dash-submenu">
-                        @can('manage-email-template')
+                        @can('manage-invoices')
 
                             <li class="dash-item dash-hasmenu {{ request()->is('invoices*') ? 'active' : '' }}">
                                 <a class="dash-link"
@@ -82,7 +82,8 @@
                                 </ul>
                             </li>
                         @endcan
-                        @can('manage-sms-template')
+
+                        @can('manage-receipts')
                             <li class="dash-item {{ request()->is('quickbooks/receipts*') ? 'active' : '' }}">
                                 <a class="dash-link"
                                    href="#!">{{ __('Receipts') }}</a>
@@ -120,23 +121,32 @@
                                 </ul>
                             </li>
                         @endcan
+
+                        @can('manage-products')
                         <li class="dash-item {{ request()->is('quickbooks/goods*') ? 'active' : '' }}">
                             <a class="dash-link" href="{{ route('goods.all') }}">{{ __('Goods/Services') }}</a>
                         </li>
-
+                        @endcan
+                        @can('manage-purchases')
                         <li class="dash-item {{ request()->is('issued-credit-notes*') ? 'active' : '' }}">
                             <a class="dash-link"
                                href="{{ route('purchases.index') }}">{{ __('Purchases') }}</a>
                         </li>
+                        @endcan
+
+                        @can('manage-products')
                         <li class="dash-item {{ request()->is('quickbooks/stockadjustments*') ? 'active' : '' }}">
                             <a class="dash-link"
                                href="{{ route('qbo.stockadjustments') }}">{{ __('Stock Adjustments') }}</a>
                         </li>
+                        @endcan
 
+                        @can('manage-credit-memos')
                         <li class="dash-item {{ request()->is('quickbooks/creditmemos*') ? 'active' : '' }}">
                             <a class="dash-link"
                                href="{{ route('qbo.creditnotes.index') }}">{{ __('Credit Notes') }}</a>
                         </li>
+                        @endcan
                     </ul>
                    
                 </li>

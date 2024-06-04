@@ -26,10 +26,25 @@ class FiscaliseInvoices extends Command
      */
     public function handle()
     {
-        AutoSyncActivityServices::fiscaliseInvoices();
-        AutoSyncActivityServices::fiscaliseReceipts();
-        AutoSyncActivityServices::syncStockAdjustment();
-        AutoSyncActivityServices::increaseStock();
-        return 0;
+//        $tenant_id = tenant('id');
+        $this->info('Fiscalising increase stock .....................' . $tenant_id);
+//        if (!is_null($tenant_id)){
+            $this->info('Fiscalising invoices..............');
+            AutoSyncActivityServices::fiscaliseInvoices();
+            AutoSyncActivityServices::validateInvoices();
+
+            $this->info('Fiscalising receipts .....................');
+            AutoSyncActivityServices::fiscaliseReceipts();
+
+            $this->info('Fiscalising sync stock adjustments .....................');
+            AutoSyncActivityServices::syncStockAdjustment();
+
+            $this->info('Fiscalising increase stock .....................');
+            AutoSyncActivityServices::increaseStock();
+            AutoSyncActivityServices::validatePurchases();
+//            return 0;
+//        }
+        $this->info('Fiscalising increase stock .....................');
+        return Command::SUCCESS;
     }
 }
