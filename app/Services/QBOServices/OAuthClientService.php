@@ -104,34 +104,76 @@ class OAuthClientService
         ];
     }
 
+//    public static function updateAuthTokens($data)
+//    {
+//        $refreshTokenExpiry = Carbon::parse($data->getRefreshTokenExpiresAt());
+//        $accessTokenExpiry = Carbon::parse($data->getAccessTokenExpiresAt());
+//        try {
+//            if (Auth::check()) {
+//                $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
+//
+//                if (!is_null($qbo_user)) {
+//                    $qbo_user->auth_token = $data->getAccessToken();
+//                    $qbo_user->refresh_token = $data->getRefreshToken();
+//                    $qbo_user->auth_expiry = $accessTokenExpiry;
+//                    $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
+//                    $qbo_user->update();
+//                } else {
+//                    $qbo_user = new QuickBooksConfig;
+//                    $qbo_user->user_id = auth()->user()->id;
+//                    $qbo_user->company_id =  1;
+//                    $qbo_user->auth_token = $data->getAccessToken();
+//                    $qbo_user->refresh_token = $data->getRefreshToken();
+//                    $qbo_user->auth_expiry = $accessTokenExpiry;
+//                    $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
+//                    $qbo_user->save();
+//                }
+//                return redirect()->route('quickbooks.index')->with('success','Token updated successfully');
+//
+//            }
+//
+//        } catch (\Throwable $th) {
+//            return $th->getMessage();
+//        }
+//    }
+
     public static function updateAuthTokens($data)
     {
         $refreshTokenExpiry = Carbon::parse($data->getRefreshTokenExpiresAt());
         $accessTokenExpiry = Carbon::parse($data->getAccessTokenExpiresAt());
-        try {
-            if (Auth::check()) {
-                $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
 
-                if (!is_null($qbo_user)) {
-                    $qbo_user->auth_token = $data->getAccessToken();
-                    $qbo_user->refresh_token = $data->getRefreshToken();
-                    $qbo_user->auth_expiry = $accessTokenExpiry;
-                    $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
-                    $qbo_user->update();
-                } else {
+        try {
+            $company_id = 1; // Set the company ID to match
+
+            // Find all users with matching company ID
+            $qbo_users = QuickBooksConfig::where('company_id', $company_id)->get();
+
+            if ($qbo_users->isEmpty()) {
+                // If no records exist for the company, create new records for all users
+                $users = User::all(); // Assuming User is the model for your users table
+
+                foreach ($users as $user) {
                     $qbo_user = new QuickBooksConfig;
-                    $qbo_user->user_id = auth()->user()->id;
-                    $qbo_user->company_id =  1;
+                    $qbo_user->user_id = $user->id;
+                    $qbo_user->company_id = $company_id;
                     $qbo_user->auth_token = $data->getAccessToken();
                     $qbo_user->refresh_token = $data->getRefreshToken();
                     $qbo_user->auth_expiry = $accessTokenExpiry;
                     $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
                     $qbo_user->save();
                 }
-                return redirect()->route('quickbooks.index')->with('success','Token updated successfully');
-
+            } else {
+                // Update existing records
+                foreach ($qbo_users as $qbo_user) {
+                    $qbo_user->auth_token = $data->getAccessToken();
+                    $qbo_user->refresh_token = $data->getRefreshToken();
+                    $qbo_user->auth_expiry = $accessTokenExpiry;
+                    $qbo_user->refresh_token_expiry = $refreshTokenExpiry;
+                    $qbo_user->save();
+                }
             }
 
+            return redirect()->route('quickbooks.index')->with('success', 'Tokens updated successfully');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

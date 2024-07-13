@@ -27,7 +27,7 @@ class FiscaliseInvoices extends Command
     public function handle()
     {
 //        $tenant_id = tenant('id');
-        $this->info('Fiscalising increase stock .....................' . $tenant_id);
+        $this->info('Fiscalising increase stock .....................');
 //        if (!is_null($tenant_id)){
             $this->info('Fiscalising invoices..............');
             AutoSyncActivityServices::fiscaliseInvoices();
