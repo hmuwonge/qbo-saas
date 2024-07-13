@@ -164,7 +164,7 @@ $color = $primary_color ?? 'theme-4';
                                             <div class="pt-0 card-body bg-primary">
                                                 <div class="inner-content">
                                                     <div class="py-2 mt-4 text-center logo-content light-logo-content">
-                                                        
+
                                                         <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
                                                             target="_blank">
                                                             <img src="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
@@ -2072,8 +2072,10 @@ $color = $primary_color ?? 'theme-4';
                                                 <label for="name"
                                                        class="form-label">{{ __('Environment') }}</label>
                                                 <select name="environment" id="environment" class="form-select">
-                                                    <option value="development">Development</option>
-                                                    <option value="Production">Production</option>
+                                                    <option value="development" {{ Utility::getsettings('environment') == 'development' ? 'selected' : '' }}>
+                                                        {{ __('Development') }}</option>
+                                                    <option value="Production" {{ Utility::getsettings('environment') == 'Production' ? 'selected' : '' }}>
+                                                        {{ __('Production') }}</option>
                                                 </select>
 
                                             </div>

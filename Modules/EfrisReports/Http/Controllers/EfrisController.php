@@ -2,6 +2,8 @@
 
 namespace Modules\EfrisReports\Http\Controllers;
 
+use App\Facades\Utility;
+use App\Facades\UtilityFacades;
 use App\Http\Controllers\Controller;
 use App\Models\CreditNote;
 use App\Models\QuickBooksInvoice;
@@ -618,11 +620,38 @@ class EfrisController extends Controller
 
         //qrcode
         $qrcode = $api->makeGet('qrcode/' . $id);
-        // dd(json_decode($qrcode,true));
-        $pdf = Pdf::loadView('preview-invoice', [
-            'doc' => json_decode($document, false),
-            'qrcode' => json_decode($qrcode, true), 'regDetails' => json_decode($reg_details, false)
-        ]);
+//        $response = json_decode($document,false);
+
+        $pdf =
+            UtilityFacades::getsettings('invoice_print_type') === '58mm'
+                ? Pdf::loadView('invoices::pos_invoice_print_preview', [
+                'doc' => json_decode($document, false),
+                'qrcode' => json_decode($qrcode, true),
+                'regDetails' => json_decode($reg_details, false)
+            ]) :
+                Pdf::loadView('preview-invoice', [
+                    'doc' => json_decode($document, false),
+                    'qrcode' => json_decode($qrcode, true),
+                    'regDetails' => json_decode($reg_details, false)
+                ]);
+
+        $paper_size = UtilityFacades::getsettings('invoice_print_type');
+
+        $pdf->setOption('isHtml5ParserEnabled', true);
+        $pdf->setOption('isRemoteEnabled', true);
+        $pdf->setOption(['dpi' => 100, 'defaultFont' => 'sans-serif']);
+        $pdf->setOption('isPhpEnabled', true);
+        $pdf->setPaper($paper_size, 'patriot');
+
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $canvas->set_opacity(.2, 'Multiply');
+        $canvas->set_opacity(.2);
+
+//        $pdf = Pdf::loadView('preview-invoice', [
+//            'doc' => json_decode($document, false),
+//            'qrcode' => json_decode($qrcode, true),
+//            'regDetails' => json_decode($reg_details, false)
+//        ]);
 
         return $pdf->stream('filename.pdf', ['Attachment' => false]);
     }

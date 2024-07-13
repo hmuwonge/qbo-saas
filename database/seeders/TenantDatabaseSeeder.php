@@ -237,6 +237,7 @@ class TenantDatabaseSeeder extends Seeder
             Storage::copy('logo/app-favicon-logo.png', $tenant->id . '/logo/app-favicon-logo.png');
             Storage::copy('logo/app-dark-logo.png', $tenant->id . '/logo/app-dark-logo.png');
             Storage::copy('avatar/avatar.png', $tenant->id . '/avatar/avatar.png');
+            Storage::copy('logs/*', $tenant->id . '/logs/*');
 
             Storage::copy('seeder-image/admin/app.png', $tenant->id . '/seeder-image/app.png');
             Storage::copy('seeder-image/1.png', $tenant->id . '/seeder-image/1.png');

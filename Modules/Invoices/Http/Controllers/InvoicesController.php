@@ -3,6 +3,7 @@
 namespace Modules\Invoices\Http\Controllers;
 
 use App\Facades\Utility;
+use App\Facades\UtilityFacades;
 use App\Services\QBOServices\QboQueryService;
 use DateTime;
 use Carbon\Carbon;
@@ -315,11 +316,11 @@ class InvoicesController extends Controller
       if (isset($response->data->sellerDetails)) {
 
         $pdfcontent =
-          Utility::getsettings('invoice_print_type') === '58mm'
+            UtilityFacades::getsettings('invoice_print_type') === '58mm'
             ? Pdf::loadView('invoices::pos_invoice_print_preview', ['doc' => $response]) :
             Pdf::loadView('invoice_preview', ['doc' => $response]);
 
-        $paper_size = Utility::getsettings('invoice_print_type');
+        $paper_size = UtilityFacades::getsettings('invoice_print_type');
 
         // set the view and render it
 //        $pdfcontent = Pdf::loadView('invoices::pos_invoice_print_preview', ['doc' => $response]);
