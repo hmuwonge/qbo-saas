@@ -97,29 +97,33 @@ class StockAdjustment extends Model
     public static function prepareEfrisRequestObject($id)
     {
         // 1. Find items from DB
-        $stock = static::where('transact_id', $id)->has('item')->get();
+        $stock = static::where('transact_id', $id)->has('item')->first();
         // dd($stock);
         //Pick first item to prepare general details [AdjustType, etc]
-        $first = $stock[0];
-        $items = []; //Items in this Transaction
-        $efris = [
-            'adjustType' => $first->adjust_type,
-            //"stockInType" => "",//Relevant when we are stocking in
-            'remarks' => (is_null($first->adjust_reason) || $first->adjust_type != 105) ? 'Over stayed in store' : $first->adjust_reason,
-        ];
-        //2. prepare Items
-        foreach ($stock as $stk) {
-            // QuickBooksServiceHelper::logToFile($stk->item->itemCode);
-            $items[] = [
-                'itemCode' => $stk->item->itemCode,
-                'quantity' => abs($stk->quantity), //Convert to a positive number
-                'unitPrice' => $stk->unit_price,
+        if ($stock == null) {
+            $first = $stock[0];
+            $items = []; //Items in this Transaction
+            $efris = [
+                'adjustType' => $first->adjust_type,
+                //"stockInType" => "",//Relevant when we are stocking in
+                'remarks' => (is_null($first->adjust_reason) || $first->adjust_type != 105) ? 'Over stayed in store' : $first->adjust_reason,
             ];
+            //2. prepare Items
+            foreach ($stock as $stk) {
+                // QuickBooksServiceHelper::logToFile($stk->item->itemCode);
+                $items[] = [
+                    'itemCode' => $stk->item->itemCode,
+                    'quantity' => abs($stk->quantity), //Convert to a positive number
+                    'unitPrice' => $stk->unit_price,
+                ];
+            }
+            //3. Add Items to the EFRIS Object
+            $efris['stockInItem'] = $items;
+            //Return the Object
+            return $efris;
         }
-        //3. Add Items to the EFRIS Object
-        $efris['stockInItem'] = $items;
-        //Return the Object
-        return $efris;
+        return  false;
+
     }
 
     public static function batchInsert($records)

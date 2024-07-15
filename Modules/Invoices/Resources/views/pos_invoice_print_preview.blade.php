@@ -232,15 +232,19 @@
     </tr>
     </tbody>
 </table>
+
 {{--<section>--}}
 {{--  <p>Paid by : <span>CASH</span></p>--}}
 
 {{--  <p style="text-align: center">Thank you for your visit!</p>--}}
 {{--</section>--}}
 <footer style="text-align: center;">
+    <div style="position: relative">
+        <img src="{{$qrcode['base64']}}" alt="" srcset="" width="85">
+    </div>
     <a href="{{ Utility::getpath(Utility::getsettings('app_logo')) }}"
         target="_blank">
-        <img src="{{ url(Utility::getpath(Utility::getsettings('app_logo'))) }}" id="app_light" width="150">
+        <img src="{{ url(Utility::getpath(Utility::getsettings('app_logo'))) }}" id="app_light" width="150" alt="">
     <p>All Prices are VAT inclusive where applicable</p>
     <p>Thank you for shopping with us!!!</p>
     <p>EFRIS solution provided by Weaf Company Uganda Ltd +256-756-508-361</p>

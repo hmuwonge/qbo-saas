@@ -56,10 +56,11 @@ class RefreshQuickBooksToken
                             $refreshToken = $qbo_user->refresh_token;
                             if ($accessToken && $refreshToken) {
                                 //The first parameter of OAuth2LoginHelper is the ClientID, second parameter is the client Secret
-                                $oauth2LoginHelper = new OAuth2LoginHelper(UtilityFacades::getsettings('client_id'), UtilityFacades::getsettings('client_secrete'));
-                                $accessTokenObj = $oauth2LoginHelper->refreshAccessTokenWithRefreshToken($refreshToken);
-                                $accessTokenValue = $accessTokenObj->getAccessToken();
-                                $refreshTokenValue = $accessTokenObj->getRefreshToken();
+
+                                    $oauth2LoginHelper = new OAuth2LoginHelper(UtilityFacades::getsettings('client_id'), UtilityFacades::getsettings('client_secrete'));
+                                    $accessTokenObj = $oauth2LoginHelper->refreshAccessTokenWithRefreshToken($refreshToken);
+                                    $accessTokenValue = $accessTokenObj->getAccessToken();
+                                    $refreshTokenValue = $accessTokenObj->getRefreshToken();
 
 
                                 try {
@@ -74,6 +75,7 @@ class RefreshQuickBooksToken
                                     throw new \Exception($e->getMessage());
                                 }
                             }
+                            return response()->view('QboAuth', compact('url'));
                         }
                         if (($currentTime->greaterThan($accessTokenExpiry)) && ($currentTime->greaterThan($refreshTokenExpiry))) {
                             return response()->view('QboAuth', compact('url'));

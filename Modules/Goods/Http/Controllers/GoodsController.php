@@ -2,6 +2,7 @@
 
 namespace Modules\Goods\Http\Controllers;
 
+use App\Models\StockAdjustment;
 use Mockery\Exception;
 use App\Models\EfrisItem;
 use Illuminate\Support\Arr;
@@ -351,9 +352,9 @@ class GoodsController extends Controller
                     $efrisdb->stockin_price = request()->stockinPrice;
                     $efrisdb->pieceScaledValue = request()->pieceScaledValue;
                     $efrisdb->pieceMeasureUnit = request()->pieceMeasureUnit;
-            $efrisdb->packageScaledValue = request()->packageScaledValue;
+                    $efrisdb->packageScaledValue = request()->packageScaledValue;
                     $efrisdb->item_tax_rule = request()->itemTaxRule??'URA';
-            $efrisdb->haveExciseDuty = request()->haveExciseDuty;
+                    $efrisdb->haveExciseDuty = request()->haveExciseDuty;
                     $efrisdb->haveOtherUnit = request()->haveOtherUnit;
                     $efrisdb->hasOpeningStock = request()->hasOpeningStock;
                     $efrisdb->stockin_supplier_tin = request()->stockinSupplierTin;
@@ -371,6 +372,11 @@ class GoodsController extends Controller
                     $efrisdb->otherScaled = request()->otherScaled;
                     $efrisdb->registration_status = 1;
                     if ($efrisdb->save()) {
+                        $get_stock_adjustment_item=StockAdjustment::find($efrisdb->id);
+                        if ($get_stock_adjustment_item){
+                            $get_stock_adjustment_item->ura_sync_status = 1;
+                            $get_stock_adjustment_item->update();
+                        }
                         return response()->json(['status'=>'SUCCESS','msg'=> $data->data]);//'Product Successfully Registered with URA'
                     } else {
                         return redirect()->route('quickbooks.register-product', ['id' => $id])->with('danger', 'Sorry, there was a problem updating your local database');
@@ -387,10 +393,8 @@ class GoodsController extends Controller
      *
      * @return string|false
      *
-     * @throws SdkException
-     * @throws IdsException
      */
-    public function itemDetails($id)
+    public function itemDetails($id): bool|string
     {
         $data = $this->urlQueryBuilderById('item', $id);
 
