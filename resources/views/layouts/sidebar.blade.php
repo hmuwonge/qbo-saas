@@ -21,8 +21,8 @@
             </a>
         </div>
 
-        <div class="navbar-content">
-            <ul class="dash-navbar">
+        <div class="navbar-content overflow-auto">
+            <ul class="dash-navbar overflow-auto">
                 <li class="dash-item dash-hasmenu">
                     <a href="{{ route('home') }}" class="dash-link">
                         <span class="dash-micon"><i class="ti ti-home"></i></span>
@@ -41,7 +41,7 @@
                         <span  class="dash-mtext">{{ __('Quickbooks Reports') }}</span>
                         <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
-                   
+
                     <ul class="dash-submenu">
                         @can('manage-invoices')
 
@@ -148,9 +148,9 @@
                         </li>
                         @endcan
                     </ul>
-                   
+
                 </li>
-               
+
                 <span class="ml-3.5 mx-auto font-extrabold text-gray-50 items-center">{{ __('URA EFRIS SECTION') }}</span>
 
                 <li
