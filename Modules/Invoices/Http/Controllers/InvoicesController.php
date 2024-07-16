@@ -54,35 +54,42 @@ class InvoicesController extends Controller
   public function index()
   {
 
-    $data = $this->queryInvoices('all');
-    // Buyer Types
-    $buyerType = [
-        ''=>'Select buyer type',
-        0 => 'Business(B2B)',
-        1 => 'Consumer (B2C)',
-        2 => 'Foreigner',
-        3 => 'Government(B2G)',
-    ];
+//      try {
+          $data = $this->queryInvoices('all');
+          // Buyer Types
+          $buyerType = [
+              ''=>'Select buyer type',
+              0 => 'Business(B2B)',
+              1 => 'Consumer (B2C)',
+              2 => 'Foreigner',
+              3 => 'Government(B2G)',
+          ];
 
-    // Industry Codes
-    $industryCode = [
-      101 => 'General Industry',
-      102 => 'Export',
-      104 => 'Imported Service',
-      105 => 'Telecom',
-      106 => 'Stamp Duty',
-      107 => 'Hotel Service',
-      108 => 'Other Taxes',
-    ];
+          // Industry Codes
+          $industryCode = [
+              101 => 'General Industry',
+              102 => 'Export',
+              104 => 'Imported Service',
+              105 => 'Telecom',
+              106 => 'Stamp Duty',
+              107 => 'Hotel Service',
+              108 => 'Other Taxes',
+          ];
 
-    // dd('invoices list');
-    $period = request()->input('invoice_period');
-    $page = request()->input('page', 1);
-    $tin = 53465867;
+          // dd('invoices list');
+          $period = request()->input('invoice_period');
+          $page = request()->input('page', 1);
+          $tin = 53465867;
 
-    //    $data = (new InvoiceService())->getQuickbooksInvoices('qbo.invoices.all',$period,$page,'all');
+          //    $data = (new InvoiceService())->getQuickbooksInvoices('qbo.invoices.all',$period,$page,'all');
 
-    return view('invoices::index', compact('data', 'buyerType', 'industryCode', 'tin'));
+          return view('invoices::index', compact('data', 'buyerType', 'industryCode', 'tin'));
+
+//      }catch (Exception $exception){
+//          return redirect()->back()->with('failed',$exception->getMessage());
+//      }
+
+
   }
 
   public function passedValidations(Request $request)
@@ -155,7 +162,7 @@ class InvoicesController extends Controller
     return view('invoices::fiscalised', compact('data', 'tin'));
   }
 
-  public function queryInvoices($list): array
+  public function queryInvoices($list)
   {
       return QboQueryService::queryInvoicesOrReceipts($list,'invoice');
   }

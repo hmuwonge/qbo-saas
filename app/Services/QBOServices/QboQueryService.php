@@ -32,6 +32,7 @@ class QboQueryService
         $tableName = ($type === 'invoice') ? 'Invoice' : 'SalesReceipt';
         $countQuery = "select count(*) from " . $tableName;
         $quickbooks_items_count = (new self)->postQuery($countQuery);
+//        dd($quickbooks_items_count);
         $totalRecords = $quickbooks_items_count['QueryResponse']['totalCount'];
 
         $query = 'select * from ' . $tableName . ' WHERE TxnDate >= \'' . Carbon::parse($startdate)->format('Y-m-d')
