@@ -141,9 +141,12 @@ class QuickBooksInvoice extends Model
     {
         $invoice = self::getInvoiceDetails($id, $inv_kind);
         $qb_record = ($inv_kind == 'INVOICE') ? ($invoice->Invoice) : ($invoice->SalesReceipt);
+
+
         $efrisInvoice = (new EfrisInvoiceService())->createEfrisInvoiceQbo($qb_record);
 
-//    return is_array($efrisInvoice) ? ($efrisInvoice['data']) : (false);
+//      dd($efrisInvoice);
+
         return [
             "data" => is_array($efrisInvoice) ? ($efrisInvoice['data']) : (false),
             "errors"=> is_array($efrisInvoice) ? ($efrisInvoice['errors']) : (false),
@@ -154,14 +157,16 @@ class QuickBooksInvoice extends Model
     /**
      * Details of an Invoice from an ID
      *
-     * @param int $id
-     * @param string $inv_kind
+     * @param  int  $id
      * @return object
      */
-    public static function getInvoiceDetails(int $id, string $inv_kind = 'RECEIPT')
+    public static function getInvoiceDetails($id, $inv_kind = 'RECEIPT')
     {
-        $item = ($inv_kind == 'INVOICE') ? QuickbooksApiClient::getSingleInvoice($id) : QuickbooksApiClient::getSingleReceipts($id);
-
+        if ($inv_kind == 'INVOICE') {
+            $item = QuickbooksApiClient::getSingleInvoice($id);
+        } else {
+            $item = QuickbooksApiClient::getSingleReceipts($id);
+        }
         return json_decode(json_encode($item), false);
     }
 
@@ -189,80 +194,61 @@ class QuickBooksInvoice extends Model
      */
     public static function saveInvoiceSummary($id, $cols, $inv_kind = 'INVOICE')
     {
-        ini_set('memory_limit', '2048M'); //Allow up to 2GB for this action
+        // Allow up to 2GB for this action (if necessary)
+        ini_set('memory_limit', '2048M');
 
-        //Valid records
-        $valid = self::validInvoices();
-        $set_buyer_type =(UtilityFacades::getsettings('buyer_type') != "") ? UtilityFacades::getsettings('buyer_type') : 1;
-        $set_industry_code =(UtilityFacades::getsettings('industry_code') != "") ? UtilityFacades::getsettings('industry_code') : 101;
-        //If this record exists
+        // Get validation errors
+        $errors = self::getInvoiceValidationErrors($id, $inv_kind);
 
-        if (!in_array($id, array_column($valid, 'id'))) {
+        $invoice = QuickBooksInvoice::where('id', $id)
+            ->where('invoice_kind', $inv_kind)
+            ->first();
 
-            $erros = self::getInvoiceValidationErrors($id, $inv_kind);
-            // try {
-            $myInvoice = QuickbooksInvoice::where(['id' => $id, 'invoice_kind' => $inv_kind])->first();
+        if ($invoice) {
+            // Update existing invoice
+            $invoice->validationError = empty($errors) ? null : implode(",", $errors);
+            $invoice->refNumber = $cols['refNumber'];
+            $invoice->customerName = $cols['customerName'];
+            $invoice->totalAmount = $cols['totalAmount'];
+            $invoice->buyerTin = $cols['tin'];
+            $invoice->balanceDue = isset($cols['balance']) ? $cols['balance'] : null;
 
-            if (QuickbooksInvoice::where(['id' => $id])->exists()) {
-                $myInvoice->validationError = implode(',', $erros);
-                $myInvoice->refNumber = $cols['refNumber'];
-                $myInvoice->customerName = $cols['customerName'];
-                $myInvoice->totalAmount = $cols['totalAmount'];
-                $myInvoice->buyerTin = $cols['tin'];
-
-                $myInvoice->balanceDue = $cols['balance'];
-
-                //$myInvoice->transactionDate = @$cols['TxnDate']; //Gas n Mo was getting errors coz of this field
-
-                if ($inv_kind == 'INVOICE') {
-                    $myInvoice->dueDate = $cols['dueDate'];
-                    $myInvoice->purchase_order = $cols['po'];
-                }
-
-                $myInvoice->qb_created_at = Carbon::createFromDate($cols['qb_created_at'])->format('Y-m-d H:i:s');
-
-                $myInvoice->validationStatus = (count($erros) > 0) ? 0 : 1;
-
-                return $myInvoice->update();
-            } else {
-
-                // try {
-                $invoice = new QuickBooksInvoice;
-                $invoice->id = $id;
-                $invoice->refNumber = $cols['refNumber'];
-                $invoice->customerName = $cols['customerName'];
-                $invoice->totalAmount = $cols['totalAmount'];
-                $invoice->buyerTin = $cols['tin'];
+            if ($inv_kind == 'INVOICE') {
+                $invoice->dueDate = isset($cols['dueDate']) ? $cols['dueDate'] : null;
                 $invoice->purchase_order = $cols['po'];
-                $invoice->balanceDue = $cols['balance'];
-                $invoice->dueDate = @$cols['dueDate'];
-                $invoice->qb_created_at = Carbon::createFromDate($cols['qb_created_at'])->format('Y-m-d H:i:s');
-                $invoice->buyerType = $set_buyer_type;
-                $invoice->industryCode = $set_industry_code;
-                $invoice->invoice_kind = $inv_kind;
-
-                //check if the array is greater than 0
-                if (count($erros) > 0) {
-                    $invoice->validationError = implode(',', $erros);
-                    $invoice->validationStatus = 0;
-                } else {
-                    $invoice->validationStatus = 1;
-                }
-                $invoice->save();
-
-                if ($invoice->save()) {
-                    $msg = "{$inv_kind} Number {$invoice->refNumber} successfully saved to the local DB";
-                } else {
-                    $msg = 'Sorry, we could not save the invoice details';
-                }
             }
-            // } catch (QueryException $e) {
 
-            //     $msg = "There was an error while trying to save {$inv_kind} No ";
-            //     QuickBooksServiceHelper::logToFile($e->getMessage());
-            // }
+            $invoice->validationStatus = empty($errors) ? 1 : 0;
+            $invoice->update();
+        } else {
+            // Create a new invoice/receipt
+            $invoice = new QuickBooksInvoice;
+            $invoice->id = $id;
+            $invoice->refNumber = $cols['refNumber'];
+            $invoice->customerName = $cols['customerName'];
+            $invoice->totalAmount = $cols['totalAmount'];
+            $invoice->buyerTin = $cols['tin'];
+            $invoice->balanceDue = isset($cols['balance']) ? $cols['balance'] : null;
+            $invoice->qb_created_at = now()->format('Y-m-d H:i:s');
+            $invoice->buyerType = UtilityFacades::getsettings('buyer_type') ??1;
+            $invoice->industryCode = UtilityFacades::getsettings('industry_code')??101;
+            $invoice->invoice_kind = $inv_kind;
+            $invoice->validationError = empty($errors) ? null : implode(",", $errors);
+            $invoice->validationStatus = empty($errors) ? 1 : 0;
+
+            if ($inv_kind == 'INVOICE') {
+                $invoice->dueDate = isset($cols['dueDate']) ? $cols['dueDate'] : null;
+                $invoice->purchase_order = $cols['po'];
+            }
+
+            $invoice->save();
         }
-        return true;
+
+        $success = $invoice->save();
+        $msg = $success ? "{$inv_kind} Number {$invoice->refNumber} successfully saved to the local DB" : 'Sorry, we could not save the invoice details';
+
+        // Handle response or logging (consider returning appropriate data)
+        return $success ? $msg : redirect()->back()->with('error', $msg); // Example using redirect and flash message
     }
 
 

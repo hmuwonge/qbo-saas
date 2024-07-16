@@ -113,7 +113,7 @@ trait DataServiceConnector
 
             $response = curl_exec($curl);
 
-            return json_decode($response,true);
+                        return json_decode($response,true);
         } catch (\Exception $e) {
             return redirect()->back()->with('failed',$e->getMessage());
         }
