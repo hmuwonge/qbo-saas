@@ -95,30 +95,29 @@
                                             {{ $item->item_name }}
                                         </td>
                                         <td class="">
-                                            {{ $item->adjust_reason }}
+                                            {{ $item->reason }}
                                         </td>
                                         <td class="text-center">
                                             {{ $item->quantity }}
                                         </td>
                                         <td class=" text-center">
-
                                             @if ($item->ura_sync_status == 1)
-                                                <span class="bg-green-600 rounded text-sm text-white px-2 py-0.5">Synched
-                                                    with
-                                                    URA</span>
+                                                <span class="bg-green-600 rounded text-sm text-white px-2 py-2">Synced
+                                                    with  URA</span>
                                             @endif
 
-                                            @if ($item->adjust_type)
-                                                <a type="button" href="{{ route('stockAdjust.reduce-stock', ['id'=>$item->id,'stock'=>'stock']) }}"
+                                            @if ($item->ura_sync_status == 0 && !is_null($item->adjust_reason))
+                                                <a type="button" href="{{ route('stockAdjust.reduce-stock', ['id'=>$item->transact_id,'stock'=>'stock']) }}"
                                                     class="btn btn-sm btn-primary"> Reduce Stock</a>
                                             @endif
-
-                                            @if ($item->item)
+                                            @if (!$item->item)
                                                 <span class="badge bg-danger me-1 my-1 fw-semibold">Item not
                                                     Registered</span>
-                                            @else
+                                            @endif
+
+                                            @if (is_null($item->adjust_reason))
                                                 <span class="badge bg-danger me-1 my-1 fw-semibold">Reason not
-                                                    specified</span>
+                                                specified</span>
                                             @endif
 
                                         </td>

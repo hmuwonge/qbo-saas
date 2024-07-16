@@ -372,7 +372,7 @@ class GoodsController extends Controller
                     $efrisdb->otherScaled = request()->otherScaled;
                     $efrisdb->registration_status = 1;
                     if ($efrisdb->save()) {
-                        $get_stock_adjustment_item=StockAdjustment::find($efrisdb->id);
+                        $get_stock_adjustment_item=StockAdjustment::where('item_id',$efrisdb->id)->first();
                         if ($get_stock_adjustment_item){
                             $get_stock_adjustment_item->ura_sync_status = 1;
                             $get_stock_adjustment_item->update();

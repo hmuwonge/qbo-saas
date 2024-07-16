@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Modules\StockAdjustments\Http\Services\StockAdjustmentsServices;
+use function PHPUnit\Framework\isEmpty;
 
 class StockAdjustmentsController extends Controller
 {
@@ -136,59 +137,66 @@ class StockAdjustmentsController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function actionReduceStock($id, $src = 'stock')
+    public function actionReduceStock($id)
     {
+//        dd('stock reduce');
         //        expected
         //        $src='stock' or src == 'vcredit',id
         //        $id = $request->id;
         //        $src = $request->src;
 
-        if ($src == 'vcredit') {
-            $stock = VendorCredit::prepareEfrisRequestObject($id);
-        } else {
+//        if ($src == 'vcredit') {
+//            $stock = VendorCredit::prepareEfrisRequestObject($id);
+//        } else {
             $stock = StockAdjustment::prepareEfrisRequestObject($id);
+            $count_items = json_decode($stock);
+            if (is_null($count_items)){
+                return redirect()->back()->with('failed','no items found');
+            }
+
+                $efris = new ApiRequestHelper('efris1');
+                $response = $efris->makePost('decrease-stock', $stock);
+
+                //3. Handle Response
+                $feedback = json_decode($response);
+                //changed success code 200
+                if ($feedback->status->returnCode == '00') {
+                    //Update DB
+                    $ids = explode(',', $id);
+//            if ($src == 'vcredit') {
+//                //Send Feedback to user
+//                VendorCredit::whereIn('id', $ids)->update([
+//                    'fiscal_status' => 1,
+//                ]);
+//
+//                return redirect()->back()->with('success','Supplier Credit successfully synched with URA');
+//            } else {
+                    //Send Feedback to user
+                    StockAdjustment::where('transact_id', $id)->update(['ura_sync_status' => 1]);
+
+                    return redirect()->back()->with('success', 'Stock reduction successfully synched with URA');
+//            }
+                } else {
+                    //Send Feedback to user
+                    $errors = '';
+                    $count = 0;
+                    //            dd($feedback);
+                    if ($feedback->status->returnCode != '00') {
+                        return redirect()->back()->with('failed',  $feedback->data);
+                    }
+                    //            if (!is_null($feedback->data)) {
+                    //                return response()->json(['status' => 'SUCCESS', 'payload' => $feedback->data]);
+                    //            } else {
+                    //                $errors = 'There was a problems.' . $feedback->status->returnMessage;
+                    //            }
+
+                    return response()->json(['status' => 'FAIL', 'payload' => $errors]);
+                }
             //  QuickBooksHelper::logToFile($stock,'Reduce stock');
-        }
+//        }
         // QuickBooksHelper::logToFile($stock,'Reduce stock- Stock');
         //2. Send Request to URA
-        $efris = new ApiRequestHelper('efris1');
-        $response = $efris->makePost('decrease-stock', $stock);
 
-        //3. Handle Response
-        $feedback = json_decode($response);
-        //changed success code 200
-        if ($feedback->status->returnCode == '00') {
-            //Update DB
-            $ids = explode(',', $id);
-            if ($src == 'vcredit') {
-                //Send Feedback to user
-                VendorCredit::whereIn('id', $ids)->update([
-                    'fiscal_status' => 1,
-                ]);
-
-                return redirect()->back()->with('success','Supplier Credit successfully synched with URA');
-            } else {
-                //Send Feedback to user
-                StockAdjustment::where('transact_id', $id)->update(['ura_sync_status' => 1]);
-
-                return redirect()->back()->with('success', 'Stock reduction successfully synched with URA');
-            }
-        } else {
-            //Send Feedback to user
-            $errors = '';
-            $count = 0;
-            //            dd($feedback);
-            if ($feedback->status->returnCode != '00') {
-                return redirect()->back()->with('success',  $feedback->status->returnMessage);
-            }
-            //            if (!is_null($feedback->data)) {
-            //                return response()->json(['status' => 'SUCCESS', 'payload' => $feedback->data]);
-            //            } else {
-            //                $errors = 'There was a problems.' . $feedback->status->returnMessage;
-            //            }
-
-            return response()->json(['status' => 'FAIL', 'payload' => $errors]);
-        }
     }
 
   public function sync()

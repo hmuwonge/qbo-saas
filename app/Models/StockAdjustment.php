@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 class StockAdjustment extends Model
 {
@@ -24,6 +25,10 @@ class StockAdjustment extends Model
         'adjust_reason',
     ];
 
+    protected $appends = [
+        'reason',
+    ];
+
     // protected $appends = ['adjustment_type'];
 
     protected static function boot()
@@ -37,6 +42,23 @@ class StockAdjustment extends Model
                 $model->updated_at = now();
             }
         });
+    }
+
+    public function getreasonAttribute()
+    {
+        if ($this->adjust_type !=0) {
+            $code = $this->adjust_type;
+            $reason_code = [
+                101 => 'Expired Goods',
+                102 => 'Damaged Goods',
+                103 => 'Personal Uses',
+                104 => 'Raw Materials',
+            ];
+
+            return isset($code) ? ($reason_code[$code]) : ('N/A');
+        }
+
+        return 'N/A';
     }
 
     // public function scopeSearch($query, $keyword)
@@ -97,10 +119,11 @@ class StockAdjustment extends Model
     public static function prepareEfrisRequestObject($id)
     {
         // 1. Find items from DB
-        $stock = static::where('transact_id', $id)->has('item')->first();
-        // dd($stock);
+        $stock = static::where('transact_id', $id)->has('item')->get();
         //Pick first item to prepare general details [AdjustType, etc]
-        if ($stock == null) {
+        $decode_stock=json_decode($stock);
+
+        if (count($decode_stock) !=0) {
             $first = $stock[0];
             $items = []; //Items in this Transaction
             $efris = [
@@ -121,8 +144,10 @@ class StockAdjustment extends Model
             $efris['stockInItem'] = $items;
             //Return the Object
             return $efris;
+        }else{
+            return  redirect()->back()->with('failed','No stock items found');
         }
-        return  false;
+
 
     }
 

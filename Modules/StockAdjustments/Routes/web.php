@@ -23,6 +23,7 @@ Route::group(['prefix' => 'quickbooks/stockadjustments',
         ]], function () {
     Route::get('/', 'StockAdjustmentsController@index')->name('qbo.stockadjustments');
     Route::get('/sync', 'StockAdjustmentsController@sync')->name('qbo.stockadjustments.sync');
-    Route::get('reduce-stock/{id}/{stock}', 'StockAdjustmentsController@actionReduceStock')->name('stockAdjust.reduce-stock');
+//    Route::get('reduce-stock/{id}/{stock}', 'StockAdjustmentsController@actionReduceStock')->name('stockAdjust.reduce-stock');
+    Route::get('reduce-stock/{id}/{stock}', [StockAdjustmentsController::class, 'actionReduceStock'])->name('stockAdjust.reduce-stock');
     Route::post('update-stockin-type', [StockAdjustmentsController::class, 'updateStockADType'])->name('update.stockInType');
 });

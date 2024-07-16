@@ -4,6 +4,7 @@ namespace App\Services\QBOServices;
 
 use App\Facades\UtilityFacades;
 use App\Models\QuickBooksConfig;
+use App\Models\User;
 use App\Traits\DataServiceConnector;
 use App\Traits\Responser;
 use Carbon\Carbon;
@@ -49,8 +50,9 @@ class OAuthClientService
         /*
          * Update the OAuth2Token
          */
-
         $accessToken = $OAuth2LoginHelper->exchangeAuthorizationCodeForToken($parseUrl['code'], $parseUrl['realmId']);
+
+
 
         /*
          * Setting the accessToken for session variable
