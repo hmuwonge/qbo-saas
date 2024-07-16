@@ -164,20 +164,20 @@
                         <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
                     <ul class="dash-submenu">
-                        @can('manage-email-template')
+                        @can('manage-invoices')
                             <li class="dash-item {{ request()->is('fiscalised-invoices*') ? 'active' : '' }}">
                                 <a class="dash-link"
                                    href="{{ route('ura.invoices') }}">{{ __('Invoices') }}</a>
                             </li>
 
                         @endcan
-                        @can('manage-sms-template')
+                        @can('manage-receipts')
                             <li class="dash-item {{ request()->is('fiscalised-receipts*') ? 'active' : '' }}">
                                 <a class="dash-link"
                                    href="{{ route('ura.receipts') }}">{{ __('Receipts') }}</a>
                             </li>
                         @endcan
-                        @can('manage-setting')
+                        @can('manage-products')
                             <li class="dash-item {{ request()->is('goods-services*') ? 'active' : '' }}">
                                 <a class="dash-link" href="{{ route('ura.goods') }}">{{ __('Goods/Services') }}</a>
                             </li>
