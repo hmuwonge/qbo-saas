@@ -62,18 +62,19 @@ class OAuthClientService
 
     }
 
-    public function refresh_token(): JsonResponse
+    public static function refresh_token(): JsonResponse
     {
+        $qbo_user = QuickBooksConfig::where('user_id', auth()->user()->id)->first();
         try {
-            $accessTokenObj = Session::get('quickbooksAccessToken');
+//            $accessTokenObj = Session::get('quickbooksAccessToken');
             // Prep Data Services
             $dataService = DataService::Configure([
                 'auth_mode' => 'oauth2',
                 'ClientSecret' => UtilityFacades::getsettings('client_secrete'),
                 'ClientID' =>UtilityFacades::getsettings('client_id'),
                 //get the refresh token from session or database
-                'refreshTokenKey' => $accessTokenObj->getRefreshToken(),
-                'QBORealmID' => $accessTokenObj->getRealmId(),
+                'refreshTokenKey' => $qbo_user->refresh_token,
+                'QBORealmID' => '4620816365302602800',
                 'baseUrl' => UtilityFacades::getsettings('qbo_base_url'),
             ]);
 
@@ -83,16 +84,51 @@ class OAuthClientService
             $error = $OAuth2LoginHelper->getLastError();
 
             if ($error) {
-                return $this->errorResponse($error, 500);
+                return (new OAuthClientService)->errorResponse($error, 500);
             } else {
                 //Refresh Token is called successfully
                 $dataService->updateOAuth2Token($refreshedAccessTokenObj);
                 $Oauth2LoginHelper = $dataService->getOAuth2LoginHelper();
-                session(['quickbooksAccessToken' => $Oauth2LoginHelper->getAccessToken()]);
+//                session(['quickbooksAccessToken' => $Oauth2LoginHelper->getAccessToken()]);
+
+                $accessTokenObj = $OAuth2LoginHelper->refreshAccessTokenWithRefreshToken($qbo_user->refresh_token);
+                $accessTokenValue = $accessTokenObj->getAccessToken();
+                $refreshTokenValue = $accessTokenObj->getRefreshToken();
+
+                $qbo_user->auth_token = $accessTokenValue;
+                $qbo_user->refresh_token = $refreshTokenValue;
+                $qbo_user->auth_expiry = Carbon::parse($accessTokenObj->getAccessTokenExpiresAt())->format('Y-m-d H:i:s');
+                $qbo_user->refresh_token_expiry = Carbon::parse($accessTokenObj->getRefreshTokenExpiresAt())->format('Y-m-d H:i:s');
+                $qbo_user->update();
+
+//                if ($qbo_users->isEmpty()) {
+//                    // If no records exist for the company, create new records for all users
+//                    $users = User::all(); // Assuming User is the model for your users table
+//
+//                    foreach ($users as $user) {
+//                        $qbo_user = new QuickBooksConfig;
+//                        $qbo_user->user_id = $user->id;
+//                        $qbo_user->company_id = 1;
+//                        $qbo_user->auth_token = $accessTokenValue;
+//                        $qbo_user->refresh_token = $refreshTokenValue;
+//                        $qbo_user->auth_expiry = Carbon::parse($accessTokenObj->getAccessTokenExpiresAt())->format('Y-m-d H:i:s');
+//                        $qbo_user->refresh_token_expiry = Carbon::parse($accessTokenObj->getRefreshTokenExpiresAt())->format('Y-m-d H:i:s');
+//                        $qbo_user->save();
+//                    }
+//                } else {
+                    // Update existing records
+                    foreach (QuickBooksConfig::get() as $qbo_user) {
+                        $qbo_user->auth_token = $accessTokenValue;
+                        $qbo_user->refresh_token = $refreshTokenValue;
+                        $qbo_user->auth_expiry = Carbon::parse($accessTokenObj->getAccessTokenExpiresAt())->format('Y-m-d H:i:s');
+                        $qbo_user->refresh_token_expiry = Carbon::parse($accessTokenObj->getRefreshTokenExpiresAt())->format('Y-m-d H:i:s');
+                        $qbo_user->update();
+                    }
+//                }
                 //                return $this->successResponse('Token refreshed successfully', 200);
             }
         } catch (\Throwable $th) {
-            return $this->errorResponse($th->getMessage(), 500);
+            return (new OAuthClientService)->errorResponse($th->getMessage(), 500);
         }
     }
 

@@ -331,12 +331,7 @@ class GoodsController extends Controller
             } else {
 
                 if ($data->status->returnCode == "00") {
-                    if ($form['hasOpeningStock'] == 101) {
-                        $efris->makePost('sync-products', []);
-                        $stock = EfrisItem::prepareOpeningStockObject($form);
-                        $stockInResponse = $efris->makePost('increase-stock', $stock);
-                        return response()->json(['status'=>'SUCCESS', 'msg'=>$stockInResponse]);
-                    }
+
 
                     QuickBooksServiceHelper::logToFile('posted',json_encode($posted));
 
@@ -376,6 +371,13 @@ class GoodsController extends Controller
                         if ($get_stock_adjustment_item){
                             $get_stock_adjustment_item->ura_sync_status = 1;
                             $get_stock_adjustment_item->update();
+                        }
+
+                        if ($form['hasOpeningStock'] == 101) {
+                            $efris->makePost('sync-products', []);
+                            $stock = EfrisItem::prepareOpeningStockObject($form);
+                            $efris->makePost('increase-stock', $stock);
+//                            return response()->json(['status'=>'SUCCESS', 'msg'=>$stockInResponse]);
                         }
                         return response()->json(['status'=>'SUCCESS','msg'=> $data->data]);//'Product Successfully Registered with URA'
                     } else {
